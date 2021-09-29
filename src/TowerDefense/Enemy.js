@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import { PATH, START_TILE, TILE_HEIGHT, TILE_WIDTH } from "./config";
 import store from "../gameState";
-import { subtractCredits } from "../credits";
+import { addCredits, subtractCredits } from "../credits";
 import Hitpoints from "./Hitpoints";
 
 const PATH_TRESHOLD = 0.1;
@@ -85,25 +85,38 @@ class Enemy extends PIXI.Sprite {
       this.nextPathIndex += 1;
 
       if (this.nextPathIndex >= PATH.length) {
-        store.dispatch(subtractCredits(this.hitpoints));
-        this.destroy();
-        return;
+        switch (this.type) {
+          case "positive":
+            store.dispatch(addCredits(this.hitpoints));
+            break;
+          case "neutral":
+            this.x = START_TILE.x * TILE_WIDTH + this.offset.x;
+            this.y = (START_TILE.y - 1) * TILE_HEIGHT + this.offset.y;
+            this.type = "negative";
+            this.texture = PIXI.Texture.from(IMAGE[this.type]);
+            this.nextPathIndex = 0;
+            break;
+          default:
+            store.dispatch(subtractCredits(this.hitpoints));
+            this.destroy();
+            return;
+        }
       }
+    } else {
+      node = PATH[this.nextPathIndex];
+      nodeX = node.x * TILE_WIDTH + this.offset.x;
+      nodeY = node.y * TILE_HEIGHT + this.offset.y;
+
+      const dx = nodeX - this.x;
+      const dy = nodeY - this.y;
+      const d = Math.sqrt(dx ** 2 + dy ** 2);
+
+      const normalizedX = dx / d;
+      const normalizedY = dy / d;
+
+      this.x += normalizedX * this.velocity * delta;
+      this.y += normalizedY * this.velocity * delta;
     }
-
-    node = PATH[this.nextPathIndex];
-    nodeX = node.x * TILE_WIDTH + this.offset.x;
-    nodeY = node.y * TILE_HEIGHT + this.offset.y;
-
-    const dx = nodeX - this.x;
-    const dy = nodeY - this.y;
-    const d = Math.sqrt(dx ** 2 + dy ** 2);
-
-    const normalizedX = dx / d;
-    const normalizedY = dy / d;
-
-    this.x += normalizedX * this.velocity * delta;
-    this.y += normalizedY * this.velocity * delta;
 
     for (const child of this.children) {
       if (child.update) child.update(delta, this);
