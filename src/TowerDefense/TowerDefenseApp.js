@@ -40,7 +40,7 @@ function mountPixi (el) {
       if (elapsed >= level.startAt * 1000 + (10 - level.enemies) * 500 && level.enemies) {
         level.enemies -= 1
 
-        const enemy = new Enemy()
+        const enemy = new Enemy(app)
 
         app.stage.addChild(enemy)
       }
