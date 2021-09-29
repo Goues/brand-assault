@@ -1,30 +1,17 @@
 import * as PIXI from 'pixi.js'
 import { useEffect, useRef } from 'react';
+import { TILE_HEIGHT, TILE_WIDTH } from './config';
 import app from "./PixiApp"
 
-// load the texture we need
-app.loader.add('cat', '/cat.jpg').load((loader, resources) => {
+app.loader.add('grass', '/grass_tile.jpg').load((loader, resources) => {
+  const tile = new PIXI.Sprite(resources.grass.texture);
+  tile.x = 0
+  tile.y = 0
+  tile.width = TILE_WIDTH
+  tile.height = TILE_HEIGHT
 
-    // This creates a texture from a 'bunny.png' image.
-    const bunny = new PIXI.Sprite(resources.cat.texture);
-
-    // Setup the position of the bunny
-    bunny.x = app.renderer.width / 2;
-    bunny.y = app.renderer.height / 2;
-
-    // Rotate around the center
-    bunny.anchor.x = 0.5;
-    bunny.anchor.y = 0.5;
-
-    // Add the bunny to the scene we are building.
-    app.stage.addChild(bunny);
-
-    // Listen for frame updates
-    app.ticker.add(() => {
-         // each frame we spin the bunny around a bit
-        bunny.rotation += 0.01;
-    });
-});
+  app.stage.addChild(tile);
+})
 
 export default function TowerDefenseApp() {
   const ref = useRef(null)
