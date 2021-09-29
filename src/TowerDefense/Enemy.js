@@ -28,7 +28,7 @@ class Enemy extends PIXI.Sprite {
     this.delay = delay * 1000;
 
     this.on("pointerdown", () => {
-      this.hitpoints -= 10;
+      this.hitpoints -= 2;
       if (this.hitpoints <= 0) {
         this.destroy();
         return;

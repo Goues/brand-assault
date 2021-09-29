@@ -11,9 +11,10 @@ function shuffleArray(array) {
 }
 
 export default class Wave {
-  constructor(index) {
+  constructor(index, onDestroyed) {
+    this.onDestroyed = onDestroyed;
+
     const comments = GET_COMMENTS_FOR_WAVE(index);
-    console.log(comments);
     const hp = GET_COMMENTS_HP_FOR_WAVE(index);
 
     this.enemies = [];
@@ -35,7 +36,7 @@ export default class Wave {
     this.enemies = new Set(
       this.enemies.map((type, index) => {
         const object = new Enemy(hp, type, index);
-        object.on("destroy", () => {
+        object.on("destroyed", () => {
           this.onEnemyDestroy(object);
         });
         return object;
@@ -48,7 +49,7 @@ export default class Wave {
     console.log(this.enemies);
 
     if (this.enemies.size === 0) {
-      console.log("Wave");
+      this.onDestroyed();
     }
   }
 }

@@ -37,7 +37,9 @@ function mountPixi(el) {
     }
 
     if (!currentWave) {
-      currentWave = new Wave(++lastWave);
+      currentWave = new Wave(++lastWave, () => {
+        currentWave = null;
+      });
       currentWave.enemies.forEach(enemy => app.stage.addChild(enemy));
     }
   });
