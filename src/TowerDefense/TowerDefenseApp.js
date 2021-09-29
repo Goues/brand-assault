@@ -16,8 +16,6 @@ function getTile (type, tileX, tileY, stage) {
 function mountPixi (el) {
   // Render background tiles
   app.loader
-  .add('grass', '/grass_tile.jpg')
-  .add('road', '/road_tile.jpg')
   .load((loader, resources) => {
     for (let i = 0; i < TILES_X; i++) {
       for (let j = 0; j < TILES_Y; j++) {
@@ -26,25 +24,28 @@ function mountPixi (el) {
         app.stage.addChild(tile);
       }
     }
-  })
 
-  const now = Date.now()
-  app.ticker.add((delta) => {
-    const elapsed = Date.now() - now
+    const now = Date.now()
+    app.ticker.add((delta) => {
+      const elapsed = Date.now() - now
 
-    for (const child of app.stage.children) {
-      if (child.update) child.update(delta)
-    }
-
-    for (const level of LEVELS) {
-      if (elapsed >= level.startAt * 1000 + (10 - level.enemies) * 500 && level.enemies + 1) {
-        level.enemies -= 1
-
-        const enemy = new Enemy(app)
-
-        app.stage.addChild(enemy)
+      for (const child of app.stage.children) {
+        if (child.update) child.update(delta)
       }
-    }
+
+      for (let wave = 1; wave <= LEVELS.length; wave++) {
+        const level = LEVELS[wave - 1]
+        const offset = (level.maxEnemies - level.enemies) * 500
+        if (elapsed >= level.startAt * 1000 + offset && level.enemies) {
+          level.enemies -= 1
+
+          console.log('doge', wave)
+          const enemy = new Enemy(wave)
+
+          app.stage.addChild(enemy)
+        }
+      }
+    })
   })
 
   el.appendChild(app.view)

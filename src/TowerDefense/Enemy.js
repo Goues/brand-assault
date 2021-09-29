@@ -1,24 +1,35 @@
 import * as PIXI from 'pixi.js'
 import { PATH, START_TILE, TILE_HEIGHT, TILE_WIDTH } from './config'
+import store from '../gameState'
+import { subtractCredits } from '../credits'
+import { HIT_POINTS } from '../config'
 
 const PATH_TRESHOLD = 0.1
 
 class Enemy extends PIXI.Sprite {
-  constructor(app) {
+  constructor(wave) {
     super(PIXI.Texture.from('/negative_comment.png'))
-    this.x = START_TILE.x * TILE_WIDTH
+    this.x = START_TILE.x * TILE_WIDTH + Math.random() * 100
     this.y = START_TILE.y * TILE_HEIGHT
     this.width = TILE_WIDTH
     this.height = TILE_HEIGHT
     this.nextPathIndex = 0
     this.done = false
     this.velocity = 5 // per 1s
+    this.hitpoints = Math.floor(HIT_POINTS.COMMENT.INITIAL * (HIT_POINTS.COMMENT.MULTIPLIER ** (wave - 1)))
+    this.interactive = true
+    this.buttonMode = true
+
+    this.on('pointerdown', () => {
+      this.hitpoints -= 10
+      if (this.hitpoints <= 0) {
+        this.destroy()
+        return
+      }
+    })
   }
 
   update(delta) {
-    // enemy went all the way to end
-    if (this.done) return
-
     let node = PATH[this.nextPathIndex]
     let nodeX = node.x * TILE_WIDTH
     let nodeY = node.y * TILE_HEIGHT
@@ -32,8 +43,8 @@ class Enemy extends PIXI.Sprite {
       this.nextPathIndex += 1
 
       if (this.nextPathIndex >= PATH.length) {
-        // TODO(ales): Fire event - enemy is at the end - destory it and deduct points
-        this.done = true
+        store.dispatch(subtractCredits(this.hitpoints))
+        this.destroy()
         return
       }
     }

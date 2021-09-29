@@ -63,14 +63,17 @@ export const PATH = [
 
 export const LEVEL_1 = {
   startAt: 0,
+  maxEnemies: 10,
   enemies: 10
 }
 export const LEVEL_2 = {
   startAt: 15,
+  maxEnemies: 10,
   enemies: 10
 }
 export const LEVEL_3 = {
   startAt: 30,
+  maxEnemies: 10,
   enemies: 10
 }
 
