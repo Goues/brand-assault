@@ -1,16 +1,33 @@
 import * as PIXI from 'pixi.js'
 import { useEffect, useRef } from 'react';
-import { TILE_HEIGHT, TILE_WIDTH } from './config';
+import { MAP_1, TILES_X, TILES_Y, TILE_HEIGHT, TILE_WIDTH } from './config';
 import app from "./PixiApp"
 
-app.loader.add('grass', '/grass_tile.jpg').load((loader, resources) => {
-  const tile = new PIXI.Sprite(resources.grass.texture);
-  tile.x = 0
-  tile.y = 0
-  tile.width = TILE_WIDTH
-  tile.height = TILE_HEIGHT
+function getTile (resources, type) {
+  if (type === 'x') {
+    return new PIXI.Sprite(resources.road.texture)
+  }
+  // render anything else as grass
+  return new PIXI.Sprite(resources.grass.texture)
+}
 
-  app.stage.addChild(tile);
+// Render background tiles
+app.loader
+.add('grass', '/grass_tile.jpg')
+.add('road', '/road_tile.jpg')
+.load((loader, resources) => {
+  for (let i = 0; i < TILES_X; i++) {
+    for (let j = 0; j < TILES_Y; j++) {
+      const tileType = MAP_1[j][i]
+      const tile = getTile(resources, tileType);
+      tile.x = i * TILE_WIDTH
+      tile.y = j * TILE_HEIGHT
+      tile.width = TILE_WIDTH
+      tile.height = TILE_HEIGHT
+
+      app.stage.addChild(tile);
+    }
+  }
 })
 
 export default function TowerDefenseApp() {
