@@ -40,9 +40,14 @@ class Enemy extends PIXI.Sprite {
   }
 
   update(delta) {
+    // mimic delay between enemies
     if (this.delay > 0) {
       this.delay -= delta;
-      return;
+      if (this.delay < 0) {
+        delta = this.delay * -1;
+      } else {
+        return;
+      }
     }
     let node = PATH[this.nextPathIndex];
     let nodeX = node.x * TILE_WIDTH;
