@@ -19,7 +19,7 @@ export default function Product({
   const isOwned = owned > 0;
   const lastTick = useRef(clock.getStart() || 0);
   useEffect(() => {
-    const { RATE: rate, INCOME: income } = PRODUCTS[product].RATE;
+    const { RATE: rate, INCOME: income } = PRODUCTS[product];
     if (!isOwned || !rate) return;
 
     return clock.addListener(frame => {
