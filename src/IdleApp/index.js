@@ -12,7 +12,7 @@ const NEXT_COST = LIST.map((product, index) => PRODUCTS_GET_COST(product, OWNED[
 export default function IdleApp() {
   // TODO have shared state
   const [credits, setCredits] = useState(0)
-  console.log(NEXT_COST)
+  
   return <div style={{ display: 'flex', flexDirection: 'column' }}>
     Credits: {toFixedRound(credits, 1)}
     <button onClick={() => setCredits(c => c + 0.1)}>
