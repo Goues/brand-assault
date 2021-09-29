@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js'
 import { useEffect, useRef } from 'react';
-import { MAP_1, TILES_X, TILES_Y, TILE_HEIGHT, TILE_WIDTH } from './config';
+import { LEVELS, MAP_1, TILES_X, TILES_Y, TILE_HEIGHT, TILE_WIDTH } from './config';
+import Enemy from './Enemy';
 import app from "./PixiApp"
 
 function getTile (resources, type) {
@@ -37,6 +38,25 @@ function mountPixi (el) {
         }
 
         app.stage.addChild(tile);
+      }
+    }
+  })
+
+  const now = Date.now()
+  app.ticker.add((delta) => {
+    const elapsed = Date.now() - now
+
+    for (const child of app.stage.children) {
+      if (child.update) child.update(delta)
+    }
+
+    for (const level of LEVELS) {
+      if (elapsed >= level.startAt * 1000 + (10 - level.enemies) * 500 && level.enemies) {
+        level.enemies -= 1
+
+        const enemy = new Enemy()
+
+        app.stage.addChild(enemy)
       }
     }
   })
