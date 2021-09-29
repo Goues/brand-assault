@@ -37,6 +37,7 @@ function mountPixi(el) {
     }
 
     if (!currentWave) {
+      // TODO: the way it is implemented, you cannot have two ways simultaneously (calling it early or being so slow the next is triggered)
       currentWave = new Wave(++lastWave);
       currentWave.enemies.forEach(enemy => app.stage.addChild(enemy));
       currentWave.on("destroyed", () => {
