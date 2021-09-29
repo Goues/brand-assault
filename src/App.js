@@ -11,9 +11,9 @@ function App() {
         <img src={logo} width="100" alt="logo" /> Brand assault
       </header>
       <div className="App-stage">
-        <IdleApp/>
-        <UiApp/>
-        <TowerDefenseApp/>
+        <div className="App-idle"><IdleApp/></div>
+        <div className="App-td"><TowerDefenseApp/></div>
+        <div className="App-ui"><UiApp/></div>
       </div>
     </div>
   );
