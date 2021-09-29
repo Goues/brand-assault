@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { PRODUCTS, PRODUCTS_GET_COST } from "../config";
+import { PRODUCTS_GET_COST } from "../config";
 import { toFixedRound } from "../utils";
 import Product from "./Product";
 import Button from "../Button";
@@ -38,11 +38,7 @@ export default function IdleApp() {
           <Product
             key={product}
             product={product}
-            name={PRODUCTS[product].NAME}
-            rate={PRODUCTS[product].RATE}
-            income={PRODUCTS[product].INCOME}
             nextCost={NEXT_COST[index]}
-            owned={owned[product]}
             credits={credits}
             onClick={() => {
               const nextCost = NEXT_COST[index];
