@@ -15,11 +15,11 @@ const IMAGE = {
 };
 
 const SIZE = {
-  negative: 32,
-  neutral: 32,
-  positive: 32,
-  hater: 48, // miniboss
-  influencer: 64 // boss
+  negative: TILE_WIDTH / 2,
+  neutral: TILE_WIDTH / 2,
+  positive: TILE_WIDTH / 2,
+  hater: (TILE_WIDTH * 2) / 3, // miniboss
+  influencer: TILE_WIDTH // boss
 };
 
 class Enemy extends PIXI.Sprite {

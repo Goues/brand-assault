@@ -1,6 +1,7 @@
 export const PRODUCTS = {
   COMMUNITY: {
     NAME: "Community",
+    DESCRIPTION: "Gain 0.1 SC per second",
     COST: 2,
     INCOME: 0.1,
     RATE: 1000, // every second
@@ -8,12 +9,14 @@ export const PRODUCTS = {
   },
   PUBLISHER: {
     NAME: "Publisher",
+    DESCRIPTION: "Positive comments gain 0.5 % more HP",
     COST: 10,
     BONUS: 0.5,
     MULTIPLIER: 1.2
   },
   INFLUENCERS: {
     NAME: "Influencers",
+    DESCRIPTION: "Gain 50 SC per minute",
     COST: 50,
     INCOME: 25,
     RATE: 60000, // every minute
@@ -21,12 +24,15 @@ export const PRODUCTS = {
   },
   AUDIENCES: {
     NAME: "Audiences",
+    DESCRIPTION:
+      "Convert negative comments to neutral at the start of the wave",
     COST: 50,
     BONUS: 2,
     MULTIPLIER: 1.3
   },
   ANALYTICS: {
     NAME: "Analytics",
+    DESCRIPTION: "Boosts your damage to comments",
     COST: 100,
     BONUS: 0.5,
     MULTIPLIER: 1.2

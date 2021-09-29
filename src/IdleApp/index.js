@@ -19,7 +19,11 @@ export default function IdleApp() {
   return (
     <div className={css.wrapper}>
       Credits: {toFixedRound(credits, 1)}
-      <Button onClick={() => dispatch(addCredits(0.1))}>Engage</Button>
+      <div className={css.products}>
+        <div>
+          <Button onClick={() => dispatch(addCredits(0.1))}>Engage</Button>
+        </div>
+      </div>
       <div className={css.products}>
         {LIST.map((product, index) => (
           <Product key={product} product={product} credits={credits} />

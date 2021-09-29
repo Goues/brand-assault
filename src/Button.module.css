@@ -1,8 +1,9 @@
 .button {
   align-items: center;
   background: linear-gradient(127.93deg, #435BFF -2.9%, #0038E5 96.02%);
-  color: #FFFFFF;
+  border: 0;
   border-radius: 6px;
+  color: #FFFFFF;
   display: flex;
   flex-direction: row;
   font-family: SF Pro Text;
@@ -19,4 +20,8 @@
 .button[disabled] {
   background: linear-gradient(127.93deg, #435BFF -2.9%, #0038E5 96.02%);
   opacity: 0.5;
+}
+
+.button:active {
+  transform: translateY(1px);
 }

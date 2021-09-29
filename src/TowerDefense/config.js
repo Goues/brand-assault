@@ -1,5 +1,5 @@
-export const GAME_WIDTH = 800;
-export const GAME_HEIGHT = 800;
+export const GAME_WIDTH = 600;
+export const GAME_HEIGHT = 600;
 export const TILES_X = 10;
 export const TILES_Y = 10;
 export const TILE_WIDTH = GAME_WIDTH / TILES_X;
