@@ -3,10 +3,10 @@ import { useEffect, useRef } from 'react';
 import app from "./PixiApp"
 
 // load the texture we need
-app.loader.add('bunny', 'bunny.png').load((loader, resources) => {
+app.loader.add('cat', '/cat.jpg').load((loader, resources) => {
 
     // This creates a texture from a 'bunny.png' image.
-    const bunny = new PIXI.Sprite(resources.bunny.texture);
+    const bunny = new PIXI.Sprite(resources.cat.texture);
 
     // Setup the position of the bunny
     bunny.x = app.renderer.width / 2;
