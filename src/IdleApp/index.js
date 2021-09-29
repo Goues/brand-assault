@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function IdleApp() {
   return <div style={{ display: 'flex', flexDirection: 'column' }}>
     <button>Engage</button>
