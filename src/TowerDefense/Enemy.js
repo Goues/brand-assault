@@ -3,13 +3,14 @@ import { PATH, START_TILE, TILE_HEIGHT, TILE_WIDTH } from './config'
 import store from '../gameState'
 import { subtractCredits } from '../credits'
 import { HIT_POINTS } from '../config'
+import Hitpoints from './Hitpoints'
 
 const PATH_TRESHOLD = 0.1
 
 class Enemy extends PIXI.Sprite {
   constructor(wave) {
     super(PIXI.Texture.from('/negative_comment.png'))
-    this.x = START_TILE.x * TILE_WIDTH + Math.random() * 100
+    this.x = START_TILE.x * TILE_WIDTH
     this.y = START_TILE.y * TILE_HEIGHT
     this.width = TILE_WIDTH
     this.height = TILE_HEIGHT
@@ -27,6 +28,9 @@ class Enemy extends PIXI.Sprite {
         return
       }
     })
+
+    const hp = new Hitpoints(this.hitpoints)
+    this.addChild(hp)
   }
 
   update(delta) {
@@ -62,6 +66,10 @@ class Enemy extends PIXI.Sprite {
 
     this.x += normalizedX * this.velocity * delta
     this.y += normalizedY * this.velocity * delta
+
+    for (const child of this.children) {
+      if (child.update) child.update(delta, this)
+    }
   }
 }
 

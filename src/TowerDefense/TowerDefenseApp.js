@@ -39,7 +39,6 @@ function mountPixi (el) {
         if (elapsed >= level.startAt * 1000 + offset && level.enemies) {
           level.enemies -= 1
 
-          console.log('doge', wave)
           const enemy = new Enemy(wave)
 
           app.stage.addChild(enemy)
