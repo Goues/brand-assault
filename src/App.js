@@ -1,4 +1,3 @@
-import { useState } from "react";
 import logo from "./logo.svg";
 import IdleApp from "./IdleApp";
 import TowerDefenseApp from "./TowerDefense/TowerDefenseApp";
@@ -6,9 +5,6 @@ import UiApp from "./UiApp";
 import "./App.css";
 
 function App() {
-  // TODO have shared state
-  const [credits, setCredits] = useState(0);
-
   return (
     <div className="App">
       <header className="App-header">
@@ -16,7 +12,7 @@ function App() {
       </header>
       <div className="App-stage">
         <div className="App-idle">
-          <IdleApp credits={credits} setCredits={setCredits} />
+          <IdleApp />
         </div>
         <div className="App-td">
           <TowerDefenseApp />

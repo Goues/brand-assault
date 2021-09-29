@@ -1,10 +1,10 @@
-import {useEffect} from 'react'
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { PRODUCTS, PRODUCTS_GET_COST } from "../config";
 import { toFixedRound } from "../utils";
 import Product from "./Product";
 import Button from "../Button";
 import css from "./index.module.css";
-
 const LIST = [
   "COMMUNITY",
   "PUBLISHER",
@@ -19,21 +19,34 @@ const NEXT_COST = LIST.map((product, index) =>
   PRODUCTS_GET_COST(product, OWNED[index] + 1)
 );
 
-export default function IdleApp({credits, setCredits}) {
+export default function IdleApp() {
+  const credits = useSelector(state => state.credits);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setCredits(credits => {
-        return credits + OWNED[0] * PRODUCTS.COMMUNITY.INCOME
-      })
-    }, 1000)
+      dispatch({
+        type: "ADD_CREDITS",
+        payload: OWNED[0] * PRODUCTS.COMMUNITY.INCOME
+      });
+    }, 1000);
 
-    return () => window.clearInterval(interval)
-  }, [setCredits])
+    return () => window.clearInterval(interval);
+  }, [dispatch]);
 
   return (
     <div className={css.wrapper}>
       Credits: {toFixedRound(credits, 1)}
-      <Button onClick={() => setCredits(c => c + 0.1)}>Engage</Button>
+      <Button
+        onClick={() =>
+          dispatch({
+            type: "ADD_CREDITS",
+            payload: 0.1
+          })
+        }
+      >
+        Engage
+      </Button>
       <div className={css.products}>
         {LIST.map((product, index) => (
           <Product
@@ -44,7 +57,10 @@ export default function IdleApp({credits, setCredits}) {
             credits={credits}
             onClick={() => {
               const nextCost = NEXT_COST[index];
-              setCredits(c => c - nextCost);
+              dispatch({
+                type: "SUBTRACT_CREDITS",
+                payload: nextCost
+              });
               OWNED[index] += 1;
               NEXT_COST[index] = PRODUCTS_GET_COST(product, OWNED[index] + 1);
             }}
