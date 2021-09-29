@@ -35,5 +35,5 @@ export const PRODUCTS = {
 
 export const PRODUCTS_GET_COST = (product, level) => {
   const { COST, MULTIPLIER } = PRODUCTS[product];
-  return COST * level ** MULTIPLIER;
+  return COST * MULTIPLIER ** level;
 };
