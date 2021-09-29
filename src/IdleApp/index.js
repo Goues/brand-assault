@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PRODUCTS, PRODUCTS_GET_COST } from "../config";
 import { toFixedRound } from "../utils";
@@ -14,25 +13,12 @@ const LIST = [
 ];
 
 // cached store, TODO move
-const OWNED = [0, 0, 0, 0, 0];
-const NEXT_COST = LIST.map((product, index) =>
-  PRODUCTS_GET_COST(product, OWNED[index] + 1)
-);
+const NEXT_COST = LIST.map((product, index) => PRODUCTS_GET_COST(product, 1));
 
 export default function IdleApp() {
   const credits = useSelector(state => state.credits);
+  const owned = useSelector(state => state.products);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      dispatch({
-        type: "ADD_CREDITS",
-        payload: OWNED[0] * PRODUCTS.COMMUNITY.INCOME
-      });
-    }, 1000);
-
-    return () => window.clearInterval(interval);
-  }, [dispatch]);
 
   return (
     <div className={css.wrapper}>
@@ -51,9 +37,12 @@ export default function IdleApp() {
         {LIST.map((product, index) => (
           <Product
             key={product}
+            product={product}
             name={PRODUCTS[product].NAME}
+            rate={PRODUCTS[product].RATE}
+            income={PRODUCTS[product].INCOME}
             nextCost={NEXT_COST[index]}
-            owned={OWNED[index]}
+            owned={owned[product]}
             credits={credits}
             onClick={() => {
               const nextCost = NEXT_COST[index];
@@ -61,8 +50,11 @@ export default function IdleApp() {
                 type: "SUBTRACT_CREDITS",
                 payload: nextCost
               });
-              OWNED[index] += 1;
-              NEXT_COST[index] = PRODUCTS_GET_COST(product, OWNED[index] + 1);
+              dispatch({
+                type: "BUY_PRODUCT",
+                payload: product
+              });
+              NEXT_COST[index] = PRODUCTS_GET_COST(product, owned[product] + 1);
             }}
           />
         ))}

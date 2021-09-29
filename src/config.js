@@ -3,7 +3,7 @@ export const PRODUCTS = {
     NAME: "Community",
     COST: 2,
     INCOME: 0.1,
-    RATE: 1, // every second
+    RATE: 1000, // every second
     MULTIPLIER: 1.1
   },
   PUBLISHER: {
@@ -16,7 +16,7 @@ export const PRODUCTS = {
     NAME: "Influencers",
     COST: 50,
     INCOME: 25,
-    RATE: 60, // every minute
+    RATE: 60000, // every minute
     MULTIPLIER: 1.1
   },
   AUDIENCES: {
