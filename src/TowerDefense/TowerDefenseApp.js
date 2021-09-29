@@ -37,7 +37,7 @@ function mountPixi (el) {
     }
 
     for (const level of LEVELS) {
-      if (elapsed >= level.startAt * 1000 + (10 - level.enemies) * 500 && level.enemies) {
+      if (elapsed >= level.startAt * 1000 + (10 - level.enemies) * 500 && level.enemies + 1) {
         level.enemies -= 1
 
         const enemy = new Enemy(app)
