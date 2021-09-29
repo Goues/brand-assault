@@ -18,5 +18,6 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 2fr 1fr;
   margin: 0 auto;
-  width: 900px;
+  max-width: 1200px;
+  width: 100vw;
 }

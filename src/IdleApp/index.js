@@ -27,21 +27,23 @@ export default function IdleApp() {
     <div className={css.wrapper}>
       Credits: {toFixedRound(credits, 1)}
       <Button onClick={() => setCredits(c => c + 0.1)}>Engage</Button>
-      {LIST.map((product, index) => (
-        <Product
-          key={product}
-          name={PRODUCTS[product].NAME}
-          nextCost={NEXT_COST[index]}
-          owned={OWNED[index]}
-          credits={credits}
-          onClick={() => {
-            const nextCost = NEXT_COST[index];
-            setCredits(c => c - nextCost);
-            OWNED[index] += 1;
-            NEXT_COST[index] = PRODUCTS_GET_COST(product, OWNED[index] + 1);
-          }}
-        />
-      ))}
+      <div className={css.products}>
+        {LIST.map((product, index) => (
+          <Product
+            key={product}
+            name={PRODUCTS[product].NAME}
+            nextCost={NEXT_COST[index]}
+            owned={OWNED[index]}
+            credits={credits}
+            onClick={() => {
+              const nextCost = NEXT_COST[index];
+              setCredits(c => c - nextCost);
+              OWNED[index] += 1;
+              NEXT_COST[index] = PRODUCTS_GET_COST(product, OWNED[index] + 1);
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }

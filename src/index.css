@@ -13,3 +13,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* tailwind like */
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.space-between {
+  justify-content: space-between;
+}
