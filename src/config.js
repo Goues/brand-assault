@@ -37,3 +37,29 @@ export const PRODUCTS_GET_COST = (product, level) => {
   const { COST, MULTIPLIER } = PRODUCTS[product];
   return COST * MULTIPLIER ** (level - 1);
 };
+
+export const COMMENTS = {
+  NEGATIVE: {
+    INITIAL: 8,
+    MULTIPLIER: 1.05
+  },
+  NEUTRAL: {
+    INITIAL: 2,
+    MULTIPLIER: 1.05
+  },
+  POSITIVE: {
+    INITIAL: 0.99,
+    MULTIPLIER: 1.05
+  }
+};
+
+export const HIT_POINTS = {
+  COMMENT: {
+    INITIAL: 10,
+    MULTIPLIER: 1.2
+  },
+  BOSS: {
+    INITIAL: 200,
+    MULTIPLIER: 5
+  }
+};
