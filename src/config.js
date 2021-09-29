@@ -48,7 +48,7 @@ export const COMMENTS = {
     MULTIPLIER: 1.05
   },
   POSITIVE: {
-    INITIAL: 0.99,
+    INITIAL: 0.9,
     MULTIPLIER: 1.05
   }
 };
@@ -83,8 +83,10 @@ export const GET_COMMENTS_FOR_WAVE = wave => ({
 export const GET_COMMENTS_HP_FOR_WAVE = wave => ({
   comment:
     HIT_POINTS.COMMENT.INITIAL * HIT_POINTS.COMMENT.MULTIPLIER ** (wave - 1),
-  hater: HIT_POINTS.HATER.INITIAL * HIT_POINTS.HATER.MULTIPLIER ** (wave - 1),
-  influencer: HIT_POINTS.BOSS.INITIAL * HIT_POINTS.BOSS.MULTIPLIER ** (wave - 1)
+  hater:
+    HIT_POINTS.HATER.INITIAL * HIT_POINTS.HATER.MULTIPLIER ** ((wave - 5) / 5),
+  influencer:
+    HIT_POINTS.BOSS.INITIAL * HIT_POINTS.BOSS.MULTIPLIER ** ((wave - 10) / 10)
 });
 
 export const IS_BOSS = wave => wave % 10 === 0;

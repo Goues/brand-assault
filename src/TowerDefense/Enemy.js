@@ -40,7 +40,7 @@ class Enemy extends PIXI.Sprite {
     this.hitpoints = hitpoints;
     this.interactive = true;
     this.buttonMode = true;
-    this.delay = delay * 1000;
+    this.delay = delay * 900 + Math.random() * 200;
 
     this.on("pointerdown", () => {
       this.hitpoints -= 20;
@@ -64,6 +64,13 @@ class Enemy extends PIXI.Sprite {
         return;
       }
     }
+
+    // recalculate on context switch
+    while (delta > 1) {
+      this.update(1);
+      delta--;
+    }
+
     let node = PATH[this.nextPathIndex];
     let nodeX = node.x * TILE_WIDTH + this.offset.x;
     let nodeY = node.y * TILE_HEIGHT + this.offset.y;

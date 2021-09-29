@@ -36,11 +36,11 @@ export default class Wave extends PIXI.Container {
 
     shuffleArray(this.enemies);
 
-    for (let i = 0; i < this.comments.HATER; i++) {
+    if (index % 10 === 5) {
       this.enemies.push(["hater", this.hp.hater]);
     }
 
-    for (let i = 0; i < this.comments.INFLUENCER; i++) {
+    if (index % 10 === 0) {
       this.enemies.push(["influencer", this.hp.influencer]);
     }
 
