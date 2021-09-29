@@ -1,15 +1,16 @@
-import * as PIXI from 'pixi.js'
 import { useEffect, useRef } from 'react';
-import { LEVELS, MAP_1, TILES_X, TILES_Y, TILE_HEIGHT, TILE_WIDTH } from './config';
+import { LEVELS, MAP_1, TILES_X, TILES_Y} from './config';
 import Enemy from './Enemy';
+import Grass from './Grass';
+import Road from './Road';
 import app from "./PixiApp"
 
-function getTile (resources, type) {
+function getTile (type, tileX, tileY) {
   if (type === 'x') {
-    return new PIXI.Sprite(resources.road.texture)
+    return new Road(tileX, tileY)
   }
   // render anything else as grass
-  return new PIXI.Sprite(resources.grass.texture)
+  return new Grass(tileX, tileY)
 }
 
 function mountPixi (el) {
@@ -21,22 +22,7 @@ function mountPixi (el) {
     for (let i = 0; i < TILES_X; i++) {
       for (let j = 0; j < TILES_Y; j++) {
         const tileType = MAP_1[j][i]
-        const tile = getTile(resources, tileType);
-        tile.x = i * TILE_WIDTH
-        tile.y = j * TILE_HEIGHT
-        tile.width = TILE_WIDTH
-        tile.height = TILE_HEIGHT
-
-        if (tileType === '-') {
-          tile.interactive = true
-          tile.buttonMode = true
-          tile.on('pointerdown', (e) => {
-            alert('clicked!' + e.target.x + ' ' + e.target.y)
-
-
-          });
-        }
-
+        const tile = getTile(tileType, i, j);
         app.stage.addChild(tile);
       }
     }
