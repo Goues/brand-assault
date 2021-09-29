@@ -11,7 +11,7 @@ export default function Product({ name, product, credits, onClick }) {
   const owned = useSelector(state => state.products[product]);
   const dispatch = useDispatch();
   const isOwned = owned > 0;
-  const lastTick = useRef(clock.getStart() || 0);
+  const lastTick = useRef();
   const nextCost = PRODUCTS_GET_COST(product, owned + 1);
   const { DESCRIPTION: description } = PRODUCTS[product];
 
@@ -27,7 +27,8 @@ export default function Product({ name, product, credits, onClick }) {
     const { RATE: rate, INCOME: income } = PRODUCTS[product];
     if (!isOwned || !rate) return;
 
-    return clock.addListener(frame => {
+    lastTick.current = clock.getStart();
+    return clock.addListener((frame, delta) => {
       if (lastTick.current + rate <= frame) {
         dispatch((dispatch, getState) => {
           const owned = getState().products[product];

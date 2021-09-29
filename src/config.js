@@ -87,12 +87,15 @@ export const GET_COMMENTS_FOR_WAVE = wave => ({
 });
 
 export const GET_COMMENTS_HP_FOR_WAVE = wave => ({
-  comment:
-    HIT_POINTS.COMMENT.INITIAL * HIT_POINTS.COMMENT.MULTIPLIER ** (wave - 1),
-  hater:
-    HIT_POINTS.HATER.INITIAL * HIT_POINTS.HATER.MULTIPLIER ** ((wave - 5) / 5),
-  influencer:
+  comment: Math.floor(
+    HIT_POINTS.COMMENT.INITIAL * HIT_POINTS.COMMENT.MULTIPLIER ** (wave - 1)
+  ),
+  hater: Math.floor(
+    HIT_POINTS.HATER.INITIAL * HIT_POINTS.HATER.MULTIPLIER ** ((wave - 5) / 5)
+  ),
+  influencer: Math.floor(
     HIT_POINTS.BOSS.INITIAL * HIT_POINTS.BOSS.MULTIPLIER ** ((wave - 10) / 10)
+  )
 });
 
 export const IS_BOSS = wave => wave % 10 === 0;

@@ -1,6 +1,6 @@
 let isRunning = false;
 let raf = null;
-let start = null;
+let start = 0;
 let lastFrame = null;
 
 const listeners = new Set();
@@ -26,7 +26,7 @@ export const removeListener = listener => {
 };
 
 const tick = frame => {
-  if (start === null) {
+  if (start === 0) {
     start = frame;
     lastFrame = frame;
   }
