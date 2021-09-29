@@ -46,7 +46,6 @@ export default class Wave {
 
   onEnemyDestroy(enemy) {
     this.enemies.delete(enemy);
-    console.log(this.enemies);
 
     if (this.enemies.size === 0) {
       this.onDestroyed();
