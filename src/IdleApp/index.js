@@ -3,6 +3,7 @@ import { PRODUCTS_GET_COST } from "../config";
 import { toFixedRound } from "../utils";
 import Product from "./Product";
 import Button from "../Button";
+import { addCredits, subtractCredits } from "../credits";
 import css from "./index.module.css";
 const LIST = [
   "COMMUNITY",
@@ -23,16 +24,7 @@ export default function IdleApp() {
   return (
     <div className={css.wrapper}>
       Credits: {toFixedRound(credits, 1)}
-      <Button
-        onClick={() =>
-          dispatch({
-            type: "ADD_CREDITS",
-            payload: 0.1
-          })
-        }
-      >
-        Engage
-      </Button>
+      <Button onClick={() => dispatch(addCredits(0.1))}>Engage</Button>
       <div className={css.products}>
         {LIST.map((product, index) => (
           <Product
@@ -42,10 +34,7 @@ export default function IdleApp() {
             credits={credits}
             onClick={() => {
               const nextCost = NEXT_COST[index];
-              dispatch({
-                type: "SUBTRACT_CREDITS",
-                payload: nextCost
-              });
+              dispatch(subtractCredits(nextCost));
               dispatch({
                 type: "BUY_PRODUCT",
                 payload: product

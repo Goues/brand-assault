@@ -1,16 +1,6 @@
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, combineReducers } from "redux";
-
-const credits = (state = 0, action) => {
-  switch (action.type) {
-    case "ADD_CREDITS":
-      return state + action.payload;
-    case "SUBTRACT_CREDITS":
-      return state - action.payload;
-    default:
-      return state;
-  }
-};
+import { reducer as credits } from "./credits";
 
 const INITIAL_PRODUCTS = {
   COMMUNITY: 0,

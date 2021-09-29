@@ -5,6 +5,7 @@ import { toFixedRound } from "../utils";
 import * as clock from "../clock";
 import css from "./Product.module.css";
 import { PRODUCTS } from "../config";
+import { addCredits } from "../credits";
 
 export default function Product({
   name,
@@ -26,10 +27,7 @@ export default function Product({
       if (lastTick.current + rate <= frame) {
         dispatch((dispatch, getState) => {
           const owned = getState().products[product];
-          dispatch({
-            type: "ADD_CREDITS",
-            payload: owned * income
-          });
+          dispatch(addCredits(owned * income));
         });
         lastTick.current = frame;
       }
