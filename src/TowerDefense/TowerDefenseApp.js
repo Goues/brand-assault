@@ -5,12 +5,12 @@ import Grass from './Grass';
 import Road from './Road';
 import app from "./PixiApp"
 
-function getTile (type, tileX, tileY, stage) {
+function getTile (type, tileX, tileY) {
   if (type === 'x') {
-    return new Road(tileX, tileY, stage)
+    return new Road(tileX, tileY)
   }
   // render anything else as grass
-  return new Grass(tileX, tileY, stage)
+  return new Grass(tileX, tileY)
 }
 
 function mountPixi (el) {
@@ -20,7 +20,7 @@ function mountPixi (el) {
     for (let i = 0; i < TILES_X; i++) {
       for (let j = 0; j < TILES_Y; j++) {
         const tileType = MAP_1[j][i]
-        const tile = getTile(tileType, i, j, app.stage);
+        const tile = getTile(tileType, i, j);
         app.stage.addChild(tile);
       }
     }
