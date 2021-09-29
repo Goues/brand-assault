@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect} from 'react'
 import { PRODUCTS, PRODUCTS_GET_COST } from "../config";
 import { toFixedRound } from "../utils";
 import Product from "./Product";
@@ -19,9 +19,16 @@ const NEXT_COST = LIST.map((product, index) =>
   PRODUCTS_GET_COST(product, OWNED[index] + 1)
 );
 
-export default function IdleApp() {
-  // TODO have shared state
-  const [credits, setCredits] = useState(0);
+export default function IdleApp({credits, setCredits}) {
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setCredits(credits => {
+        return credits + OWNED[0] * PRODUCTS.COMMUNITY.INCOME
+      })
+    }, 1000)
+
+    return () => window.clearInterval(interval)
+  }, [setCredits])
 
   return (
     <div className={css.wrapper}>
