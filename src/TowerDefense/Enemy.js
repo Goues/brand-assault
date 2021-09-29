@@ -43,18 +43,24 @@ class Enemy extends PIXI.Sprite {
     this.delay = delay * 900 + Math.random() * 200;
 
     this.on("pointerdown", () => {
-      this.hitpoints -= 20;
-      if (this.hitpoints <= 0) {
-        this.destroy();
-        return;
-      }
+      this.hit();
     });
 
     const hp = new Hitpoints(this.hitpoints);
     this.addChild(hp);
   }
 
+  hit() {
+    this.hitpoints -= 1;
+    if (this.hitpoints <= 0) {
+      this.destroy();
+      return;
+    }
+  }
+
   update(delta) {
+    if (this.destroyed) return;
+
     // mimic delay between enemies
     if (this.delay > 0) {
       this.delay -= delta;
@@ -97,10 +103,6 @@ class Enemy extends PIXI.Sprite {
         }
       }
     } else {
-      node = PATH[this.nextPathIndex];
-      nodeX = node.x * TILE_WIDTH + this.offset.x;
-      nodeY = node.y * TILE_HEIGHT + this.offset.y;
-
       const dx = nodeX - this.x;
       const dy = nodeY - this.y;
       const d = Math.sqrt(dx ** 2 + dy ** 2);
@@ -115,6 +117,12 @@ class Enemy extends PIXI.Sprite {
     for (const child of this.children) {
       if (child.update) child.update(delta, this);
     }
+  }
+
+  destroy() {
+    if (this.destroyed) return;
+
+    super.destroy();
   }
 }
 

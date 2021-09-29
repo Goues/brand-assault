@@ -1,26 +1,7 @@
 import * as PIXI from "pixi.js";
 import { TILE_HEIGHT, TILE_WIDTH } from "./config";
-
-function getCenter({ x, y, width, height }) {
-  return { x: (x + width) / 2, y: (y + height) / 2 };
-}
-
-function getDistance(tower, object) {
-  const towerCenter = getCenter(tower);
-  const objectCenter = getCenter(object);
-  return {
-    x: Math.abs(towerCenter.x - objectCenter.x),
-    y: Math.abs(towerCenter.y - objectCenter.y)
-  };
-}
-
-function isWithinRange(tower, object) {
-  const distance = getDistance(tower, object);
-  return (
-    distance.x * distance.x + distance.y * distance.y <=
-    tower.range * tower.range
-  );
-}
+import { getCenter, isWithinRange } from "../utils";
+import Bullet from "./Bullet";
 
 class Tower extends PIXI.Sprite {
   constructor(x, y) {
@@ -30,11 +11,39 @@ class Tower extends PIXI.Sprite {
     this.width = TILE_WIDTH;
     this.height = TILE_HEIGHT;
 
-    this.damage = 1;
+    this.damage = 1; // temporary
     this.range = 3 * TILE_WIDTH; // temporary
     this.firingSpeed = 500; // temporary
-    this.lifespan = 0;
-    this.target = null;
+    this.lifespan = 0; // temporary
+    this.target = null; // temporary
+  }
+
+  getTarget() {
+    if (this.target && this.target.destroyed) {
+      this.target = null;
+    }
+
+    if (this.target) {
+      if (!isWithinRange(this, this.target)) {
+        this.target = null;
+      }
+    }
+
+    if (!this.target) {
+      this.target = Array.from(this.parent.wave.enemies).find(enemy => {
+        return !enemy.destoryed && isWithinRange(this, enemy);
+      });
+    }
+
+    if (!this.target) {
+      return null;
+    }
+
+    if (this.target.destroyed) {
+      return null;
+    }
+
+    return this.target;
   }
 
   update(delta) {
@@ -43,19 +52,12 @@ class Tower extends PIXI.Sprite {
     while (this.lifespan >= this.firingSpeed) {
       this.lifespan -= this.firingSpeed;
 
-      if (this.target) {
-        if (!isWithinRange(this, this.target)) {
-          this.target = null;
-        }
-      }
+      const target = this.getTarget();
 
-      if (!this.target) {
-        this.target = Array.from(this.parent.wave.enemies).find(enemy => {
-          return isWithinRange(this, enemy);
-        });
+      if (target) {
+        const towerCenter = getCenter(this);
+        this.parent.addChild(new Bullet(towerCenter, target));
       }
-
-      // TODO hit target
     }
   }
 }
