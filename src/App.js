@@ -1,10 +1,23 @@
+import { useEffect } from "react";
 import logo from "./logo.svg";
 import IdleApp from "./IdleApp";
 import TowerDefenseApp from "./TowerDefense/TowerDefenseApp";
 import UiApp from "./UiApp";
 import "./App.css";
+import * as clock from "./clock";
 
 function App() {
+  useEffect(() => {
+    const listener = () => {
+      if (document.visibilityState === "visible") {
+        clock.run();
+      } else {
+        clock.stop();
+      }
+    };
+    document.addEventListener("visibilitychange", listener);
+    return () => document.removeEventListener("visibilitychange", listener);
+  }, []);
   return (
     <div className="App">
       <header className="App-header">

@@ -42,6 +42,7 @@ function mountPixi(el) {
       currentWave.on("destroyed", () => {
         currentWave = null;
       });
+      app.stage.wave = currentWave;
     }
   });
 }

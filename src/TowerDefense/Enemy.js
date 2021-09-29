@@ -65,12 +65,6 @@ class Enemy extends PIXI.Sprite {
       }
     }
 
-    // recalculate on context switch
-    while (delta > 1) {
-      this.update(1);
-      delta--;
-    }
-
     let node = PATH[this.nextPathIndex];
     let nodeX = node.x * TILE_WIDTH + this.offset.x;
     let nodeY = node.y * TILE_HEIGHT + this.offset.y;

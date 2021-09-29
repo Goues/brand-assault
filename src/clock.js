@@ -26,16 +26,15 @@ export const removeListener = listener => {
 };
 
 const tick = frame => {
-  if (start === 0) {
-    start = frame;
-    lastFrame = frame;
-  }
   for (const listener of listeners) {
     try {
       listener(frame, frame - lastFrame);
     } catch (e) {
       console.error(e);
     }
+  }
+  if (!listeners.size) {
+    stop();
   }
   if (isRunning) {
     raf = window.requestAnimationFrame(tick);
@@ -45,7 +44,11 @@ const tick = frame => {
 
 export const run = () => {
   isRunning = true;
-  raf = window.requestAnimationFrame(tick);
+  raf = window.requestAnimationFrame(frame => {
+    start = frame;
+    lastFrame = frame;
+    tick(frame);
+  });
 };
 
 export const stop = () => {
