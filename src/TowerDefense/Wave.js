@@ -1,3 +1,4 @@
+import * as PIXI from "pixi.js";
 import { GET_COMMENTS_FOR_WAVE, GET_COMMENTS_HP_FOR_WAVE } from "../config";
 import Enemy from "./Enemy";
 
@@ -10,45 +11,58 @@ function shuffleArray(array) {
   }
 }
 
-export default class Wave {
+export default class Wave extends PIXI.Container {
   constructor(index, onDestroyed) {
+    super();
+    this.index = index;
     this.onDestroyed = onDestroyed;
 
-    const comments = GET_COMMENTS_FOR_WAVE(index);
-    const hp = GET_COMMENTS_HP_FOR_WAVE(index);
+    this.comments = GET_COMMENTS_FOR_WAVE(index);
+    this.hp = GET_COMMENTS_HP_FOR_WAVE(index);
 
     this.enemies = [];
 
-    for (let i = 0; i < comments.NEGATIVE; i++) {
-      this.enemies.push("negative");
+    for (let i = 0; i < this.comments.NEGATIVE; i++) {
+      this.enemies.push(["negative", this.hp.comment]);
     }
 
-    for (let i = 0; i < comments.NEUTRAL; i++) {
-      this.enemies.push("neutral");
+    for (let i = 0; i < this.comments.NEUTRAL; i++) {
+      this.enemies.push(["neutral", this.hp.comment]);
     }
 
-    for (let i = 0; i < comments.POSITIVE; i++) {
-      this.enemies.push("positive");
+    for (let i = 0; i < this.comments.POSITIVE; i++) {
+      this.enemies.push(["positive", this.hp.comment]);
     }
 
     shuffleArray(this.enemies);
 
+    for (let i = 0; i < this.comments.HATER; i++) {
+      this.enemies.push(["hater", this.hp.hater]);
+    }
+
+    for (let i = 0; i < this.comments.INFLUENCER; i++) {
+      this.enemies.push(["influencer", this.hp.influencer]);
+    }
+
     this.enemies = new Set(
-      this.enemies.map((type, index) => {
-        const object = new Enemy(hp, type, index);
-        object.on("destroyed", () => {
-          this.onEnemyDestroy(object);
+      this.enemies.map(([type, hp], index) => {
+        const enemy = new Enemy(type, hp, index);
+        enemy.on("destroyed", () => {
+          this.onEnemyDestroy(enemy);
         });
-        return object;
+        this.addChild(enemy);
+        return enemy;
       })
     );
+
+    console.debug(this);
   }
 
   onEnemyDestroy(enemy) {
     this.enemies.delete(enemy);
 
     if (this.enemies.size === 0) {
-      this.onDestroyed();
+      this.destroy();
     }
   }
 }

@@ -58,6 +58,10 @@ export const HIT_POINTS = {
     INITIAL: 10,
     MULTIPLIER: 1.2
   },
+  HATER: {
+    INITIAL: 50,
+    MULTIPLIER: 5
+  },
   BOSS: {
     INITIAL: 200,
     MULTIPLIER: 5
@@ -76,7 +80,11 @@ export const GET_COMMENTS_FOR_WAVE = wave => ({
   )
 });
 
-export const GET_COMMENTS_HP_FOR_WAVE = wave =>
-  HIT_POINTS.COMMENT.INITIAL * HIT_POINTS.COMMENT.MULTIPLIER ** (wave - 1);
+export const GET_COMMENTS_HP_FOR_WAVE = wave => ({
+  comment:
+    HIT_POINTS.COMMENT.INITIAL * HIT_POINTS.COMMENT.MULTIPLIER ** (wave - 1),
+  hater: HIT_POINTS.HATER.INITIAL * HIT_POINTS.HATER.MULTIPLIER ** (wave - 1),
+  influencer: HIT_POINTS.BOSS.INITIAL * HIT_POINTS.BOSS.MULTIPLIER ** (wave - 1)
+});
 
 export const IS_BOSS = wave => wave % 10 === 0;
