@@ -31,7 +31,7 @@ export default function TowerDefenseApp() {
   useEffect(() => {
     // The application will create a canvas element for you that you
     // can then insert into the DOM.
-    document.body.appendChild(app.view);
+    ref.current.appendChild(app.view);
   }, [])
 
   return <div ref={ref}></div>
