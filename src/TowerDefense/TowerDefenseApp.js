@@ -6,13 +6,10 @@ import Road from "./Road";
 import app from "./PixiApp";
 import * as clock from "../clock";
 
-function getTile(type, tileX, tileY) {
-  if (type === "x") {
-    return new Road(tileX, tileY);
-  }
-  // render anything else as grass
-  return new Grass(tileX, tileY);
-}
+const TILES = {
+  x: Road,
+  "-": Grass
+};
 
 function mountPixi(el) {
   // Render background tiles
@@ -20,7 +17,7 @@ function mountPixi(el) {
     for (let i = 0; i < TILES_X; i++) {
       for (let j = 0; j < TILES_Y; j++) {
         const tileType = MAP_1[j][i];
-        const tile = getTile(tileType, i, j);
+        const tile = new TILES[tileType](i, j);
         app.stage.addChild(tile);
       }
     }
@@ -31,6 +28,7 @@ function mountPixi(el) {
   let currentWave = null;
   let lastWave = 0;
 
+  // use custom clock to easily sync everything and pause when tab is not visible
   return clock.addListener((frame, delta) => {
     for (const child of app.stage.children) {
       if (child.update) child.update(delta);
