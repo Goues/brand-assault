@@ -56,7 +56,7 @@ class Tower extends PIXI.Sprite {
 
       if (target) {
         const towerCenter = getCenter(this);
-        this.parent.addChild(new Bullet(towerCenter, target));
+        this.parent.addChild(new Bullet(towerCenter, target, this.damage));
       }
     }
   }

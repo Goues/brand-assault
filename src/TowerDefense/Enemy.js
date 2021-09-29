@@ -43,15 +43,15 @@ class Enemy extends PIXI.Sprite {
     this.delay = delay * 900 + Math.random() * 200;
 
     this.on("pointerdown", () => {
-      this.hit();
+      this.hit(1);
     });
 
     const hp = new Hitpoints(this.hitpoints);
     this.addChild(hp);
   }
 
-  hit() {
-    this.hitpoints -= 1;
+  hit(damage) {
+    this.hitpoints -= damage;
     if (this.hitpoints <= 0) {
       this.destroy();
       return;
