@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import IdleApp from './IdleApp'
-import TowerDefenseApp from './TowerDefenseApp'
+import TowerDefenseApp from './TowerDefense/TowerDefenseApp'
 import UiApp from './UiApp'
 import './App.css';
 
@@ -17,7 +17,7 @@ function App() {
         <UiApp/>
         </div>
         <div>
-        <TowerDefenseApp/>
+          <TowerDefenseApp/>
         </div>
       </div>
     </div>
