@@ -10,15 +10,10 @@ function App() {
       <header className="App-header">
         <img src={logo} width="100" alt="logo" /> Brand assault
       </header>
-      <div style={{display: 'flex'}}>
-        <div>
-
+      <div className="App-stage">
         <IdleApp/>
         <UiApp/>
-        </div>
-        <div>
-          <TowerDefenseApp/>
-        </div>
+        <TowerDefenseApp/>
       </div>
     </div>
   );

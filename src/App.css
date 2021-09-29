@@ -10,3 +10,13 @@
   justify-content: center;
   margin: 1em;
 }
+
+.App-stage {
+  aspect-ratio: 16 / 9;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr 1fr;
+  margin: 0 auto;
+  width: 900px;
+}
