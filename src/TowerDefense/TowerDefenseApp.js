@@ -1,69 +1,63 @@
-import { useEffect, useRef } from 'react';
-import { LEVELS, MAP_1, TILES_X, TILES_Y} from './config';
-import Enemy from './Enemy';
-import Grass from './Grass';
-import Road from './Road';
-import app from "./PixiApp"
+import { useEffect, useRef } from "react";
+import { MAP_1, TILES_X, TILES_Y } from "./config";
+import Wave from "./Wave";
+import Grass from "./Grass";
+import Road from "./Road";
+import app from "./PixiApp";
+import * as clock from "../clock";
 
-function getTile (type, tileX, tileY) {
-  if (type === 'x') {
-    return new Road(tileX, tileY)
+function getTile(type, tileX, tileY) {
+  if (type === "x") {
+    return new Road(tileX, tileY);
   }
   // render anything else as grass
-  return new Grass(tileX, tileY)
+  return new Grass(tileX, tileY);
 }
 
-function mountPixi (el) {
+function mountPixi(el) {
   // Render background tiles
-  app.loader
-  .load((loader, resources) => {
+  app.loader.load((loader, resources) => {
     for (let i = 0; i < TILES_X; i++) {
       for (let j = 0; j < TILES_Y; j++) {
-        const tileType = MAP_1[j][i]
+        const tileType = MAP_1[j][i];
         const tile = getTile(tileType, i, j);
         app.stage.addChild(tile);
       }
     }
+  });
 
-    const now = Date.now()
-    app.ticker.add((delta) => {
-      const elapsed = Date.now() - now
+  el.appendChild(app.view);
 
-      for (const child of app.stage.children) {
-        if (child.update) child.update(delta)
-      }
+  let currentWave = null;
+  let lastWave = 0;
 
-      for (let wave = 1; wave <= LEVELS.length; wave++) {
-        const level = LEVELS[wave - 1]
-        const offset = (level.maxEnemies - level.enemies) * 500
-        if (elapsed >= level.startAt * 1000 + offset && level.enemies) {
-          level.enemies -= 1
+  return clock.addListener((frame, delta) => {
+    for (const child of app.stage.children) {
+      if (child.update) child.update(delta);
+    }
 
-          const enemy = new Enemy(wave)
-
-          app.stage.addChild(enemy)
-        }
-      }
-    })
-  })
-
-  el.appendChild(app.view)
+    if (!currentWave) {
+      currentWave = new Wave(++lastWave);
+      currentWave.enemies.forEach(enemy => app.stage.addChild(enemy));
+    }
+  });
 }
 
 export default function TowerDefenseApp() {
-  const ref = useRef(null)
+  const ref = useRef(null);
   useEffect(() => {
-    const el = ref.current
+    const el = ref.current;
     // The application will create a canvas element for you that you
     // can then insert into the DOM.
-    mountPixi(el)
+    const unmount = mountPixi(el);
 
     return () => {
       for (const node of [...el.childNodes]) {
-        node.remove()
+        node.remove();
       }
-    }
-  }, [])
+      unmount();
+    };
+  }, []);
 
-  return <div ref={ref}></div>
+  return <div ref={ref}></div>;
 }

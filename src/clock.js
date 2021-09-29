@@ -1,6 +1,7 @@
 let isRunning = false;
 let raf = null;
 let start = null;
+let lastFrame = null;
 
 const listeners = new Set();
 
@@ -27,10 +28,11 @@ export const removeListener = listener => {
 const tick = frame => {
   if (start === null) {
     start = frame;
+    lastFrame = frame;
   }
   for (const listener of listeners) {
     try {
-      listener(frame);
+      listener(frame, frame - lastFrame);
     } catch (e) {
       console.error(e);
     }
@@ -38,6 +40,7 @@ const tick = frame => {
   if (isRunning) {
     raf = window.requestAnimationFrame(tick);
   }
+  lastFrame = frame;
 };
 
 export const run = () => {

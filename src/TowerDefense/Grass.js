@@ -14,8 +14,11 @@ class Grass extends Tile {
   }
 
   onClick = e => {
-    const {towers, products: {COMMUNITY }} = store.getState()
-    if (towers.length >= COMMUNITY) return
+    const {
+      towers,
+      products: { COMMUNITY }
+    } = store.getState();
+    if (towers.length >= COMMUNITY) return;
 
     const { x, y } = e.target;
     const posX = x / TILE_WIDTH;

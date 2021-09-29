@@ -63,3 +63,20 @@ export const HIT_POINTS = {
     MULTIPLIER: 5
   }
 };
+
+export const GET_COMMENTS_FOR_WAVE = wave => ({
+  NEGATIVE: Math.floor(
+    COMMENTS.NEGATIVE.INITIAL * COMMENTS.NEGATIVE.MULTIPLIER ** (wave - 1)
+  ),
+  NEUTRAL: Math.floor(
+    COMMENTS.NEUTRAL.INITIAL * COMMENTS.NEUTRAL.MULTIPLIER ** (wave - 1)
+  ),
+  POSITIVE: Math.floor(
+    COMMENTS.POSITIVE.INITIAL * COMMENTS.POSITIVE.MULTIPLIER ** (wave - 1)
+  )
+});
+
+export const GET_COMMENTS_HP_FOR_WAVE = wave =>
+  HIT_POINTS.COMMENT.INITIAL * HIT_POINTS.COMMENT.MULTIPLIER ** (wave - 1);
+
+export const IS_BOSS = wave => wave % 10 === 0;
