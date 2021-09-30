@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import { PATH, START_TILE, TILE_HEIGHT, TILE_WIDTH, DIRECTIONS } from './config'
+import { PATH, TILE_HEIGHT, TILE_WIDTH, DIRECTIONS } from './config'
 import { BASE_DAMAGE, GET_DAMAGE } from '../config.js'
 import store from '../gameState'
 import { addCredits, subtractCredits } from '../credits'
@@ -36,8 +36,8 @@ class Enemy extends PIXI.Sprite {
 			y: (TILE_HEIGHT - this.size) / 2,
 		}
 		this.type = type
-		this.x = START_TILE.x * TILE_WIDTH + this.offset.x
-		this.y = (START_TILE.y - 1) * TILE_HEIGHT + this.offset.y
+		this.x = -SIZE[type]
+		this.y = -SIZE[type]
 		this.width = SIZE[type]
 		this.height = SIZE[type]
 		this.center = {
@@ -101,8 +101,8 @@ class Enemy extends PIXI.Sprite {
 					this.destroy()
 					break
 				case 'neutral':
-					this.x = START_TILE.x * TILE_WIDTH + this.offset.x
-					this.y = (START_TILE.y - 1) * TILE_HEIGHT + this.offset.y
+					this.x = -this.size
+					this.y = -this.size
 					this.type = 'negative'
 					this.texture = PIXI.Texture.from(IMAGE[this.type])
 					this.traveled = 0
