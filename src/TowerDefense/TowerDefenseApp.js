@@ -61,11 +61,10 @@ function mountPixi(el) {
       currentWave = new Wave(++lastWave);
       store.dispatch(setCurrent(lastWave));
       currentWave.enemies.forEach(enemy => app.stage.addChild(enemy));
-      currentWave.on("destroyed", () => {
-        currentWave = null;
-        store.dispatch(setSurvived(lastWave));
-      });
       app.stage.wave = currentWave;
+    } else if (currentWave.destroyed) {
+      currentWave = null;
+      store.dispatch(setSurvived(lastWave));
     }
   });
 }

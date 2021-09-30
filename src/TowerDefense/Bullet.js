@@ -11,25 +11,14 @@ class Bullet extends PIXI.Sprite {
     this.target = target;
     this.damage = damage;
     this.velocity = 1;
-
-    this.onTargetDestroyed = this.onTargetDestroyed.bind(this);
-    this.target.on("destroyed", this.onTargetDestroyed);
-  }
-
-  onTargetDestroyed() {
-    this.target.off("destroyed", this.onTargetDestroyed);
-
-    this.destroy();
-  }
-
-  destroy() {
-    super.destroy();
-    this.destroy = () => {};
   }
 
   update(delta) {
-    if (this.target.destroyed || this.destroyed) {
+    if (this.destroyed) {
       return;
+    }
+    if (this.target.destroyed) {
+      return this.destroy();
     }
     const targetCenter = getCenter(this.target);
     const bulletCenter = getCenter(this);
