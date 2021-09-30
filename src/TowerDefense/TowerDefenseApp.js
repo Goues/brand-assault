@@ -7,7 +7,6 @@ import Road from './Road'
 import Hq from './Hq'
 import * as clock from '../clock'
 import store from '../gameState'
-import css from './TowerDefense.module.css'
 import { isGameOver } from '../credits'
 import waveManager from './WaveManager'
 
