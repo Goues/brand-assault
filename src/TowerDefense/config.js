@@ -113,6 +113,9 @@ export const TOWERS = {
       hater: 1,
       influencer: 1
     },
+    slow: {
+      negative: 0.5
+    },
     firingSpeed: 500
   },
   POWER_USER: {

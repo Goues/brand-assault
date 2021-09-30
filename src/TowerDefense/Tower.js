@@ -13,6 +13,7 @@ class Tower extends PIXI.Sprite {
 
     this.damage = TOWERS[type].damage
     this.chance = TOWERS[type].chance
+    this.slow = TOWERS[type].slow
     this.range = 3 * TILE_WIDTH; // temporary
     this.firingSpeed = TOWERS[type].firingSpeed; // temporary
     this.lifespan = 0; // temporary
@@ -66,6 +67,16 @@ class Tower extends PIXI.Sprite {
     return this.target;
   }
 
+  performAttack(target) {
+    const towerCenter = getCenter(this);
+    this.parent.addChild(new Bullet(towerCenter, target, this.damage[target.type]));
+    console.log(target.velocity)
+    if (this.slow && target.type in this.slow && !target.slowed) {
+      target.velocity -= target.velocity * this.slow[target.type]
+      target.slowed = true
+    }
+  }
+
   update(delta) {
     this.lifespan += delta;
 
@@ -75,8 +86,7 @@ class Tower extends PIXI.Sprite {
       const target = this.getTarget();
 
       if (target) {
-        const towerCenter = getCenter(this);
-        this.parent.addChild(new Bullet(towerCenter, target, this.damage[target.type]));
+        this.performAttack(target)
       }
     }
   }

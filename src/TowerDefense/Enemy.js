@@ -58,6 +58,7 @@ class Enemy extends PIXI.Sprite {
     this.canSpawn = isBossOrMiniBoss;
     this.lastSpawn = 0;
     this.spawnInterval = isBoss ? 1500 : 3000;
+    this.slowed = false
 
     this.on("pointerdown", () => {
       this.hit(BASE_DAMAGE);
