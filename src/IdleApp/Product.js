@@ -161,7 +161,7 @@ export default function Product({ name, product, credits, onClick }) {
   const nextCost = PRODUCTS_GET_COST(product, owned + 1)
   const { DESCRIPTION: description } = PRODUCTS[product]
   const [isHidden, setIsHidden] = useState(product !== 'COMMUNITY')
-  const isHiddenTreshold = credits > nextCost * 2
+  const isHiddenTreshold = credits > nextCost / 2
 
   useEffect(() => {
     if (isHidden && isHiddenTreshold) {

@@ -44,7 +44,7 @@ class Bullet extends PIXI.Sprite {
       moveBy * moveBy
     ) {
       this.target.hit(this.damage);
-      this.effect(this.target)
+      if (this.effect) this.effect(this.target)
       this.destroy();
       return;
     }
