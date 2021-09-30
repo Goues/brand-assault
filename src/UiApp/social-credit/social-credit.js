@@ -16,8 +16,7 @@ export default function SocialCredit({ credits }) {
       <div className={css.socialCredit} onClick={handleClick}>
         <CreditCardIcon />
         <div className={css.socialCreditText}>
-          <span className={css.socialCreditText}>Social credit: {credits}</span>
-          <SocialCreditIcon />
+          <span className={css.socialCreditText}>Social credit: <SocialCreditIcon /> {credits}</span>
         </div>
       </div>
       <div className={css.socialCreditHint}>(Click to gain small amount of credit)</div>

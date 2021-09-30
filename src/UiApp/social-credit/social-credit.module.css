@@ -18,8 +18,11 @@
   font-weight: bold;
   font-size: 20px;
   margin-left: 16px;
-  margin-right: 4px;
   color: #2f3744;
+}
+
+.socialCreditText svg {
+  margin: 0 4px;
 }
 
 .socialCreditHint {

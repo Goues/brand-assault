@@ -16,8 +16,8 @@ function GameOver() {
           <img className={css.image} src='/game_paused.gif' alt='Game over' width='371'/>
           <div className={css.heading}>Paused</div>
           <div className={css.buttons}>
+            <Button onClick={() => {window.location.reload()}} isSecondary>Restart</Button>
             <Button onClick={run}>Resume</Button>
-            <Button onClick={() => {window.location.reload()}}>Restart</Button>
           </div>
         </div>
     </div>

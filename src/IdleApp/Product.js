@@ -198,8 +198,8 @@ export default function Product({ name, product, credits, onClick }) {
   return (
     <div className={css.product}>
       <div className={css.header}>
-        {COMPONENTS[product].Icon}
         <div className={css.nameContainer}>
+          {COMPONENTS[product].Icon}
           <h2 className={css.name}>{PRODUCTS[product].NAME}</h2>
           {owned > 0 && <span className={css.level}>Level {owned}</span>}
         </div>
