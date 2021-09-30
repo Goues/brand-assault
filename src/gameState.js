@@ -3,6 +3,7 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import { reducer as credits } from "./credits";
 import { reducer as towers } from "./towers";
 import { reducer as waves } from "./waves";
+import { reducer as controls } from "./controls";
 
 const INITIAL_PRODUCTS = {
   COMMUNITY: 0,
@@ -25,7 +26,7 @@ const products = (state = INITIAL_PRODUCTS, action) => {
 };
 
 const store = createStore(
-  combineReducers({ credits, products, towers, waves }),
+  combineReducers({ credits, products, towers, waves, controls }),
   applyMiddleware(thunk)
 );
 

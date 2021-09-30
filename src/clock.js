@@ -1,3 +1,6 @@
+import { run as begin, stop as pause } from "./controls";
+import store from "./gameState";
+
 let isRunning = false;
 let raf = null;
 let start = 0;
@@ -5,9 +8,10 @@ let lastFrame = null;
 
 const listeners = new Set();
 
+
 export const getStart = () => start;
 
-export const addListener = listener => {
+export const addListener = (listener) => {
   listeners.add(listener);
 
   if (!isRunning) {
@@ -17,7 +21,7 @@ export const addListener = listener => {
   return () => removeListener(listener);
 };
 
-export const removeListener = listener => {
+export const removeListener = (listener) => {
   listeners.delete(listener);
 
   if (listeners.size === 0) {
@@ -25,7 +29,7 @@ export const removeListener = listener => {
   }
 };
 
-const tick = frame => {
+const tick = (frame) => {
   for (const listener of listeners) {
     try {
       listener(frame, frame - lastFrame);
@@ -44,7 +48,8 @@ const tick = frame => {
 
 export const run = () => {
   isRunning = true;
-  raf = window.requestAnimationFrame(frame => {
+  store.dispatch(begin())
+  raf = window.requestAnimationFrame((frame) => {
     start = frame;
     lastFrame = frame;
     tick(frame);
@@ -53,6 +58,7 @@ export const run = () => {
 
 export const stop = () => {
   isRunning = false;
+  store.dispatch(pause())
   if (raf) {
     window.cancelAnimationFrame(raf);
   }
