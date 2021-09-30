@@ -14,7 +14,7 @@
 .nameContainer {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
 }
 
 .name {
@@ -89,6 +89,12 @@
   display: flex;
   gap: 5px;
   align-items: center;
+}
+
+.dialogBonusValue {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .actions {
