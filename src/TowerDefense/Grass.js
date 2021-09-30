@@ -7,11 +7,19 @@ import store from "../gameState";
 
 class Grass extends Tile {
   constructor(tileX, tileY) {
-    super(PIXI.Texture.from("/grass_tile.jpg"), tileX, tileY);
+    super(PIXI.Texture.from("/add_tower.png"), tileX, tileY);
     this.interactive = true;
     this.buttonMode = true;
     this.on("pointerdown", this.onClick);
-    this.alpha = 0
+    this.alpha = 0;
+  }
+
+  mouseover(e) {
+    this.alpha = 1;
+  }
+
+  mouseout() {
+    this.alpha = 0;
   }
 
   onClick = e => {
