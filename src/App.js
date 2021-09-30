@@ -43,6 +43,16 @@ function App() {
 		return () => document.removeEventListener('keydown', listener)
 	}, [])
 
+	// I keep exiting accidentally
+	useEffect(() => {
+		const listener = (event) => {
+			event.preventDefault()
+			return (event.returnValue = 'Are you sure you want to exit?')
+		}
+		window.addEventListener('beforeunload', listener)
+		return () => window.removeEventListener('beforeunload', listener)
+	}, [])
+
 	return (
 		<Provider store={store} key={iteration}>
 			<div className='App'>
