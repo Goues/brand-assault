@@ -1,11 +1,17 @@
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import Button from '../Button'
 import { isGameOver } from '../credits'
+import * as clock from '../clock'
 import css from './index.module.css'
 
 function GameOver({ reset }) {
 	const gameOver = useSelector(isGameOver)
 	const wavesSurvived = useSelector((state) => state.waves.survived)
+
+	useEffect(() => {
+		if (gameOver) clock.stop()
+	}, [gameOver])
 
 	if (!gameOver) return ''
 
