@@ -5,6 +5,8 @@ import Grass from "./Grass";
 import Road from "./Road";
 import app from "./PixiApp";
 import * as clock from "../clock";
+import { setCurrent, setSurvived } from "../waves";
+import store from "../gameState";
 
 const TILES = {
   x: Road,
@@ -37,9 +39,11 @@ function mountPixi(el) {
     if (!currentWave) {
       // TODO: the way it is implemented, you cannot have two ways simultaneously (calling it early or being so slow the next is triggered)
       currentWave = new Wave(++lastWave);
+      store.dispatch(setCurrent(lastWave))
       currentWave.enemies.forEach(enemy => app.stage.addChild(enemy));
       currentWave.on("destroyed", () => {
         currentWave = null;
+        store.dispatch(setSurvived(lastWave))
       });
       app.stage.wave = currentWave;
     }

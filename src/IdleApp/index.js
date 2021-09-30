@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from "react-redux";
-import { toFixedRound } from "../utils";
 import Product from "./Product";
 import Button from "../Button";
 import { addCredits } from "../credits";
@@ -18,7 +17,6 @@ export default function IdleApp() {
 
   return (
     <div className={css.wrapper}>
-      Credits: {toFixedRound(credits, 1)}
       <div className={css.products}>
         <div>
           <Button onClick={() => dispatch(addCredits(0.1))}>Engage</Button>

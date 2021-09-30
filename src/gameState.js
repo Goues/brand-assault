@@ -2,6 +2,7 @@ import thunk from "redux-thunk";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { reducer as credits } from "./credits";
 import { reducer as towers } from "./towers";
+import { reducer as waves } from "./waves";
 
 const INITIAL_PRODUCTS = {
   COMMUNITY: 0,
@@ -24,7 +25,7 @@ const products = (state = INITIAL_PRODUCTS, action) => {
 };
 
 const store = createStore(
-  combineReducers({ credits, products, towers }),
+  combineReducers({ credits, products, towers, waves }),
   applyMiddleware(thunk)
 );
 
