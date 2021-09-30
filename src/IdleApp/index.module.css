@@ -1,17 +1,18 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
+	min-width: 200px;
 }
 
 .header {
-  font-weight: bold;
-  font-size: 20px;
-  margin-bottom: 24px;
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: 24px;
 }
 
 .products {
-  padding-bottom: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+	padding-bottom: 32px;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
 }

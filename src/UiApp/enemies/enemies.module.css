@@ -1,7 +1,8 @@
 .enemies {
 	margin-right: 42px;
 	text-align: right;
-	width: 320px;
+	min-width: 200px;
+	max-width: 320px;
 }
 
 .header {
