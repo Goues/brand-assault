@@ -31,6 +31,10 @@ const SIZE = {
 class Enemy extends PIXI.Sprite {
   constructor(type, hitpoints, delay) {
     super(PIXI.Texture.from(IMAGE[type]));
+
+    const isBossOrMiniBoss = type === "hater" || type === "influencer";
+    const isBoss = type === "influencer";
+
     this.size = SIZE[type];
     this.offset = {
       x: (TILE_WIDTH - this.size) / 2,
@@ -42,12 +46,18 @@ class Enemy extends PIXI.Sprite {
     this.width = SIZE[type];
     this.height = SIZE[type];
     this.nextPathIndex = 0;
-    this.velocity = 0.1; // per 1s
+
+    this.velocity = 0.1 + (0.5 - Math.random()) * 0.01; // per 1s
+    if (isBoss) this.velocity /= 2;
+
     this.maxHitpoints = hitpoints;
     this.hitpoints = hitpoints;
     this.interactive = true;
     this.buttonMode = true;
     this.traveled = 0 - (delay * 100 + Math.random() * 50);
+    this.canSpawn = isBossOrMiniBoss;
+    this.lastSpawn = 0;
+    this.spawnInterval = isBoss ? 1500 : 3000;
 
     this.on("pointerdown", () => {
       this.hit(BASE_DAMAGE);
@@ -135,6 +145,14 @@ class Enemy extends PIXI.Sprite {
 
     for (const child of this.children) {
       if (child.update) child.update(delta, this);
+    }
+
+    if (this.canSpawn) {
+      this.lastSpawn += delta;
+      if (this.lastSpawn > this.spawnInterval) {
+        this.emit("spawn");
+        this.lastSpawn -= this.spawnInterval;
+      }
     }
   }
 

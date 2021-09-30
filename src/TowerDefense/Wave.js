@@ -17,8 +17,9 @@ function shuffleArray(array) {
 }
 
 export default class Wave extends PIXI.Container {
-  constructor(index) {
+  constructor(index, stage) {
     super();
+    this.stage = stage;
     this.index = index;
 
     const {
@@ -57,14 +58,21 @@ export default class Wave extends PIXI.Container {
 
     this.enemies = new Set(
       this.enemies.map(([type, hp], index) => {
-        const enemy = new Enemy(type, hp, index);
-        enemy.on("destroyed", () => {
-          this.onEnemyDestroy(enemy);
-        });
-        this.addChild(enemy);
-        return enemy;
+        return this.addEnemy(type, hp, index);
       })
     );
+  }
+
+  addEnemy(type, hp, index) {
+    const enemy = new Enemy(type, hp, index);
+    enemy.on("destroyed", () => {
+      this.onEnemyDestroy(enemy);
+    });
+    enemy.on("spawn", () => {
+      this.enemies.add(this.addEnemy("negative", this.hp.comment, 0));
+    });
+    this.stage.addChild(enemy);
+    return enemy;
   }
 
   onEnemyDestroy(enemy) {
