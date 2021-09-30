@@ -72,3 +72,70 @@ export const HQ = {
   WIDTH: 60,
   HEIGTH: 60
 };
+
+export const TOWER_TYPES = {
+  DEFAULT: "DEFAULT",
+  QUICK_TO_BAN_AGENT: "QUICK_TO_BAN_AGENT",
+  PURGER: "PURGER",
+  OPTIMIST: "OPTIMIST",
+  POWER_USER: "POWER_USER",
+  BUSY_BEE: "BUSY_BEE"
+};
+
+export const TOWERS = {
+  DEFAULT: {
+    damage: {
+      negative: 1,
+      neutral: 1,
+      hater: 1,
+      influencer:1
+    },
+    firingSpeed: 500,
+  },
+  QUICK_TO_BAN_AGENT: {
+    damage: {
+      negative: 1,
+      positive: 1,
+      neutral: 1,
+      hater: 1,
+      infuencer: 1
+    },
+    firingSpeed: 500
+  },
+  PURGER: {
+    damage: {
+      negative: 2,
+      hater: 1,
+      influencer: 1
+    },
+    firingSpeed: 500
+  },
+  OPTIMIST: {
+    damage: {
+      negative: 1,
+      neutral: 1,
+      hater: 1,
+      influencer: 1
+    },
+    firingSpeed: 500
+  },
+  POWER_USER: {
+    damage: {
+      negative: 1,
+      neutral: 1,
+      positive: 1,
+      hater: 1,
+      influencer: 1
+    },
+    firingSpeed: 500
+  },
+  BUSY_BEE: {
+    damage: {
+      negative: 1,
+      neutral: 1,
+      hater: 1,
+      influencer: 1
+    },
+    firingSpeed: 1000
+  }
+};
