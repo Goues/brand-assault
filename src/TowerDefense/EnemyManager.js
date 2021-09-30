@@ -26,6 +26,10 @@ class EnemyManager {
 		this.set.delete(enemy)
 		this._cachedArray = null
 	}
+
+	reset() {
+		this.set.clear()
+	}
 }
 
 export default new EnemyManager()

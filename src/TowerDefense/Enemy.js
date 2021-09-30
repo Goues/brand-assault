@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 import { PATH, TILE_HEIGHT, TILE_WIDTH, DIRECTIONS } from './config'
 import { BASE_DAMAGE, GET_DAMAGE } from '../config.js'
-import store from '../gameState'
+import { getStore } from '../gameState'
 import { addCredits, subtractCredits } from '../credits'
 import Hitpoints from './Hitpoints'
 import Damage from './Damage'
@@ -67,7 +67,7 @@ class Enemy extends PIXI.Sprite {
 	}
 
 	hit(baseDamage) {
-		const analytics = store.getState().products.ANALYTICS
+		const analytics = getStore().getState().products.ANALYTICS
 		const damage = GET_DAMAGE(baseDamage, analytics)
 
 		if (!this.parent) {
@@ -77,7 +77,7 @@ class Enemy extends PIXI.Sprite {
 		this.parent.addChild(new Damage(damage, this))
 		this.hitpoints -= damage
 		if (this.hitpoints <= 0) {
-			store.dispatch(incrementEnemiesKilled())
+			getStore().dispatch(incrementEnemiesKilled())
 			this.destroy()
 			return
 		}
@@ -97,7 +97,7 @@ class Enemy extends PIXI.Sprite {
 		if (pathIndex >= PATH.length) {
 			switch (this.type) {
 				case 'positive':
-					store.dispatch(addCredits(this.hitpoints))
+					getStore().dispatch(addCredits(this.hitpoints))
 					break
 				case 'neutral':
 					this.type = 'negative'
@@ -108,10 +108,10 @@ class Enemy extends PIXI.Sprite {
 					if (this.type === 'hater') {
 						credits /= 4
 					}
-					store.dispatch(subtractCredits(credits))
+					getStore().dispatch(subtractCredits(credits))
 					// stats
-					store.dispatch(incrementCreditsLost(credits))
-					store.dispatch(incrementEnemiesLeaked())
+					getStore().dispatch(incrementCreditsLost(credits))
+					getStore().dispatch(incrementEnemiesLeaked())
 					break
 				}
 			}

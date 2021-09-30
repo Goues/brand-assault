@@ -3,7 +3,7 @@ import Tile from './Tile'
 import Tower from './Tower'
 import { TOWER_TYPES } from '../config'
 import { buildTower } from '../towers'
-import store from '../gameState'
+import { getStore } from '../gameState'
 
 const TEXTURES = {
 	PASSIVE: PIXI.Texture.from('/space_for_tower.png'),
@@ -19,7 +19,7 @@ class Grass extends Tile {
 		this.on('pointerdown', this.onClick)
 		this.tower = null
 
-		this.unsubscribe = store.subscribe(this.detectStoreChange)
+		this.unsubscribe = getStore().subscribe(this.detectStoreChange)
 	}
 
 	mouseover(e) {
@@ -36,7 +36,7 @@ class Grass extends Tile {
 		const {
 			towers,
 			products: { COMMUNITY },
-		} = store.getState()
+		} = getStore().getState()
 
 		const canBuildTower = towers.length < COMMUNITY
 
@@ -50,7 +50,7 @@ class Grass extends Tile {
 		if (!this.canBuildTower) return
 
 		const { x, y } = this.grid
-		store.dispatch(buildTower(x, y))
+		getStore().dispatch(buildTower(x, y))
 		const tower = new Tower(x, y, TOWER_TYPES.DEFAULT, this.parent)
 		this.tower = tower
 		this.parent.addChild(tower)

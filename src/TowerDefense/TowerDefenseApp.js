@@ -7,12 +7,13 @@ import Grass from './Grass'
 import Road from './Road'
 import Hq from './Hq'
 import * as clock from '../clock'
-import store from '../gameState'
+import { getStore } from '../gameState'
 import { isGameOver } from '../credits'
-import waveManager from './WaveManager'
+import EnemyManager from './EnemyManager'
+import WaveManager from './WaveManager'
 
 function detectGameOver(app) {
-	if (isGameOver(store.getState())) {
+	if (isGameOver(getStore().getState())) {
 		for (const child of app.stage.children) {
 			if (child instanceof Hq || child instanceof Enemy) {
 				app.stage.removeChild(child)
@@ -49,6 +50,8 @@ function mountPixi(el) {
 
 	el.appendChild(app.view)
 
+	const waveManager = new WaveManager()
+	EnemyManager.reset()
 	app.stage.addChild(waveManager)
 	app.stage.sortableChildren = true
 
@@ -68,6 +71,7 @@ function mountPixi(el) {
 	})
 
 	return () => {
+		console.log('destroy')
 		app.destroy()
 		clockUnsubscribe()
 	}
@@ -76,6 +80,7 @@ function mountPixi(el) {
 export default function TowerDefenseApp() {
 	const ref = useRef(null)
 	useEffect(() => {
+		console.log('mount')
 		const el = ref.current
 		// The application will create a canvas element for you that you
 		// can then insert into the DOM.
@@ -85,6 +90,7 @@ export default function TowerDefenseApp() {
 			for (const node of [...el.childNodes]) {
 				node.remove()
 			}
+			console.log('unmount')
 			unmount()
 		}
 	}, [])

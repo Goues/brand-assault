@@ -26,9 +26,19 @@ const products = (state = INITIAL_PRODUCTS, action) => {
 	}
 }
 
-const store = createStore(
-	combineReducers({ credits, products, towers, waves, controls, stats }),
-	applyMiddleware(thunk)
-)
+let store = null
 
-export default store
+export const getStore = () => {
+	if (!store) {
+		store = createStore(
+			combineReducers({ credits, products, towers, waves, controls, stats }),
+			applyMiddleware(thunk)
+		)
+	}
+	return store
+}
+
+export const getNewStore = () => {
+	store = null
+	return getStore()
+}

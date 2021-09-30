@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js'
 import { GET_COMMENTS_FOR_WAVE, GET_COMMENTS_HP_FOR_WAVE, GET_AUDIENCES_CHANCE } from '../config'
 import Enemy from './Enemy'
 import EnemyManager from './EnemyManager'
-import store from '../gameState'
+import { getStore } from '../gameState'
 
 function shuffleArray(array) {
 	for (var i = array.length - 1; i > 0; i--) {
@@ -19,7 +19,7 @@ export default class Wave extends PIXI.Container {
 
 		this.index = index
 
-		const { PUBLISHER: publisher, AUDIENCES: audiences } = store.getState().products
+		const { PUBLISHER: publisher, AUDIENCES: audiences } = getStore().getState().products
 
 		this.comments = GET_COMMENTS_FOR_WAVE(index)
 		this.hp = GET_COMMENTS_HP_FOR_WAVE(index, publisher)
@@ -76,7 +76,7 @@ export default class Wave extends PIXI.Container {
 		this.addChild(enemy)
 
 		EnemyManager.add(enemy)
-	
+
 		return enemy
 	}
 
