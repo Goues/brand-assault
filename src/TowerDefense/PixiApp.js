@@ -7,6 +7,6 @@ import * as config from "./config";
 export default new PIXI.Application({
   width: config.GAME_WIDTH,
   height: config.GAME_HEIGHT,
-  transparent: true,
+  backgroundAlpha: 0,
   autoStart: false
 });

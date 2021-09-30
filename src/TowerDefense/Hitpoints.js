@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
 import { toFixedRound } from "../utils";
+import { TILE_HEIGHT } from "./config";
 
 const HEALTHBAR_WIDTH = 10;
 const HEALTHBAR_HEIGHT = 70;
@@ -8,7 +9,8 @@ class Hitpoints extends PIXI.Container {
   constructor(hp, maxHp, enemy) {
     super();
 
-    this.x = 65;
+    this.size = enemy.size / (TILE_HEIGHT / 2);
+    this.x = 65 * this.size;
     this.y = 0;
     this.alpha = 0.5;
 
@@ -37,7 +39,7 @@ class Hitpoints extends PIXI.Container {
       -4,
       -4,
       HEALTHBAR_WIDTH + 8,
-      HEALTHBAR_HEIGHT + 8,
+      HEALTHBAR_HEIGHT * this.size + 8,
       16
     );
     this.bar.endFill();
@@ -59,9 +61,9 @@ class Hitpoints extends PIXI.Container {
     this.status.beginFill(0x00ff00);
     this.status.drawRoundedRect(
       0,
-      HEALTHBAR_HEIGHT * (1 - hpPercent),
+      HEALTHBAR_HEIGHT * this.size * (1 - hpPercent),
       HEALTHBAR_WIDTH,
-      HEALTHBAR_HEIGHT * hpPercent,
+      HEALTHBAR_HEIGHT * this.size * hpPercent,
       8
     );
     this.status.endFill();
