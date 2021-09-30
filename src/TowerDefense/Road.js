@@ -5,8 +5,12 @@ import { DIRECTIONS } from './config'
 const LINE = '/path_line.png'
 const CORNER_INSIDE = '/path_corner_inside.png'
 const CORNER_OUTSIDE = '/path_corner_outside.png'
+const CONNECTOR = '/connector.png'
 
 const getTexture = (path) => {
+	if (path.isFirst) {
+		return { file: CONNECTOR }
+	}
 	switch (path.from + path.to) {
 		case DIRECTIONS.TOP + DIRECTIONS.BOTTOM:
 			return { file: LINE, rotate: 8 }

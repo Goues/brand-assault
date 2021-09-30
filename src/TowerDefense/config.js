@@ -8,7 +8,7 @@ export const DIRECTIONS = {
 }
 
 export const PATH = [
-	{ x: 8, y: 10, from: DIRECTIONS.BOTTOM, to: DIRECTIONS.TOP },
+	{ x: 8, y: 10, from: DIRECTIONS.BOTTOM, to: DIRECTIONS.TOP, isFirst: true },
 	{ x: 8, y: 9, from: DIRECTIONS.BOTTOM, to: DIRECTIONS.RIGHT },
 	{ x: 9, y: 9, from: DIRECTIONS.LEFT, to: DIRECTIONS.RIGHT },
 	{ x: 10, y: 9, from: DIRECTIONS.LEFT, to: DIRECTIONS.TOP },
