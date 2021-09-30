@@ -98,6 +98,7 @@ class Enemy extends PIXI.Sprite {
 			switch (this.type) {
 				case 'positive':
 					getStore().dispatch(addCredits(this.hitpoints))
+					this.destroy()
 					break
 				case 'neutral':
 					this.type = 'negative'
