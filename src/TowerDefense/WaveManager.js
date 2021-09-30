@@ -17,7 +17,7 @@ class WaveManager extends PIXI.Container {
 
 	reset() {
 		this.level = 0
-		this.elapsed = 0
+		this.elapsed = null
 	}
 
 	spawnWave() {
@@ -40,6 +40,7 @@ class WaveManager extends PIXI.Container {
 		// update current level
 		getStore().dispatch(setCurrent(this.level))
 
+		this.emit('wave-spawned', wave)
 		this.addChild(wave)
 		this.elapsed = 0
 	}

@@ -1,5 +1,6 @@
 .enemyCounter {
-	margin: 0 0 10px 0;
+	position: relative;
+	margin: 0 0 35px 0;
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -55,4 +56,15 @@
 		opacity: 1;
 		transform: scale(1);
 	}
+}
+
+.nextWaveTimer {
+	padding: 3px 8px;
+	position: absolute;
+	left: 50%;
+	top: 100%;
+	transform: translateX(-50%);
+	background: #cacbcc;
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
 }

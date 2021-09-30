@@ -65,10 +65,6 @@ function mountPixi(el) {
 		}
 
 		detectGameOver(app)
-
-		if (!waveManager.children.length) {
-			waveManager.spawnWave()
-		}
 	})
 
 	return () => {
