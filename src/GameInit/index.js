@@ -9,9 +9,11 @@ import Audiences from '../IdleApp/Icons/Audiences'
 import Community from '../IdleApp/Icons/Community'
 import Influencers from '../IdleApp/Icons/Influencers'
 import Publisher from '../IdleApp/Icons/Publisher'
+import SocialCredit from '../IdleApp/Icons/SocialCredit'
 import EnemiesList from './EnemiesListDialog'
 import Enemy from './Enemy'
 import faker from 'faker'
+
 // import { isGameOver } from "../credits";
 import css from './index.module.css'
 
@@ -96,10 +98,41 @@ function FourthStep({ next }) {
 		</div>
 	)
 }
+function SocialCreditsStep({ next }) {
+	return (
+		<div>
+			<div className={css.heading}>
+				<SocialCredit /> You need Social Credits!
+			</div>
+			<div>You need Social Credits to buy products.</div>
+			<div>
+				You can gain little amount of Social Credits by clicking on the <SocialCredit />
+				on the top of the screen.
+			</div>
+			<div>Also bought products give you some Social Credits automatically.</div>
+			<Button onClick={next}>Next</Button>
+		</div>
+	)
+}
+function AgentsStep({ next }) {
+	return (
+		<div>
+			<div className={css.heading}>Hire agents!</div>
+			<div>You don't have to fight with enemies only by yourself.</div>
+			<div>
+				If you buy {PRODUCTS.COMMUNITY.NAME} <Community /> you can hire agents.
+			</div>
+			<div>Agents will help you to deal with your enemies.</div>
+			<div>
+				You can hire 1 agent with every upgrade of <Community />.
+			</div>
+			<div>Hire new agent by click on any field around the wire.</div>
+			<Button onClick={next}>Next</Button>
+		</div>
+	)
+}
 
-// function Enemy ({icon, name}) {
-//   return <img className={css.enemyIcon} src={icon} alt={name}/>
-// }
+const STEPS = [FirstStep, SecondStep, ThirdStep, FourthStep, SocialCreditsStep, AgentsStep]
 
 function LastStep({ next }) {
 	const [playerName, setPlayerName] = useState('')
@@ -139,15 +172,12 @@ function GameOver() {
 	const [step, setStep] = useState(0)
 
 	if (gameStarted) return ''
-
+	const Step = STEPS[step]
 	return (
 		<div className={css.wrapper}>
 			<div className={css.modal}>
-				{step === 0 && <FirstStep next={() => setStep(1)} />}
-				{step === 1 && <SecondStep next={() => setStep(2)} />}
-				{step === 2 && <ThirdStep next={() => setStep(3)} />}
-				{step === 3 && <FourthStep next={() => setStep(4)} />}
-				{step === 4 && (
+				{Step && <Step next={() => setStep(step + 1)} />}
+				{!Step && (
 					<LastStep
 						next={(playerName) => {
 							dispatch(setPlayerName(playerName))
@@ -155,7 +185,7 @@ function GameOver() {
 						}}
 					/>
 				)}
-				{step !== 4 && <Button onClick={() => setStep(4)}>Skip</Button>}
+				{step !== STEPS.length && <Button onClick={() => setStep(STEPS.length)}>Skip</Button>}
 			</div>
 		</div>
 	)
