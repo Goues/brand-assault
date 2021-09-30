@@ -6,6 +6,6 @@ import * as config from "./config";
 // and the root stage PIXI.Container.
 export default new PIXI.Application({
   width: config.GAME_WIDTH,
-  height: config.GAME_HEIGHT
-  // transparent: true
+  height: config.GAME_HEIGHT,
+  transparent: true
 });
