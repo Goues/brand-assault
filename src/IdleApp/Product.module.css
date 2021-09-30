@@ -35,6 +35,69 @@
   text-transform: uppercase;
 }
 
+.descriptionContainer {
+  margin: 5px 0;
+  width: 80%;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
 .description {
   margin: 5px 0;
+  flex: 1;
+}
+
+.descriptionInfo {
+  flex-shrink: 0;
+  cursor: help;
+}
+
+.dialog {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  background: #ffffff;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #000000;
+
+  animation: fadeIn forwards 0.15s;
+}
+
+.dialogHeader {
+  font-weight: bold;
+}
+
+.bonusPrefix {
+  text-transform: uppercase;
+}
+
+.bonusCurrent {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 8px;
+  color: #636363;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
