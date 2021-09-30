@@ -1,10 +1,20 @@
+body, html, #root, .App {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .App {
+  position: relative;
   color: #000000;
   font-family: SF Pro Text;
   font-style: normal;
   font-weight: normal;
   font-size: 13px;
   line-height: 18px;
+  background-color: #B1B1B1;
 }
 
 .App-header {

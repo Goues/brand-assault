@@ -4,6 +4,7 @@ import IdleApp from "./IdleApp";
 import TowerDefenseApp from "./TowerDefense/TowerDefenseApp";
 import UiApp from "./UiApp";
 import "./App.css";
+import WorldMap from "./WorldMap"
 import * as clock from "./clock";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <UiApp />
         </div>
       </div>
+      <WorldMap />
     </div>
   );
 }
