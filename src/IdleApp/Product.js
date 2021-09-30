@@ -107,7 +107,7 @@ const COMPONENTS = {
       return (
         <div className={css.bonusCurrent}>
           <span className={css.bonusPrefix}>Current</span>
-          <strong>+{bonus}</strong> DMG
+          <strong>&times;{bonus}</strong> DMG
         </div>
       )
     },
@@ -118,7 +118,7 @@ const COMPONENTS = {
       return (
         <div className={css.dialogBonusIncrease}>
           <Increase />
-          <span className={css.dialogBonusValue}>+{bonus} DMG</span>
+          <span className={css.dialogBonusValue}>&times;{bonus} DMG</span>
         </div>
       )
     },
