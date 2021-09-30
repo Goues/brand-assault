@@ -13,6 +13,11 @@ class Bullet extends PIXI.Sprite {
     this.velocity = 1;
   }
 
+  destroy() {
+    this.target = null;
+    super.destroy();
+  }
+
   update(delta) {
     if (this.destroyed) {
       return;
