@@ -29,7 +29,7 @@ const Dialog = ({ product, level, header, ...rest }) => {
     [product, level]
   );
   const currentBonus = useMemo(
-    () => PRODUCTS[product].BONUS_DESCRIPTION(level + 1),
+    () => PRODUCTS[product].BONUS_DESCRIPTION(level),
     [product, level]
   );
 
