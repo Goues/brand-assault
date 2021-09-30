@@ -1,0 +1,14 @@
+.pauseContinue {
+    all: unset;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+}
+
+.pauseContinueText {
+    font-size: 16px;
+    margin-left: 16px;
+    color: #2F3744;
+}
+

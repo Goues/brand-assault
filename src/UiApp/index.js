@@ -6,6 +6,7 @@ import { run, stop } from "../clock";
 import { toFixedRound } from "../utils";
 // import css from "./index.module.css";
 
+import PauseContinue from "./pause-continue/pause-continue";
 import SocialCredit from "./social-credit/social-credit";
 import DefendTowers from "./defend-towers/defend-towers";
 
@@ -19,8 +20,7 @@ export default function UiApp() {
 
   return (
     <div>
-      <button disabled={!isRunning} onClick={stop}>Pause</button>
-      <button disabled={isRunning} onClick={run}>Run</button>
+      <PauseContinue isRunning={isRunning} onPause={stop} onContinue={run}/>
       <SocialCredit credits={toFixedRound(credits, 1)}/>
       <DefendTowers towers={towers} maxTowers={communityLevel}/>
       <div>Waves Survived: {wavesSurvived}</div>
