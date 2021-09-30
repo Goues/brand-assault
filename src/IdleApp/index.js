@@ -1,8 +1,7 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Product from "./Product";
-import Button from "../Button";
-import { addCredits } from "../credits";
 import css from "./index.module.css";
+
 const LIST = [
   "COMMUNITY",
   "PUBLISHER",
@@ -13,15 +12,9 @@ const LIST = [
 
 export default function IdleApp() {
   const credits = useSelector(state => state.credits);
-  const dispatch = useDispatch();
 
   return (
     <div className={css.wrapper}>
-      <div className={css.products}>
-        <div>
-          <Button onClick={() => dispatch(addCredits(0.1))}>Engage</Button>
-        </div>
-      </div>
       <div className={css.products}>
         {LIST.map((product, index) => (
           <Product key={product} product={product} credits={credits} />

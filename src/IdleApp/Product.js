@@ -4,8 +4,21 @@ import Button from "../Button";
 import { toFixedRound } from "../utils";
 import * as clock from "../clock";
 import css from "./Product.module.css";
+import Publisher from "./Icons/Publisher"
+import Community from "./Icons/Community"
+import Influencers from "./Icons/Influencers";
+import Analytics from "./Icons/Analytics";
+import Audiences from "./Icons/Audiences";
 import { PRODUCTS, PRODUCTS_GET_COST } from "../config";
 import { addCredits, subtractCredits } from "../credits";
+
+const ICONS = {
+  COMMUNITY: <Community className={css.icon} />,
+  PUBLISHER: <Publisher className={css.icon} />,
+  INFLUENCERS: <Influencers className={css.icon} />,
+  ANALYTICS: <Analytics className={css.icon} />,
+  AUDIENCES: <Audiences className={css.icon} />,
+}
 
 export default function Product({ name, product, credits, onClick }) {
   const owned = useSelector(state => state.products[product]);
@@ -41,11 +54,14 @@ export default function Product({ name, product, credits, onClick }) {
 
   return (
     <div className={css.product}>
-      <div className="flex items-center space-between">
-        <h2 className={css.name}>{PRODUCTS[product].NAME}</h2>
-        {owned > 0 && <span className={css.level}>Level {owned}</span>}
+      <div className={css.header}>
+        {ICONS[product]}
+        <div className={css.nameContainer}>
+          <h2 className={css.name}>{PRODUCTS[product].NAME}</h2>
+          {owned > 0 && <span className={css.level}>Level {owned}</span>}
+        </div>
       </div>
-      <p>{description}</p>
+      <p className={css.description}>{description}</p>
       <Button disabled={nextCost > credits} onClick={onUpgrade}>
         Upgrade for {toFixedRound(nextCost, 1)} SC
       </Button>

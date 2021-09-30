@@ -9,6 +9,7 @@ import app from "./PixiApp";
 import * as clock from "../clock";
 import { setCurrent, setSurvived } from "../waves";
 import store from "../gameState";
+import css from "./TowerDefense.module.css"
 
 const TILES = {
   x: Road,
@@ -52,7 +53,7 @@ function mountPixi(el) {
     for (const child of app.stage.children) {
       if (child.update) child.update(delta);
     }
-    
+
     detectGameOver(app);
 
     if (!currentWave) {
@@ -85,5 +86,5 @@ export default function TowerDefenseApp() {
     };
   }, []);
 
-  return <div ref={ref}></div>;
+  return <div ref={ref} className={css.TowerDefense}></div>;
 }

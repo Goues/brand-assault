@@ -1,13 +1,11 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  padding: 1em;
 }
 
 .products {
-  display: grid;
-  column-gap: 3em;
-  grid-template-columns: 1fr 1fr;
-  margin-bottom: 2em;
-  row-gap: 2em;
+  padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }

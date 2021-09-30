@@ -1,10 +1,24 @@
 .product {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: flex-start;
+}
 
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nameContainer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .name {
   color: #000000;
-  font-family: SF Pro Display;
   font-size: 20px;
   font-style: normal;
   font-weight: normal;
@@ -14,10 +28,13 @@
 
 .level {
   color: #717578;
-  font-family: SF Pro Text;
-  font-size: 10px;
+  font-size: 13px;
   font-style: normal;
   font-weight: bold;
-  line-height: 12px;
+  line-height: 18px;
   text-transform: uppercase;
+}
+
+.description {
+  margin: 5px 0;
 }
