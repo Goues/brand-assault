@@ -18,6 +18,9 @@ class WaveManager extends PIXI.Container {
 	reset() {
 		this.level = 0
 		this.elapsed = null
+		for (const child of this.children) {
+			child.destroy()
+		}
 	}
 
 	spawnWave() {
