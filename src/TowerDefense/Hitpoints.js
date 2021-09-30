@@ -5,12 +5,12 @@ const HEALTHBAR_WIDTH = 10;
 const HEALTHBAR_HEIGHT = 70;
 
 class Hitpoints extends PIXI.Container {
-  constructor(hitpoints, maxHitpoints) {
+  constructor(hitpoints, maxHitpoints, enemy) {
     super();
 
     this.x = 65;
     this.y = 0;
-    this.alpha = 0.75;
+    this.alpha = 0.5;
 
     this.text = new PIXI.Text(toFixedRound(hitpoints, 0), {
       align: "center",

@@ -53,7 +53,7 @@ class Enemy extends PIXI.Sprite {
       this.hit(BASE_DAMAGE);
     });
 
-    const hp = new Hitpoints(this.hitpoints);
+    const hp = new Hitpoints(this.hitpoints, this.maxHitpoints, this);
     this.addChild(hp);
   }
 
