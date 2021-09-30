@@ -92,6 +92,7 @@ class Enemy extends PIXI.Sprite {
           this.type = "negative";
           this.texture = PIXI.Texture.from(IMAGE[this.type]);
           this.nextPathIndex = 0;
+          this.traveled = 0;
           break;
         default:
           store.dispatch(subtractCredits(this.hitpoints));
