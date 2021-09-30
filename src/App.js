@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import logo from "./logo.svg";
 import IdleApp from "./IdleApp";
 import TowerDefenseApp from "./TowerDefense/TowerDefenseApp";
 import UiApp from "./UiApp";
@@ -24,9 +23,6 @@ function App() {
     <div className="App">
       <GameOver />
       <div className="Game">
-        <header className="App-header">
-          <img src={logo} width="100" alt="logo" /> Brand assault
-        </header>
         <div className="App-stage">
           <div className="App-idle">
             <IdleApp />

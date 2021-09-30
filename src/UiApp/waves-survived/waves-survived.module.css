@@ -1,6 +1,9 @@
 .wavesSurvived {
     display: flex;
     align-items: center;
+    position: absolute;
+    top: 24px;
+    right: 42px;
 }
 
 .wavesSurvivedText {

@@ -15,6 +15,7 @@ export default function IdleApp() {
 
   return (
     <div className={css.wrapper}>
+      <h1 className={css.header}>HQ status</h1>
       <div className={css.products}>
         {LIST.map((product, index) => (
           <Product key={product} product={product} credits={credits} />

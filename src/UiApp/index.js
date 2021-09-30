@@ -4,7 +4,7 @@ import {
 } from "react-redux";
 import { run, stop } from "../clock";
 import { toFixedRound } from "../utils";
-// import css from "./index.module.css";
+import css from "./index.module.css";
 
 import PauseContinue from "./pause-continue/pause-continue";
 import SocialCredit from "./social-credit/social-credit";
@@ -22,11 +22,13 @@ export default function UiApp() {
   return (
     <div>
       <PauseContinue isRunning={isRunning} onPause={stop} onContinue={run}/>
-      <SocialCredit credits={toFixedRound(credits, 1)}/>
-      <DefendTowers towers={towers} maxTowers={communityLevel}/>
+      <div className={css.creditsTowers}>
+        <SocialCredit credits={toFixedRound(credits, 1)}/>
+        <DefendTowers towers={towers} maxTowers={communityLevel}/>
+      </div>
       <WavesSurvived survived={wavesSurvived} />
-      <div>Incoming Comments</div>
-      <div>Legend</div>
+      {/* <div>Incoming Comments</div>
+      <div>Legend</div> */}
     </div>
   );
 }
