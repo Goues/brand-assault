@@ -1,10 +1,11 @@
-import {ReactComponent as CreditCardIcon} from './credit-card.svg';
+import SocialCreditIcon from '../../IdleApp/Icons/SocialCredit'
+import css from './social-credit.module.css'
 
-import css from "./social-credit.module.css";
-
-export default function SocialCredit({credits}) {
-    return <div className={css.socialCredit}>
-        <CreditCardIcon />
-        <div class={css.socialCreditText}>Social credit: {credits}</div>
+export default function SocialCredit({ credits }) {
+  return (
+    <div className={css.socialCredit}>
+      <SocialCreditIcon />
+      <div className={css.socialCreditText}>Social credit: {credits}</div>
     </div>
+  )
 }
