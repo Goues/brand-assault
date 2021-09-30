@@ -12,7 +12,14 @@ class Bullet extends PIXI.Sprite {
     this.damage = damage;
     this.velocity = 1;
 
-    target.on("destroyed", () => this.destroy());
+    this.onTargetDestroyed = this.onTargetDestroyed.bind(this);
+    this.target.on("destroyed", this.onTargetDestroyed);
+  }
+
+  onTargetDestroyed() {
+    this.target.off("destroyed", this.onTargetDestroyed);
+
+    this.destroy();
   }
 
   destroy() {
