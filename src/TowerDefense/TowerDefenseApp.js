@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { MAP_1, TILES_X, TILES_Y } from "./config";
+import { MAP, TILES_X, TILES_Y } from "./config";
 import Wave from "./Wave";
 import Enemy from "./Enemy";
 import Grass from "./Grass";
@@ -13,8 +13,8 @@ import css from "./TowerDefense.module.css";
 import { isGameOver } from "../credits";
 
 const TILES = {
-  x: Road,
-  "-": Grass
+  ROAD: Road,
+  GRASS: Grass
 };
 
 function detectGameOver(app) {
@@ -31,10 +31,10 @@ function detectGameOver(app) {
 function mountPixi(el) {
   // Render background tiles
   app.loader.load((loader, resources) => {
-    for (let i = 0; i < TILES_X; i++) {
-      for (let j = 0; j < TILES_Y; j++) {
-        const tileType = MAP_1[j][i];
-        const tile = new TILES[tileType](i, j);
+    for (let x = 0; x < TILES_X; x++) {
+      for (let y = 0; y < TILES_Y; y++) {
+        const path = MAP[x] && MAP[x][y];
+        const tile = new (path ? TILES.ROAD : TILES.GRASS)(path || { x, y });
         app.stage.addChild(tile);
       }
     }

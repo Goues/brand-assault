@@ -7,20 +7,6 @@ export const TILE_HEIGHT = GAME_HEIGHT / TILES_Y;
 
 export const START_TILE = { x: 1, y: 0 };
 
-export const MAP_1 = [
-  //X 0    1    2    3    4    5    6    7    8    9       Y
-  ["-", "x", "-", "-", "-", "-", "-", "-", "-", "-"], // 0
-  ["-", "x", "x", "x", "x", "x", "x", "x", "x", "-"], // 1
-  ["-", "-", "-", "-", "-", "-", "-", "-", "x", "-"], // 2
-  ["-", "-", "x", "x", "x", "x", "x", "-", "x", "-"], // 3
-  ["-", "-", "x", "-", "-", "-", "x", "-", "x", "-"], // 4
-  ["-", "-", "x", "-", "x", "-", "x", "-", "x", "-"], // 5
-  ["-", "-", "x", "-", "x", "x", "x", "-", "x", "-"], // 6
-  ["-", "-", "x", "-", "-", "-", "-", "-", "x", "-"], // 7
-  ["-", "-", "x", "x", "x", "x", "x", "x", "x", "-"], // 8
-  ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"] // 9
-];
-
 export const DIRECTIONS = {
   TOP: "↑",
   LEFT: "←",
@@ -67,6 +53,13 @@ export const PATH = [
   { x: 4, y: 6, from: DIRECTIONS.RIGHT, to: DIRECTIONS.TOP },
   { x: 4, y: 5, from: DIRECTIONS.BOTTOM, to: DIRECTIONS.TOP }
 ];
+
+export const MAP = PATH.reduce((map, path) => {
+  const { x, y } = path;
+  if (!map[x]) map[x] = {};
+  map[x][y] = path;
+  return map;
+}, {});
 
 export const HQ = {
   WIDTH: 60,

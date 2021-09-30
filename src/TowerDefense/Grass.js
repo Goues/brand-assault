@@ -6,8 +6,8 @@ import { buildTower } from "../towers";
 import store from "../gameState";
 
 class Grass extends Tile {
-  constructor(tileX, tileY) {
-    super(PIXI.Texture.from("/add_tower.png"), tileX, tileY);
+  constructor(path) {
+    super(PIXI.Texture.from("/add_tower.png"), path);
     this.interactive = true;
     this.buttonMode = true;
     this.on("pointerdown", this.onClick);
