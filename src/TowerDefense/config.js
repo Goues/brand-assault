@@ -132,6 +132,6 @@ export const TOWERS = {
       hater: 1,
       influencer: 1
     },
-    firingSpeed: 1000
+    firingSpeed: 250
   }
 };
