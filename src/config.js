@@ -99,3 +99,9 @@ export const GET_COMMENTS_HP_FOR_WAVE = wave => ({
 });
 
 export const IS_BOSS = wave => wave % 10 === 0;
+
+export const BASE_DAMAGE = 1;
+
+export const GET_DAMAGE = (baseDamage, analytics) => {
+  return baseDamage * PRODUCTS.ANALYTICS.MULTIPLIER ** analytics;
+};

@@ -6,9 +6,11 @@ import {
   TILE_WIDTH,
   DIRECTIONS
 } from "./config";
+import { BASE_DAMAGE, GET_DAMAGE } from "../config.js";
 import store from "../gameState";
 import { addCredits, subtractCredits } from "../credits";
 import Hitpoints from "./Hitpoints";
+import Damage from "./Damage";
 
 const IMAGE = {
   negative: "/comment_negative.png",
@@ -48,14 +50,18 @@ class Enemy extends PIXI.Sprite {
     this.traveled = 0 - (delay * 100 + Math.random() * 50);
 
     this.on("pointerdown", () => {
-      this.hit(1);
+      this.hit(BASE_DAMAGE);
     });
 
     const hp = new Hitpoints(this.hitpoints);
     this.addChild(hp);
   }
 
-  hit(damage) {
+  hit(baseDamage) {
+    const analytics = store.getState().products.ANALYTICS;
+    const damage = GET_DAMAGE(baseDamage, analytics);
+
+    this.addChild(new Damage(damage));
     this.hitpoints -= damage;
     if (this.hitpoints <= 0) {
       this.destroy();
