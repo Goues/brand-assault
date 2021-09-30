@@ -1,3 +1,5 @@
+import { toFixedRound } from "./utils";
+
 export const PRODUCTS = {
   COMMUNITY: {
     NAME: "Community",
@@ -6,23 +8,11 @@ export const PRODUCTS = {
     INCOME: 0.1,
     RATE: 1000, // every second
     MULTIPLIER: 1.1,
-    NEXT_BONUS: level => {
-      return (
-        PRODUCTS.COMMUNITY.INCOME *
-        PRODUCTS.COMMUNITY.MULTIPLIER ** (level + 1)
-      ).toFixed(3);
+    GET_BONUS: level => {
+      return toFixedRound(PRODUCTS.COMMUNITY.INCOME * level, 1);
     },
-    CURRENT_BONUS: level => {
-      return (
-        PRODUCTS.COMMUNITY.INCOME *
-        PRODUCTS.COMMUNITY.MULTIPLIER ** level
-      ).toFixed(3);
-    },
-    NEXT_BONUS_DESCRIPTION: level => {
-      return `+${PRODUCTS.COMMUNITY.NEXT_BONUS(level)} SC per second`;
-    },
-    CURRENT_BONUS_DESCRIPTION: level => {
-      return `+${PRODUCTS.COMMUNITY.CURRENT_BONUS(level)} SC per second`;
+    BONUS_DESCRIPTION: level => {
+      return `+${PRODUCTS.COMMUNITY.GET_BONUS(level + 1)} SC per second`;
     }
   },
   PUBLISHER: {
@@ -31,23 +21,11 @@ export const PRODUCTS = {
     COST: 10,
     BONUS: 0.005,
     MULTIPLIER: 1.2,
-    NEXT_BONUS: level => {
-      return (
-        PRODUCTS.PUBLISHER.BONUS *
-        PRODUCTS.PUBLISHER.MULTIPLIER ** (level + 1)
-      ).toFixed(3);
+    GET_BONUS: level => {
+      return toFixedRound(PRODUCTS.PUBLISHER.BONUS * level * 100, 1);
     },
-    CURRENT_BONUS: level => {
-      return (
-        PRODUCTS.PUBLISHER.BONUS *
-        PRODUCTS.PUBLISHER.MULTIPLIER ** level
-      ).toFixed(3);
-    },
-    NEXT_BONUS_DESCRIPTION: level => {
-      return `+${PRODUCTS.PUBLISHER.NEXT_BONUS(level)} % HP`;
-    },
-    CURRENT_BONUS_DESCRIPTION: level => {
-      return `+${PRODUCTS.PUBLISHER.CURRENT_BONUS(level)} % HP`;
+    BONUS_DESCRIPTION: level => {
+      return `+${PRODUCTS.PUBLISHER.GET_BONUS(level)} % HP`;
     }
   },
   INFLUENCERS: {
@@ -57,23 +35,11 @@ export const PRODUCTS = {
     INCOME: 25,
     RATE: 60000, // every minute
     MULTIPLIER: 1.1,
-    NEXT_BONUS: level => {
-      return (
-        PRODUCTS.INFLUENCERS.INCOME *
-        PRODUCTS.INFLUENCERS.MULTIPLIER ** (level + 1)
-      ).toFixed(3);
+    GET_BONUS: level => {
+      return toFixedRound(PRODUCTS.INFLUENCERS.INCOME * level, 1);
     },
-    CURRENT_BONUS: level => {
-      return (
-        PRODUCTS.INFLUENCERS.INCOME *
-        PRODUCTS.INFLUENCERS.MULTIPLIER ** level
-      ).toFixed(3);
-    },
-    NEXT_BONUS_DESCRIPTION: level => {
-      return `+${PRODUCTS.INFLUENCERS.NEXT_BONUS(level)} SC per minute`;
-    },
-    CURRENT_BONUS_DESCRIPTION: level => {
-      return `+${PRODUCTS.INFLUENCERS.CURRENT_BONUS(level)} SC per minute`;
+    BONUS_DESCRIPTION: level => {
+      return `+${PRODUCTS.INFLUENCERS.GET_BONUS(level)} SC per minute`;
     }
   },
   AUDIENCES: {
@@ -83,48 +49,24 @@ export const PRODUCTS = {
     COST: 50,
     BONUS: 0.01,
     MULTIPLIER: 1.3,
-    NEXT_BONUS: level => {
-      return (
-        PRODUCTS.AUDIENCES.BONUS *
-        PRODUCTS.AUDIENCES.MULTIPLIER ** (level + 1)
-      ).toFixed(3);
+    GET_BONUS: level => {
+      return toFixedRound(PRODUCTS.AUDIENCES.BONUS * level * 100, 1);
     },
-    CURRENT_BONUS: level => {
-      return (
-        PRODUCTS.AUDIENCES.BONUS *
-        PRODUCTS.AUDIENCES.MULTIPLIER ** level
-      ).toFixed(3);
-    },
-    NEXT_BONUS_DESCRIPTION: level => {
-      return `+${PRODUCTS.AUDIENCES.NEXT_BONUS(level)} % Chance`;
-    },
-    CURRENT_BONUS_DESCRIPTION: level => {
-      return `+${PRODUCTS.AUDIENCES.CURRENT_BONUS(level)} % Chance`;
+    BONUS_DESCRIPTION: level => {
+      return `+${PRODUCTS.AUDIENCES.GET_BONUS(level)} % Chance`;
     }
   },
   ANALYTICS: {
     NAME: "Analytics",
     DESCRIPTION: "Boosts your damage to comments",
     COST: 100,
-    BONUS: 0.5,
+    BONUS: 1.2,
     MULTIPLIER: 1.2,
-    NEXT_BONUS: level => {
-      return (
-        PRODUCTS.ANALYTICS.BONUS *
-        PRODUCTS.ANALYTICS.MULTIPLIER ** (level + 1)
-      ).toFixed(3);
+    GET_BONUS: level => {
+      return toFixedRound(PRODUCTS.ANALYTICS.BONUS ** level, 2);
     },
-    CURRENT_BONUS: level => {
-      return (
-        PRODUCTS.ANALYTICS.BONUS *
-        PRODUCTS.ANALYTICS.MULTIPLIER ** level
-      ).toFixed(3);
-    },
-    NEXT_BONUS_DESCRIPTION: level => {
-      return `+${PRODUCTS.ANALYTICS.NEXT_BONUS(level)} DMG`;
-    },
-    CURRENT_BONUS_DESCRIPTION: level => {
-      return `+${PRODUCTS.ANALYTICS.CURRENT_BONUS(level)} DMG`;
+    BONUS_DESCRIPTION: level => {
+      return `${PRODUCTS.ANALYTICS.GET_BONUS(level)}x DMG`;
     }
   }
 };
@@ -198,7 +140,7 @@ export const IS_BOSS = wave => wave % 10 === 0;
 export const BASE_DAMAGE = 1;
 
 export const GET_DAMAGE = (baseDamage, analytics) => {
-  return baseDamage * PRODUCTS.ANALYTICS.MULTIPLIER ** analytics;
+  return baseDamage * PRODUCTS.ANALYTICS.BONUS ** analytics;
 };
 
 export const GET_AUDIENCES_CHANCE = audiences => {
