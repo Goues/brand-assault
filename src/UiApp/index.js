@@ -10,6 +10,7 @@ import PauseContinue from "./pause-continue/pause-continue";
 import SocialCredit from "./social-credit/social-credit";
 import DefendTowers from "./defend-towers/defend-towers";
 import WavesSurvived from "./waves-survived/waves-survived";
+import Enemies from "./enemies/enemies";
 
 export default function UiApp() {
   const credits = useSelector((state) => state.credits);
@@ -27,8 +28,8 @@ export default function UiApp() {
         <DefendTowers towers={towers} maxTowers={communityLevel}/>
       </div>
       <WavesSurvived survived={wavesSurvived} />
-      {/* <div>Incoming Comments</div>
-      <div>Legend</div> */}
+      <Enemies />
+      {/* <div>Incoming Comments</div>*/}
     </div>
   );
 }
