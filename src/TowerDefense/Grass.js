@@ -5,30 +5,49 @@ import { TOWER_TYPES } from "./config";
 import { buildTower } from "../towers";
 import store from "../gameState";
 
+const TEXTURES = {
+  PASSIVE: PIXI.Texture.from("/space_for_tower.png"),
+  ACTIVE: PIXI.Texture.from("/space_active_for_tower.png"),
+  HOVER: PIXI.Texture.from("/add_tower.png")
+};
+
 class Grass extends Tile {
   constructor(path) {
-    super(PIXI.Texture.from("/add_tower.png"), path);
+    super(TEXTURES.PASSIVE, path);
     this.interactive = true;
     this.buttonMode = true;
     this.on("pointerdown", this.onClick);
-    this.alpha = 0;
     this.tower = null;
+
+    this.unsubscribe = store.subscribe(this.detectStoreChange);
   }
 
   mouseover(e) {
-    this.alpha = 1;
+    if (this.canBuildTower) {
+      this.texture = TEXTURES.HOVER;
+    }
   }
 
   mouseout() {
-    this.alpha = 0;
+    this.texture = this.canBuildTower ? TEXTURES.ACTIVE : TEXTURES.PASSIVE;
   }
 
-  buildNewTower(e) {
+  detectStoreChange = () => {
     const {
       towers,
       products: { COMMUNITY }
     } = store.getState();
-    if (towers.length >= COMMUNITY) return;
+
+    const canBuildTower = towers.length < COMMUNITY;
+
+    if (canBuildTower !== this.canBuildTower) {
+      this.texture = canBuildTower ? TEXTURES.ACTIVE : TEXTURES.PASSIVE;
+      this.canBuildTower = canBuildTower;
+    }
+  };
+
+  buildNewTower(e) {
+    if (!this.canBuildTower) return;
 
     const { x, y } = this.grid;
     store.dispatch(buildTower(x, y));
@@ -48,6 +67,11 @@ class Grass extends Tile {
     }
     this.upgradeTower(e);
   };
+
+  destroy() {
+    this.unsubscribe();
+    super.destroy();
+  }
 }
 
 export default Grass;
