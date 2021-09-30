@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { MAP, TILES_X, TILES_Y, GAME_WIDTH, GAME_HEIGHT, HQ } from './config'
 import * as PIXI from 'pixi.js'
+import preload from './Preloader'
 import Enemy from './Enemy'
 import Grass from './Grass'
 import Road from './Road'
@@ -28,22 +29,21 @@ function mountPixi(el) {
 		backgroundAlpha: 0,
 		autoStart: false,
 	})
-	// Render background tiles
-	app.loader.load((loader, resources) => {
-		for (let x = 0; x < TILES_X; x++) {
-			for (let y = 0; y < TILES_Y; y++) {
-				let tile
-				if (x === HQ.x && y === HQ.y) {
-					tile = new Hq({ x, y })
-				} else if (MAP[x] && MAP[x][y]) {
-					tile = new Road(MAP[x][y])
-				} else {
-					tile = new Grass({ x, y })
-				}
-				app.stage.addChild(tile)
+	preload(app.loader)
+
+	for (let x = 0; x < TILES_X; x++) {
+		for (let y = 0; y < TILES_Y; y++) {
+			let tile
+			if (x === HQ.x && y === HQ.y) {
+				tile = new Hq({ x, y })
+			} else if (MAP[x] && MAP[x][y]) {
+				tile = new Road(MAP[x][y])
+			} else {
+				tile = new Grass({ x, y })
 			}
+			app.stage.addChild(tile)
 		}
-	})
+	}
 
 	app.ticker.stop()
 
