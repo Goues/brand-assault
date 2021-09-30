@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from '../Button'
 import { toFixedRound } from '../utils'
@@ -19,9 +19,8 @@ import SocialCredit from './Icons/SocialCredit'
 const COMPONENTS = {
   COMMUNITY: {
     Icon: <Community className={css.icon} />,
-    BonusDescription: ({ product }) => {
-      const level = useSelector((state) => state.products[product])
-      const bonus = useMemo(() => PRODUCTS[product].GET_BONUS(level), [product, level])
+    BonusDescription: ({ product, owned }) => {
+      const bonus = PRODUCTS[product].GET_BONUS(owned)
 
       return (
         <div className={css.bonusCurrent}>
@@ -32,9 +31,8 @@ const COMPONENTS = {
         </div>
       )
     },
-    NextBonusDescription: ({ product }) => {
-      const level = useSelector((state) => state.products[product])
-      const bonus = useMemo(() => PRODUCTS[product].GET_BONUS(level + 1), [product, level])
+    NextBonusDescription: ({ product, owned }) => {
+      const bonus = PRODUCTS[product].GET_BONUS(owned + 1)
 
       return (
         <div className={css.dialogBonusIncrease}>
@@ -48,9 +46,8 @@ const COMPONENTS = {
   },
   PUBLISHER: {
     Icon: <Publisher className={css.icon} />,
-    BonusDescription: ({ product }) => {
-      const level = useSelector((state) => state.products[product])
-      const bonus = useMemo(() => PRODUCTS[product].GET_BONUS(level), [product, level])
+    BonusDescription: ({ product, owned }) => {
+      const bonus = PRODUCTS[product].GET_BONUS(owned)
 
       return (
         <div className={css.bonusCurrent}>
@@ -59,9 +56,8 @@ const COMPONENTS = {
         </div>
       )
     },
-    NextBonusDescription: ({ product }) => {
-      const level = useSelector((state) => state.products[product])
-      const bonus = useMemo(() => PRODUCTS[product].GET_BONUS(level + 1), [product, level])
+    NextBonusDescription: ({ product, owned }) => {
+      const bonus = PRODUCTS[product].GET_BONUS(owned + 1)
 
       return (
         <div className={css.dialogBonusIncrease}>
@@ -73,9 +69,8 @@ const COMPONENTS = {
   },
   INFLUENCERS: {
     Icon: <Influencers className={css.icon} />,
-    BonusDescription: ({ product }) => {
-      const level = useSelector((state) => state.products[product])
-      const bonus = useMemo(() => PRODUCTS[product].GET_BONUS(level), [product, level])
+    BonusDescription: ({ product, owned }) => {
+      const bonus = PRODUCTS[product].GET_BONUS(owned)
 
       return (
         <div className={css.bonusCurrent}>
@@ -84,9 +79,8 @@ const COMPONENTS = {
         </div>
       )
     },
-    NextBonusDescription: ({ product }) => {
-      const level = useSelector((state) => state.products[product])
-      const bonus = useMemo(() => PRODUCTS[product].GET_BONUS(level + 1), [product, level])
+    NextBonusDescription: ({ product, owned }) => {
+      const bonus = PRODUCTS[product].GET_BONUS(owned + 1)
 
       return (
         <div className={css.dialogBonusIncrease}>
@@ -100,9 +94,8 @@ const COMPONENTS = {
   },
   ANALYTICS: {
     Icon: <Analytics className={css.icon} />,
-    BonusDescription: ({ product }) => {
-      const level = useSelector((state) => state.products[product])
-      const bonus = useMemo(() => PRODUCTS[product].GET_BONUS(level), [product, level])
+    BonusDescription: ({ product, owned }) => {
+      const bonus = PRODUCTS[product].GET_BONUS(owned)
 
       return (
         <div className={css.bonusCurrent}>
@@ -111,9 +104,8 @@ const COMPONENTS = {
         </div>
       )
     },
-    NextBonusDescription: ({ product }) => {
-      const level = useSelector((state) => state.products[product])
-      const bonus = useMemo(() => PRODUCTS[product].GET_BONUS(level + 1), [product, level])
+    NextBonusDescription: ({ product, owned }) => {
+      const bonus = PRODUCTS[product].GET_BONUS(owned + 1)
 
       return (
         <div className={css.dialogBonusIncrease}>
@@ -125,9 +117,8 @@ const COMPONENTS = {
   },
   AUDIENCES: {
     Icon: <Audiences className={css.icon} />,
-    BonusDescription: ({ product }) => {
-      const level = useSelector((state) => state.products[product])
-      const bonus = useMemo(() => PRODUCTS[product].GET_BONUS(level), [product, level])
+    BonusDescription: ({ product, owned }) => {
+      const bonus = PRODUCTS[product].GET_BONUS(owned)
 
       return (
         <div className={css.bonusCurrent}>
@@ -136,9 +127,8 @@ const COMPONENTS = {
         </div>
       )
     },
-    NextBonusDescription: ({ product }) => {
-      const level = useSelector((state) => state.products[product])
-      const bonus = useMemo(() => PRODUCTS[product].GET_BONUS(level + 1), [product, level])
+    NextBonusDescription: ({ product, owned }) => {
+      const bonus = PRODUCTS[product].GET_BONUS(owned + 1)
 
       return (
         <div className={css.dialogBonusIncrease}>
@@ -150,14 +140,14 @@ const COMPONENTS = {
   },
 }
 
-const Dialog = ({ product }) => {
+const Dialog = ({ product, owned }) => {
   return (
     <div className={css.dialog}>
       <div className={css.dialogHeader}>Perks on next level</div>
       <div className={css.dialogBonus}>
         <span className={css.dialogBonusIncrease}></span>
-        {COMPONENTS[product].NextBonusDescription({ product })}
-        {COMPONENTS[product].BonusDescription({ product })}
+        {COMPONENTS[product].NextBonusDescription({ product, owned })}
+        {COMPONENTS[product].BonusDescription({ product, owned })}
       </div>
     </div>
   )
@@ -170,6 +160,14 @@ export default function Product({ name, product, credits, onClick }) {
   const lastTick = useRef()
   const nextCost = PRODUCTS_GET_COST(product, owned + 1)
   const { DESCRIPTION: description } = PRODUCTS[product]
+  const [isHidden, setIsHidden] = useState(product !== 'COMMUNITY')
+  const isHiddenTreshold = credits > nextCost * 2
+
+  useEffect(() => {
+    if (isHidden && isHiddenTreshold) {
+      setIsHidden(false)
+    }
+  }, [isHidden, setIsHidden, isHiddenTreshold])
 
   const onUpgrade = () => {
     dispatch(subtractCredits(nextCost))
@@ -195,6 +193,8 @@ export default function Product({ name, product, credits, onClick }) {
     })
   }, [product, isOwned, dispatch])
 
+  if (isHidden) return null
+
   return (
     <div className={css.product}>
       <div className={css.header}>
@@ -207,14 +207,14 @@ export default function Product({ name, product, credits, onClick }) {
       <div className={css.descriptionContainer}>
         <div className={css.descriptionText}>
           {description}
-          {COMPONENTS[product].BonusDescription({ product })}
+          {COMPONENTS[product].BonusDescription({ product, owned })}
         </div>
       </div>
       <div className={css.actions}>
         <Button disabled={nextCost > credits} onClick={onUpgrade}>
           Upgrade for {toFixedRound(nextCost, 1)} SC
         </Button>
-        <Tippy content={<Dialog product={product} />}>
+        <Tippy content={<Dialog product={product} owned={owned} />}>
           <Info className={css.descriptionInfo} />
         </Tippy>
       </div>
