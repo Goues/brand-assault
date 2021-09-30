@@ -2,11 +2,11 @@ import {
   useSelector,
   // useDispatch
 } from "react-redux";
-import { run, stop } from "../clock";
+import { stop } from "../clock";
 import { toFixedRound } from "../utils";
 import css from "./index.module.css";
 
-import PauseContinue from "./pause-continue/pause-continue";
+import Pause from "./pause/pause";
 import SocialCredit from "./social-credit/social-credit";
 import DefendTowers from "./defend-towers/defend-towers";
 import WavesSurvived from "./waves-survived/waves-survived";
@@ -22,7 +22,7 @@ export default function UiApp() {
 
   return (
     <div>
-      <PauseContinue isRunning={isRunning} onPause={stop} onContinue={run}/>
+      <Pause isRunning={isRunning} onPause={stop} />
       <div className={css.creditsTowers}>
         <SocialCredit credits={toFixedRound(credits, 1)}/>
         <DefendTowers towers={towers} maxTowers={communityLevel}/>

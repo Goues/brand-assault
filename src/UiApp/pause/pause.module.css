@@ -1,4 +1,4 @@
-.pauseContinue {
+.pause {
     all: unset;
     cursor: pointer;
 
@@ -9,7 +9,7 @@
     top: 24px;
 }
 
-.pauseContinueText {
+.pauseText {
     font-size: 16px;
     margin-left: 16px;
     color: #2F3744;
