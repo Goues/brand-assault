@@ -8,6 +8,7 @@ import * as clock from './clock'
 import GameOver from './GameOver'
 import GamePaused from './GamePaused'
 import GameInit from './GameInit'
+import SpawnNextWaveButton from './UiApp/spawn-next-wave-button/spawn-next-wave-button'
 
 function App() {
   useEffect(() => {
@@ -40,6 +41,7 @@ function App() {
             <IdleApp />
           </div>
           <div className="App-td">
+            <SpawnNextWaveButton />
             <TowerDefenseApp />
           </div>
           <div className="App-ui">

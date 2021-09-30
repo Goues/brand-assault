@@ -2,45 +2,46 @@ body,
 html,
 #root,
 .App {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: 'Roboto';
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	font-family: 'Roboto';
 }
 
 .App {
-  position: relative;
-  color: #000000;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 13px;
-  line-height: 18px;
-  background-color: #f3f3f5;
-  overflow: auto;
+	position: relative;
+	color: #000000;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 13px;
+	line-height: 18px;
+	background-color: #f3f3f5;
+	overflow: auto;
 }
 
 .App-stage {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  grid-gap: 2em;
-  margin-top: 84px;
-  margin-left: 42px;
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	grid-gap: 2em;
+	margin-top: 84px;
+	margin-left: 42px;
 }
 
 .App-td {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
 }
 
 .Game {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
 }
