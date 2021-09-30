@@ -61,7 +61,7 @@ class Enemy extends PIXI.Sprite {
     const analytics = store.getState().products.ANALYTICS;
     const damage = GET_DAMAGE(baseDamage, analytics);
 
-    this.addChild(new Damage(damage));
+    this.parent.addChild(new Damage(damage, this));
     this.hitpoints -= damage;
     if (this.hitpoints <= 0) {
       this.destroy();
