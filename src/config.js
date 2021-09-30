@@ -11,7 +11,7 @@ export const PRODUCTS = {
     NAME: "Publisher",
     DESCRIPTION: "Positive comments gain 0.5 % more HP",
     COST: 10,
-    BONUS: 0.5,
+    BONUS: 0.005,
     MULTIPLIER: 1.2
   },
   INFLUENCERS: {
@@ -86,9 +86,14 @@ export const GET_COMMENTS_FOR_WAVE = wave => ({
   )
 });
 
-export const GET_COMMENTS_HP_FOR_WAVE = wave => ({
+export const GET_COMMENTS_HP_FOR_WAVE = (wave, publisher) => ({
   comment: Math.floor(
     HIT_POINTS.COMMENT.INITIAL * HIT_POINTS.COMMENT.MULTIPLIER ** (wave - 1)
+  ),
+  positive: Math.floor(
+    HIT_POINTS.COMMENT.INITIAL *
+      HIT_POINTS.COMMENT.MULTIPLIER ** (wave - 1) *
+      (1 + PRODUCTS.PUBLISHER.BONUS * publisher)
   ),
   hater: Math.floor(
     HIT_POINTS.HATER.INITIAL * HIT_POINTS.HATER.MULTIPLIER ** ((wave - 5) / 5)

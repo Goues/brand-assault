@@ -32,7 +32,10 @@ class Tower extends PIXI.Sprite {
     if (!this.target) {
       this.target = Array.from(this.parent.wave.enemies).find(enemy => {
         return (
-          !enemy.destoryed && enemy.traveled >= 0 && isWithinRange(this, enemy)
+          !enemy.destoryed &&
+          enemy.traveled >= 0 &&
+          enemy.type !== "positive" &&
+          isWithinRange(this, enemy)
         );
       });
     }

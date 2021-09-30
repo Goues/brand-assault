@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import { GET_COMMENTS_FOR_WAVE, GET_COMMENTS_HP_FOR_WAVE } from "../config";
 import Enemy from "./Enemy";
+import store from "../gameState";
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -12,13 +13,14 @@ function shuffleArray(array) {
 }
 
 export default class Wave extends PIXI.Container {
-  constructor(index, onDestroyed) {
+  constructor(index) {
     super();
     this.index = index;
-    this.onDestroyed = onDestroyed;
+
+    const publisher = store.getState().products.PUBLISHER;
 
     this.comments = GET_COMMENTS_FOR_WAVE(index);
-    this.hp = GET_COMMENTS_HP_FOR_WAVE(index);
+    this.hp = GET_COMMENTS_HP_FOR_WAVE(index, publisher);
 
     this.enemies = [];
 
@@ -31,7 +33,7 @@ export default class Wave extends PIXI.Container {
     }
 
     for (let i = 0; i < this.comments.POSITIVE; i++) {
-      this.enemies.push(["positive", this.hp.comment]);
+      this.enemies.push(["positive", this.hp.positive]);
     }
 
     shuffleArray(this.enemies);
