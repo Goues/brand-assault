@@ -1,49 +1,47 @@
 .enemies {
-    position: absolute;
-    right: 42px;
-    bottom: 84px;
-    text-align: right;
-    width: 320px;
+	margin-right: 42px;
+	text-align: right;
+	width: 320px;
 }
 
 .header {
-    all: unset;
-    font-weight: bold;
-    color: #2F3744;
-    font-size: 20px;
-    margin-bottom: 24px;
-    display: block;
+	all: unset;
+	font-weight: bold;
+	color: #2f3744;
+	font-size: 20px;
+	margin-bottom: 24px;
+	display: block;
 }
 
 .enemiesList {
-    opacity: 65%;
+	opacity: 65%;
 }
 
 .enemiesList:hover {
-    opacity: 100%;
+	opacity: 100%;
 }
 
 .enemy {
-    margin-bottom: 24px;
-    display: flex;
-    justify-content: flex-end;
+	margin-bottom: 24px;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .enemyName {
-    color: #2F3744;
-    font-variant: small-caps;
-    font-weight: bold;
-    font-size: 13px;
+	color: #2f3744;
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: 13px;
 }
 
 .enemyDescription {
-    font-size: 11px;
-    line-height: 16px;
-    color: #2F3744;
+	font-size: 11px;
+	line-height: 16px;
+	color: #2f3744;
 }
 
 .enemyIcon {
-    width: 24px;
-    height: 24px;
-    margin-left: 16px;
+	width: 24px;
+	height: 24px;
+	margin-left: 16px;
 }

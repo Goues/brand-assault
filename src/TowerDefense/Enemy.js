@@ -5,6 +5,7 @@ import store from '../gameState'
 import { addCredits, subtractCredits } from '../credits'
 import Hitpoints from './Hitpoints'
 import Damage from './Damage'
+import { incrementCreditsLost, incrementEnemiesKilled, incrementEnemiesLeaked } from '../stats'
 
 const IMAGE = {
 	negative: '/comment_negative.png',
@@ -41,7 +42,7 @@ class Enemy extends PIXI.Sprite {
 		this.height = SIZE[type]
 		this.center = {
 			x: this.x + this.width / 2,
-			y: this.y + this.height / 2
+			y: this.y + this.height / 2,
 		}
 
 		this.velocity = 0.1 + (0.5 - Math.random()) * 0.01 // per 1s
@@ -76,6 +77,7 @@ class Enemy extends PIXI.Sprite {
 		this.parent.addChild(new Damage(damage, this))
 		this.hitpoints -= damage
 		if (this.hitpoints <= 0) {
+			store.dispatch(incrementEnemiesKilled())
 			this.destroy()
 			return
 		}
@@ -107,6 +109,10 @@ class Enemy extends PIXI.Sprite {
 					break
 				default:
 					store.dispatch(subtractCredits(this.hitpoints))
+					// stats
+					store.dispatch(incrementCreditsLost(this.hitpoints))
+					store.dispatch(incrementEnemiesLeaked())
+
 					this.destroy()
 					break
 			}
@@ -145,7 +151,7 @@ class Enemy extends PIXI.Sprite {
 		this.y = y
 		this.center = {
 			x: this.x + this.width / 2,
-			y: this.y + this.height / 2
+			y: this.y + this.height / 2,
 		}
 
 		for (const child of this.children) {

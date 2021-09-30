@@ -9,6 +9,8 @@ import GamePaused from './GamePaused'
 import GameInit from './GameInit'
 import SpawnNextWaveButton from './UiApp/spawn-next-wave-button/spawn-next-wave-button'
 import EnemyCounter from './UiApp/enemy-counter/enemy-counter'
+import Stats from './UiApp/stats/stats'
+import Enemies from './UiApp/enemies/enemies'
 
 function App() {
 	useEffect(() => {
@@ -46,6 +48,8 @@ function App() {
 						<TowerDefenseApp />
 					</div>
 					<div className='App-ui'>
+						<Stats />
+						<Enemies />
 						<UiApp />
 					</div>
 				</div>

@@ -1,0 +1,40 @@
+.stats {
+	margin-right: 42px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.header {
+	font-weight: bold;
+	color: #2f3744;
+	font-size: 20px;
+	text-align: right;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.stat {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.label {
+	font-size: 12px;
+	line-height: 20px;
+}
+
+.value {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 5px;
+	min-width: 70px;
+	font-size: 12px;
+	line-height: 20px;
+}
