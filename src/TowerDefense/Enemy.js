@@ -98,14 +98,10 @@ class Enemy extends PIXI.Sprite {
 			switch (this.type) {
 				case 'positive':
 					store.dispatch(addCredits(this.hitpoints))
-					this.destroy()
 					break
 				case 'neutral':
-					this.x = -this.size
-					this.y = -this.size
 					this.type = 'negative'
 					this.texture = PIXI.Texture.from(IMAGE[this.type])
-					this.traveled = 0
 					break
 				default: {
 					let credits = this.hitpoints
@@ -116,11 +112,12 @@ class Enemy extends PIXI.Sprite {
 					// stats
 					store.dispatch(incrementCreditsLost(credits))
 					store.dispatch(incrementEnemiesLeaked())
-
-					this.destroy()
 					break
 				}
 			}
+			this.x = -this.size
+			this.y = -this.size
+			this.traveled = 0
 			return
 		}
 
