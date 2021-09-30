@@ -27,7 +27,7 @@ export const PRODUCTS = {
     DESCRIPTION:
       "Convert negative comments to neutral at the start of the wave",
     COST: 50,
-    BONUS: 2,
+    BONUS: 0.01,
     MULTIPLIER: 1.3
   },
   ANALYTICS: {
@@ -109,4 +109,8 @@ export const BASE_DAMAGE = 1;
 
 export const GET_DAMAGE = (baseDamage, analytics) => {
   return baseDamage * PRODUCTS.ANALYTICS.MULTIPLIER ** analytics;
+};
+
+export const GET_AUDIENCES_CHANCE = audiences => {
+  return Math.random() < PRODUCTS.AUDIENCES.BONUS * audiences;
 };

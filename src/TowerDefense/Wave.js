@@ -1,5 +1,9 @@
 import * as PIXI from "pixi.js";
-import { GET_COMMENTS_FOR_WAVE, GET_COMMENTS_HP_FOR_WAVE } from "../config";
+import {
+  GET_COMMENTS_FOR_WAVE,
+  GET_COMMENTS_HP_FOR_WAVE,
+  GET_AUDIENCES_CHANCE
+} from "../config";
 import Enemy from "./Enemy";
 import store from "../gameState";
 
@@ -17,7 +21,10 @@ export default class Wave extends PIXI.Container {
     super();
     this.index = index;
 
-    const publisher = store.getState().products.PUBLISHER;
+    const {
+      PUBLISHER: publisher,
+      AUDIENCES: audiences
+    } = store.getState().products;
 
     this.comments = GET_COMMENTS_FOR_WAVE(index);
     this.hp = GET_COMMENTS_HP_FOR_WAVE(index, publisher);
@@ -25,7 +32,9 @@ export default class Wave extends PIXI.Container {
     this.enemies = [];
 
     for (let i = 0; i < this.comments.NEGATIVE; i++) {
-      this.enemies.push(["negative", this.hp.comment]);
+      const isConverted = GET_AUDIENCES_CHANCE(audiences);
+      const type = isConverted ? "neutral" : "negative";
+      this.enemies.push([type, this.hp.comment]);
     }
 
     for (let i = 0; i < this.comments.NEUTRAL; i++) {
