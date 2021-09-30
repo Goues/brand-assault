@@ -167,6 +167,9 @@ class Enemy extends PIXI.Sprite {
 				this.lastSpawn -= this.spawnInterval
 			}
 		}
+
+		// make the enemy sway from side to side
+		this.rotation = Math.sin(this.traveled * 0.1) * delta * 0.005
 	}
 
 	destroy() {
