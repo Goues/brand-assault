@@ -24,7 +24,7 @@ function detectGameOver(app) {
         app.stage.removeChild(child);
       }
     }
-    app.ticker.stop();
+    clock.stop();
   }
 }
 
