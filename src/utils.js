@@ -1,5 +1,5 @@
 export const toFixedRound = (number, decimals) =>
-  number.toFixed(decimals).replace(/.?0+$/, "");
+  number.toFixed(decimals).replace(/\.0+$/, "");
 
 export function getCenter({ x, y, width, height }) {
   return { x: x + width / 2, y: y + height / 2 };
