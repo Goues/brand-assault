@@ -40,7 +40,7 @@ class Enemy extends PIXI.Sprite {
     this.width = SIZE[type];
     this.height = SIZE[type];
     this.nextPathIndex = 0;
-    this.velocity = 0.1; // per 1s
+    this.velocity = 1; // per 1s
     this.hitpoints = hitpoints;
     this.interactive = true;
     this.buttonMode = true;
@@ -88,8 +88,8 @@ class Enemy extends PIXI.Sprite {
         default:
           store.dispatch(subtractCredits(this.hitpoints));
           this.destroy();
-          return;
       }
+      return;
     }
 
     let remainder = this.traveled % TILE_WIDTH;
