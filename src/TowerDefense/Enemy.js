@@ -107,14 +107,19 @@ class Enemy extends PIXI.Sprite {
 					this.texture = PIXI.Texture.from(IMAGE[this.type])
 					this.traveled = 0
 					break
-				default:
-					store.dispatch(subtractCredits(this.hitpoints))
+				default: {
+					let credits = this.hitpoints
+					if (this.type === 'hater') {
+						credits /= 4
+					}
+					store.dispatch(subtractCredits(credits))
 					// stats
-					store.dispatch(incrementCreditsLost(this.hitpoints))
+					store.dispatch(incrementCreditsLost(credits))
 					store.dispatch(incrementEnemiesLeaked())
 
 					this.destroy()
 					break
+				}
 			}
 			return
 		}
