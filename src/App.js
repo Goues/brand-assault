@@ -6,6 +6,7 @@ import UiApp from "./UiApp";
 import "./App.css";
 import WorldMap from "./WorldMap"
 import * as clock from "./clock";
+import GameOver from "./GameOver";
 
 function App() {
   useEffect(() => {
@@ -21,6 +22,7 @@ function App() {
   }, []);
   return (
     <div className="App">
+      <GameOver />
       <div className="Game">
         <header className="App-header">
           <img src={logo} width="100" alt="logo" /> Brand assault

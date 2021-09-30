@@ -10,6 +10,7 @@ import * as clock from "../clock";
 import { setCurrent, setSurvived } from "../waves";
 import store from "../gameState";
 import css from "./TowerDefense.module.css";
+import { isGameOver } from "../credits";
 
 const TILES = {
   x: Road,
@@ -17,8 +18,7 @@ const TILES = {
 };
 
 function detectGameOver(app) {
-  const credits = store.getState().credits;
-  if (credits < 0) {
+  if (isGameOver(store.getState())) {
     for (const child of app.stage.children) {
       if (child instanceof Hq || child instanceof Enemy) {
         app.stage.removeChild(child);
