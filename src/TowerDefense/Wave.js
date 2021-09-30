@@ -65,8 +65,6 @@ export default class Wave extends PIXI.Container {
         return enemy;
       })
     );
-
-    console.debug(this);
   }
 
   onEnemyDestroy(enemy) {
