@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import { TILE_HEIGHT, TILE_WIDTH, TOWERS } from './config'
+import { BASE_TOWER, TILE_HEIGHT, TILE_WIDTH, TOWERS } from '../config'
 import { isWithinRange } from '../utils'
 import Bullet from './Bullet'
 import EnemyManager from './EnemyManager'
@@ -29,8 +29,9 @@ class Tower extends PIXI.Sprite {
 		this.damage = TOWERS[type].damage
 		this.chance = TOWERS[type].chance
 		this.slow = TOWERS[type].slow
-		this.attackArea = TOWERS[type].attackArea
-		this.range = 3 * TILE_WIDTH // temporary
+		this.range = BASE_TOWER.RANGE * TILE_WIDTH
+		this.burstArea = TOWERS[type].burstArea
+		this.burstDamage = TOWERS[type].burstDamage
 		this.firingSpeed = TOWERS[type].firingSpeed // temporary
 		this.lifespan = 0 // temporary
 		this.target = null // temporary
@@ -68,7 +69,7 @@ class Tower extends PIXI.Sprite {
 			enemy.traveled >= 0 &&
 			enemy.type in this.damage &&
 			this.shouldBeHit(enemy) &&
-			isWithinRange(this, enemy)
+			isWithinRange(this, enemy, this.range)
 		)
 	}
 
@@ -101,17 +102,29 @@ class Tower extends PIXI.Sprite {
 	}
 
 	performAttackOnTarget(target) {
-		this.parent.addChild(new Bullet(this.center, target, this.damage[target.type]))
-		if (this.slow && target.type in this.slow && !target.slowed) {
-			target.velocity -= target.velocity * this.slow[target.type]
-			target.slowed = true
-		}
-	}
+		let effect
 
-	performAttackOnArea() {
-		for (const enemy of EnemyManager.get()) {
-			if (this.isValidTarget(enemy)) this.performAttackOnTarget(enemy)
+		if (this.slow && target.type in this.slow && !target.slowed) {
+			// slowing effect, slows current enemy on hit
+			effect = (target) => {
+				target.velocity -= target.velocity * this.slow[target.type]
+				target.slowed = true
+			}
+		} else if (this.burstArea) {
+			// burst effect, hit all enemies within burst area
+			effect = (target) => {
+				EnemyManager.get().forEach((enemy) => {
+					if (enemy === target) return
+					if (!isWithinRange(target, enemy, this.burstArea)) return
+
+					enemy.hit(this.burstDamage)
+				})
+			}
 		}
+
+		this.parent.addChild(
+			new Bullet(this.center, target, this.damage[target.type], effect)
+		)
 	}
 
 	update(delta) {
@@ -120,12 +133,8 @@ class Tower extends PIXI.Sprite {
 		while (this.lifespan >= this.firingSpeed) {
 			this.lifespan -= this.firingSpeed
 
-			if (this.attackArea) {
-				this.performAttackOnArea()
-			} else {
-				const target = this.getTarget()
-				if (target) this.performAttackOnTarget(target)
-			}
+			const target = this.getTarget()
+			if (target) this.performAttackOnTarget(target)
 		}
 	}
 }

@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js";
 import { getDistanceFromCenters, getDistanceSquare } from "../utils";
 
 class Bullet extends PIXI.Sprite {
-  constructor(tower, target, damage) {
+  constructor(tower, target, damage, effect) {
     super(PIXI.Texture.from("/bullet.png"));
     this.width = 20;
     this.height = 20;
@@ -15,6 +15,7 @@ class Bullet extends PIXI.Sprite {
 			x: this.x + this.width / 2,
 			y: this.y + this.height / 2
 		}
+    this.effect = effect
 
   }
 
@@ -43,6 +44,7 @@ class Bullet extends PIXI.Sprite {
       moveBy * moveBy
     ) {
       this.target.hit(this.damage);
+      this.effect(this.target)
       this.destroy();
       return;
     }

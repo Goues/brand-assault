@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 import Tile from './Tile'
 import Tower from './Tower'
-import { TOWER_TYPES } from './config'
+import { TOWER_TYPES } from '../config'
 import { buildTower } from '../towers'
 import store from '../gameState'
 

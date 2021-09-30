@@ -1,5 +1,13 @@
 import { toFixedRound } from './utils'
 
+export const GAME_WIDTH = 600;
+export const GAME_HEIGHT = 600;
+export const TILES_X = 10;
+export const TILES_Y = 10;
+export const TILE_WIDTH = GAME_WIDTH / TILES_X;
+export const TILE_HEIGHT = GAME_HEIGHT / TILES_Y;
+
+
 export const PRODUCTS = {
   COMMUNITY: {
     NAME: 'Community',
@@ -63,22 +71,22 @@ export const PRODUCTS_GET_COST = (product, level) => {
 export const COMMENTS = {
   NEGATIVE: {
     INITIAL: 8,
-    MULTIPLIER: 1.05,
+    MULTIPLIER: 1.1,
   },
   NEUTRAL: {
     INITIAL: 2,
-    MULTIPLIER: 1.05,
+    MULTIPLIER: 1.1,
   },
   POSITIVE: {
     INITIAL: 0.9,
-    MULTIPLIER: 1.05,
+    MULTIPLIER: 1.1,
   },
 }
 
 export const HIT_POINTS = {
   COMMENT: {
     INITIAL: 10,
-    MULTIPLIER: 1.2,
+    MULTIPLIER: 1.25,
   },
   HATER: {
     INITIAL: 50,
@@ -120,3 +128,90 @@ export const GET_DAMAGE = (baseDamage, analytics) => {
 export const GET_AUDIENCES_CHANCE = (audiences) => {
   return Math.random() < PRODUCTS.AUDIENCES.BONUS * audiences
 }
+
+export const BASE_TOWER = {
+  RANGE: 2,
+  FIRING_SPEED: 1000,
+  DAMAGE: 1,
+}
+
+export const TOWER_TYPES = {
+  DEFAULT: "DEFAULT",
+  QUICK_TO_BAN_AGENT: "QUICK_TO_BAN_AGENT",
+  PURGER: "PURGER",
+  OPTIMIST: "OPTIMIST",
+  POWER_USER: "POWER_USER",
+  BUSY_BEE: "BUSY_BEE"
+};
+
+export const TOWERS = {
+  DEFAULT: {
+    damage: {
+      negative: BASE_TOWER.DAMAGE,
+      neutral: BASE_TOWER.DAMAGE,
+      hater: BASE_TOWER.DAMAGE,
+      influencer: BASE_TOWER.DAMAGE
+    },
+    firingSpeed: BASE_TOWER.FIRING_SPEED,
+    cost: 0
+  },
+  QUICK_TO_BAN_AGENT: {
+    damage: {
+      negative: BASE_TOWER.DAMAGE,
+      positive: BASE_TOWER.DAMAGE,
+      neutral: BASE_TOWER.DAMAGE,
+      hater: BASE_TOWER.DAMAGE,
+      infuencer: BASE_TOWER.DAMAGE
+    },
+    chance: {
+      positive: 0.3
+    },
+    firingSpeed: BASE_TOWER.FIRING_SPEED,
+    cost: 20
+  },
+  PURGER: {
+    damage: {
+      negative: BASE_TOWER.DAMAGE * 2,
+      hater: BASE_TOWER.DAMAGE,
+      influencer: BASE_TOWER.DAMAGE
+    },
+    firingSpeed: BASE_TOWER.FIRING_SPEED,
+    cost: 30
+  },
+  OPTIMIST: {
+    damage: {
+      negative: BASE_TOWER.DAMAGE,
+      neutral: BASE_TOWER.DAMAGE,
+      hater: BASE_TOWER.DAMAGE,
+      influencer: BASE_TOWER.DAMAGE
+    },
+    slow: {
+      negative: 0.5
+    },
+    firingSpeed: BASE_TOWER.FIRING_SPEED,
+    cost: 20
+  },
+  POWER_USER: {
+    damage: {
+      negative: BASE_TOWER.DAMAGE,
+      neutral: BASE_TOWER.DAMAGE,
+      positive: BASE_TOWER.DAMAGE,
+      hater: BASE_TOWER.DAMAGE,
+      influencer: BASE_TOWER.DAMAGE
+    },
+    firingSpeed: BASE_TOWER.FIRING_SPEED * 1.5,
+    cost: 50,
+    burstArea: TILE_WIDTH / 2,
+    burstDamage: BASE_TOWER.DAMAGE
+  },
+  BUSY_BEE: {
+    damage: {
+      negative: BASE_TOWER.DAMAGE,
+      neutral: BASE_TOWER.DAMAGE,
+      hater: BASE_TOWER.DAMAGE,
+      influencer: BASE_TOWER.DAMAGE
+    },
+    cost: 30,
+    firingSpeed: BASE_TOWER.FIRING_SPEED / 2
+  }
+};
