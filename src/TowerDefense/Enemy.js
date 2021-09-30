@@ -77,6 +77,7 @@ class Enemy extends PIXI.Sprite {
       switch (this.type) {
         case "positive":
           store.dispatch(addCredits(this.hitpoints));
+          this.destroy();
           break;
         case "neutral":
           this.x = START_TILE.x * TILE_WIDTH + this.offset.x;
@@ -88,6 +89,7 @@ class Enemy extends PIXI.Sprite {
         default:
           store.dispatch(subtractCredits(this.hitpoints));
           this.destroy();
+          break;
       }
       return;
     }
