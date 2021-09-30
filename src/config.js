@@ -6,6 +6,7 @@ export const TILES_X = 11
 export const TILES_Y = 11
 export const TILE_WIDTH = GAME_WIDTH / TILES_X
 export const TILE_HEIGHT = GAME_HEIGHT / TILES_Y
+export const WAVE_TIMER_MS = 60000
 
 export const PRODUCTS = {
 	COMMUNITY: {

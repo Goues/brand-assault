@@ -3,12 +3,14 @@ import store from '../gameState'
 import { incrementSurvived, setCurrent, setRemainingEnemies } from '../waves'
 import Wave from './Wave'
 import EnemyManager from './EnemyManager'
+import { WAVE_TIMER_MS } from '../config'
 
 class WaveManager extends PIXI.Container {
 	constructor() {
 		super()
 
 		this.level = 0
+		this.elapsed = null
 	}
 
 	spawnWave() {
@@ -32,9 +34,15 @@ class WaveManager extends PIXI.Container {
 		store.dispatch(setCurrent(this.level))
 
 		this.addChild(wave)
+		this.elapsed = 0
 	}
 
 	update(delta) {
+		if (this.elapsed === null || this.elapsed > WAVE_TIMER_MS) {
+			this.spawnWave()
+		}
+		this.elapsed += delta
+
 		for (const child of this.children) {
 			if (child.update) child.update(delta, this)
 		}
