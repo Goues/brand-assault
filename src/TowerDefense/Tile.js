@@ -7,10 +7,8 @@ class Tile extends PIXI.Sprite {
     this.grid = { x, y };
     this.width = TILE_WIDTH;
     this.height = TILE_HEIGHT;
-    this.x = x * TILE_WIDTH + this.width / 2;
-    this.y = y * TILE_HEIGHT + this.height / 2;
-    this.pivot.x = this.width / 2;
-    this.pivot.y = this.height / 2;
+    this.x = x * TILE_WIDTH;
+    this.y = y * TILE_HEIGHT;
   }
 }
 
