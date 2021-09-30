@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js'
 import { GET_COMMENTS_FOR_WAVE, GET_COMMENTS_HP_FOR_WAVE, GET_AUDIENCES_CHANCE } from '../config'
 import Enemy from './Enemy'
+import EnemyManager from './EnemyManager'
 import store from '../gameState'
 
 function shuffleArray(array) {
@@ -73,6 +74,9 @@ export default class Wave extends PIXI.Container {
 		})
 		this.emit('emeny-added', enemy)
 		this.addChild(enemy)
+
+		EnemyManager.add(enemy)
+	
 		return enemy
 	}
 

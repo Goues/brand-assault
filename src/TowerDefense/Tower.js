@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js'
 import { TILE_HEIGHT, TILE_WIDTH, TOWERS } from './config'
 import { getCenter, isWithinRange } from '../utils'
 import Bullet from './Bullet'
-import waveManager from './WaveManager'
+import EnemyManager from './EnemyManager'
 
 const IMAGE = {
 	DEFAULT: '/tower.png',
@@ -80,7 +80,7 @@ class Tower extends PIXI.Sprite {
 		}
 
 		if (!this.target) {
-			this.target = waveManager.getAllEnemies().find((enemy) => {
+			this.target = EnemyManager.get().find((enemy) => {
 				return this.isValidTarget(enemy)
 			})
 		}
@@ -106,7 +106,7 @@ class Tower extends PIXI.Sprite {
 	}
 
 	performAttackOnArea() {
-		for (const enemy of waveManager.getAllEnemies()) {
+		for (const enemy of EnemyManager.get()) {
 			if (this.isValidTarget(enemy)) this.performAttackOnTarget(enemy)
 		}
 	}
