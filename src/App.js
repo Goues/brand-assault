@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import IdleApp from './IdleApp'
 import TowerDefenseApp from './TowerDefense/TowerDefenseApp'
-import UiApp from './UiApp'
 import './App.css'
 import * as clock from './clock'
 import GameOver from './GameOver'
@@ -11,6 +10,7 @@ import SpawnNextWaveButton from './UiApp/spawn-next-wave-button/spawn-next-wave-
 import EnemyCounter from './UiApp/enemy-counter/enemy-counter'
 import Stats from './UiApp/stats/stats'
 import Enemies from './UiApp/enemies/enemies'
+import Header from './UiApp/header/header'
 
 function App() {
 	useEffect(() => {
@@ -38,6 +38,7 @@ function App() {
 			<GamePaused />
 			<GameOver />
 			<div className='Game'>
+				<Header />
 				<div className='App-stage'>
 					<div className='App-idle'>
 						<IdleApp />
@@ -50,7 +51,6 @@ function App() {
 					<div className='App-ui'>
 						<Stats />
 						<Enemies />
-						<UiApp />
 					</div>
 				</div>
 			</div>

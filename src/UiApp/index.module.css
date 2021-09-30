@@ -1,8 +1,0 @@
-.creditsTowers {
-    position: absolute;
-    top: 24px;
-    left: calc(50% - 300px);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-}

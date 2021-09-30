@@ -1,22 +1,23 @@
 .defendTowers {
-  display: flex;
-  align-items: center;
-  width: 300px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 300px;
 }
 
 .defendTowersText {
-  font-weight: bold;
-  font-size: 20px;
-  margin-left: 16px;
-  color: #2f3744;
+	font-weight: bold;
+	font-size: 20px;
+	margin-left: 16px;
+	color: #2f3744;
 }
 
 .dialog {
-  padding: 16px;
-  background: #ffffff;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  font-size: 13px;
-  line-height: 18px;
-  color: #000000;
+	padding: 16px;
+	background: #ffffff;
+	box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+	border-radius: 8px;
+	font-size: 13px;
+	line-height: 18px;
+	color: #000000;
 }

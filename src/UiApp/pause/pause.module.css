@@ -1,17 +1,19 @@
-.pause {
-    all: unset;
-    cursor: pointer;
+.pauseContainer {
+	display: flex;
+	align-items: center;
+}
 
-    display: flex;
-    align-items: center;
-    position: absolute;
-    left: 42px;
-    top: 24px;
+.pause {
+	all: unset;
+	cursor: pointer;
+
+	display: flex;
+	align-items: center;
+	margin-left: 42px;
 }
 
 .pauseText {
-    font-size: 16px;
-    margin-left: 16px;
-    color: #2F3744;
+	font-size: 16px;
+	margin-left: 16px;
+	color: #2f3744;
 }
-

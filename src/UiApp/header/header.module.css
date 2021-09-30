@@ -1,0 +1,12 @@
+.header {
+	height: 70px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.creditsTowers {
+	margin-top: 20px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-items: start;
+}
