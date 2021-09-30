@@ -45,7 +45,13 @@ class Hitpoints extends PIXI.Container {
     this.bar.endFill();
 
     this.bar.beginFill(0xff0000);
-    this.bar.drawRoundedRect(0, 0, HEALTHBAR_WIDTH, HEALTHBAR_HEIGHT, 8);
+    this.bar.drawRoundedRect(
+      0,
+      0,
+      HEALTHBAR_WIDTH,
+      HEALTHBAR_HEIGHT * this.size,
+      8
+    );
     this.bar.endFill();
 
     this.addChild(this.bar);
