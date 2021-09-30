@@ -84,6 +84,7 @@ export const TOWERS = {
       influencer:1
     },
     firingSpeed: 500,
+    cost: 0
   },
   QUICK_TO_BAN_AGENT: {
     damage: {
@@ -96,7 +97,8 @@ export const TOWERS = {
     chance: {
       positive: 0.3
     },
-    firingSpeed: 500
+    firingSpeed: 500,
+    cost: 20
   },
   PURGER: {
     damage: {
@@ -104,7 +106,8 @@ export const TOWERS = {
       hater: 1,
       influencer: 1
     },
-    firingSpeed: 500
+    firingSpeed: 500,
+    cost: 30
   },
   OPTIMIST: {
     damage: {
@@ -116,7 +119,8 @@ export const TOWERS = {
     slow: {
       negative: 0.5
     },
-    firingSpeed: 500
+    firingSpeed: 500,
+    cost: 20
   },
   POWER_USER: {
     damage: {
@@ -127,6 +131,7 @@ export const TOWERS = {
       influencer: 1
     },
     firingSpeed: 1250,
+    cost: 50,
     attackArea: true
   },
   BUSY_BEE: {
@@ -136,6 +141,7 @@ export const TOWERS = {
       hater: 1,
       influencer: 1
     },
+    cost: 30,
     firingSpeed: 250
   }
 };

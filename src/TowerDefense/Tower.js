@@ -3,9 +3,18 @@ import { TILE_HEIGHT, TILE_WIDTH, TOWERS } from "./config";
 import { getCenter, isWithinRange } from "../utils";
 import Bullet from "./Bullet";
 
+const IMAGE = {
+  DEFAULT: "/tower.png",
+  QUICK_TO_BAN_AGENT: "/qtba.jpeg",
+  PURGER: "/purger.jpg",
+  OPTIMIST: "/optimist.jpeg",
+  POWER_USER: "/power_user.png", // miniboss
+  BUSY_BEE: "/busy_bee.png" // boss
+};
+
 class Tower extends PIXI.Sprite {
   constructor(x, y, type) {
-    super(PIXI.Texture.from("/tower.png"));
+    super(PIXI.Texture.from(IMAGE[type]));
     this.x = x * TILE_WIDTH;
     this.y = y * TILE_HEIGHT;
     this.width = TILE_WIDTH;
