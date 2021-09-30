@@ -14,12 +14,13 @@ const IMAGE = {
 }
 
 class Tower extends PIXI.Sprite {
-	constructor(x, y, type) {
+	constructor(x, y, type, parent) {
 		super(PIXI.Texture.from(IMAGE[type]))
 		this.x = x * TILE_WIDTH
 		this.y = y * TILE_HEIGHT
 		this.width = TILE_WIDTH
 		this.height = TILE_HEIGHT
+		this.interactive = true
 
 		this.damage = TOWERS[type].damage
 		this.chance = TOWERS[type].chance
@@ -29,6 +30,23 @@ class Tower extends PIXI.Sprite {
 		this.firingSpeed = TOWERS[type].firingSpeed // temporary
 		this.lifespan = 0 // temporary
 		this.target = null // temporary
+		this.parent = parent
+
+		const rangeCircle = new PIXI.Graphics()
+		rangeCircle.lineStyle(1, 0x000000)
+		rangeCircle.drawCircle(this.x + TILE_WIDTH / 2, this.y + TILE_HEIGHT / 2, this.range)
+		rangeCircle.endFill()
+		rangeCircle.visible = false
+		this.rangeCircle = rangeCircle
+		this.parent.addChild(rangeCircle)
+	}
+
+	mouseover(e) {
+		this.rangeCircle.visible = true
+	}
+
+	mouseout() {
+		this.rangeCircle.visible = false
 	}
 
 	shouldBeHit(enemy) {
