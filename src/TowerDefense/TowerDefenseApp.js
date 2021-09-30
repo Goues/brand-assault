@@ -47,11 +47,12 @@ function mountPixi(el) {
   let currentWave = null;
   let lastWave = 0;
 
+  const hq = new Hq(app);
+  app.stage.addChild(hq);
+
   // use custom clock to easily sync everything and pause when tab is not visible
   return clock.addListener((frame, delta) => {
     app.ticker.update(frame);
-    const hq = new Hq(app);
-    app.stage.addChild(hq);
 
     for (const child of app.stage.children) {
       if (child.update) child.update(delta);
