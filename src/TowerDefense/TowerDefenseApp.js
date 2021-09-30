@@ -57,6 +57,7 @@ function mountPixi(el) {
 
 	// use custom clock to easily sync everything and pause when tab is not visible
 	const clockUnsubscribe = clock.addListener((frame, delta) => {
+		EnemyManager.recalculate()
 		app.ticker.update(frame)
 
 		for (const child of app.stage.children) {
@@ -71,7 +72,6 @@ function mountPixi(el) {
 	})
 
 	return () => {
-		console.log('destroy')
 		app.destroy()
 		clockUnsubscribe()
 	}
@@ -80,7 +80,6 @@ function mountPixi(el) {
 export default function TowerDefenseApp() {
 	const ref = useRef(null)
 	useEffect(() => {
-		console.log('mount')
 		const el = ref.current
 		// The application will create a canvas element for you that you
 		// can then insert into the DOM.
@@ -90,7 +89,6 @@ export default function TowerDefenseApp() {
 			for (const node of [...el.childNodes]) {
 				node.remove()
 			}
-			console.log('unmount')
 			unmount()
 		}
 	}, [])

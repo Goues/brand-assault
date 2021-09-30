@@ -6,9 +6,13 @@ class EnemyManager {
 
 	get() {
 		if (!this._cachedArray) {
-			this._cachedArray = Array.from(this.set)
+			this._cachedArray = Array.from(this.set).sort((a, b) => b.traveled - a.traveled)
 		}
 		return this._cachedArray
+	}
+
+	recalculate() {
+		this._cachedArray = null
 	}
 
 	count() {
