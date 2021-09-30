@@ -13,11 +13,6 @@ export const getStart = () => start;
 
 export const addListener = (listener) => {
   listeners.add(listener);
-
-  if (!isRunning) {
-    run();
-  }
-
   return () => removeListener(listener);
 };
 

@@ -7,6 +7,7 @@ import WorldMap from './WorldMap'
 import * as clock from './clock'
 import GameOver from './GameOver'
 import GamePaused from './GamePaused'
+import GameInit from './GameInit'
 
 function App() {
   useEffect(() => {
@@ -30,6 +31,7 @@ function App() {
   }, [])
   return (
     <div className="App">
+      <GameInit />
       <GamePaused />
       <GameOver />
       <div className="Game">

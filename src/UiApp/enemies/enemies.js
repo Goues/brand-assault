@@ -19,6 +19,6 @@ function Enemy({name, description, icon}) {
             <div className={css.enemyName}>{name}</div>
             <div className={css.enemyDescription}>{description}</div>
         </div>
-        <img className={css.enemyIcon} src={icon} />
+        <img className={css.enemyIcon} src={icon} alt={name}/>
     </div>
 }

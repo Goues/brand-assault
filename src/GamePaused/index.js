@@ -5,10 +5,12 @@ import css from "./index.module.css";
 import { run } from "../clock";
 
 function GameOver() {
-  const running = useSelector((state) => state.controls.running);
+  const skip = useSelector((state) => {
+    return state.controls.running || !state.controls.started
+  });
   const gameOver = useSelector(isGameOver);
 
-  if (running || gameOver) return ''
+  if (skip || gameOver) return ''
 
   return (
     <div className={css.wrapper}>
