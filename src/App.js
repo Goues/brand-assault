@@ -43,8 +43,6 @@ function App() {
 		return () => document.removeEventListener('keydown', listener)
 	}, [])
 
-	console.log(store, iteration)
-
 	return (
 		<Provider store={store} key={iteration}>
 			<div className='App'>
