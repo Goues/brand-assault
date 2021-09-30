@@ -126,7 +126,8 @@ export const TOWERS = {
       hater: 1,
       influencer: 1
     },
-    firingSpeed: 500
+    firingSpeed: 1250,
+    attackArea: true
   },
   BUSY_BEE: {
     damage: {

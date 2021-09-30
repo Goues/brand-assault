@@ -11,9 +11,10 @@ class Tower extends PIXI.Sprite {
     this.width = TILE_WIDTH;
     this.height = TILE_HEIGHT;
 
-    this.damage = TOWERS[type].damage
-    this.chance = TOWERS[type].chance
-    this.slow = TOWERS[type].slow
+    this.damage = TOWERS[type].damage;
+    this.chance = TOWERS[type].chance;
+    this.slow = TOWERS[type].slow;
+    this.attackArea = TOWERS[type].attackArea;
     this.range = 3 * TILE_WIDTH; // temporary
     this.firingSpeed = TOWERS[type].firingSpeed; // temporary
     this.lifespan = 0; // temporary
@@ -22,11 +23,11 @@ class Tower extends PIXI.Sprite {
 
   shouldBeHit(enemy) {
     if (!this.chance || (!enemy.type in this.chance)) return true
-    const random = Math.random()
+    const random = Math.random();
     if (random <= this.chance[enemy.type]) {
-      return true
+      return true;
     }
-    return false
+    return false;
   }
 
   isValidTarget(enemy) {
@@ -52,7 +53,7 @@ class Tower extends PIXI.Sprite {
 
     if (!this.target) {
       this.target = Array.from(this.parent.wave.enemies).find(enemy => {
-        return this.isValidTarget(enemy)
+        return this.isValidTarget(enemy);
       });
     }
 
@@ -67,13 +68,18 @@ class Tower extends PIXI.Sprite {
     return this.target;
   }
 
-  performAttack(target) {
+  performAttackOnTarget(target) {
     const towerCenter = getCenter(this);
     this.parent.addChild(new Bullet(towerCenter, target, this.damage[target.type]));
-    console.log(target.velocity)
     if (this.slow && target.type in this.slow && !target.slowed) {
-      target.velocity -= target.velocity * this.slow[target.type]
-      target.slowed = true
+      target.velocity -= target.velocity * this.slow[target.type];
+      target.slowed = true;
+    }
+  }
+
+  performAttackOnArea() {
+    for (const enemy of this.parent.wave.enemies) {
+      if (this.isValidTarget(enemy)) this.performAttackOnTarget(enemy);
     }
   }
 
@@ -83,10 +89,11 @@ class Tower extends PIXI.Sprite {
     while (this.lifespan >= this.firingSpeed) {
       this.lifespan -= this.firingSpeed;
 
-      const target = this.getTarget();
-
-      if (target) {
-        this.performAttack(target)
+      if (this.attackArea) {
+        this.performAttackOnArea();
+      } else {
+        const target = this.getTarget();
+        if (target) this.performAttackOnTarget(target);
       }
     }
   }
