@@ -6,6 +6,8 @@ import { run, stop } from "../clock";
 import { toFixedRound } from "../utils";
 // import css from "./index.module.css";
 
+import SocialCredit from "./social-credit/social-credit";
+import DefendTowers from "./defend-towers/defend-towers";
 
 export default function UiApp() {
   const credits = useSelector((state) => state.credits);
@@ -19,8 +21,8 @@ export default function UiApp() {
     <div>
       <button disabled={!isRunning} onClick={stop}>Pause</button>
       <button disabled={isRunning} onClick={run}>Run</button>
-      <div>Social Credit: {toFixedRound(credits, 1)}</div>
-      <div>Defend Towers: {towers}/{communityLevel}</div>
+      <SocialCredit credits={toFixedRound(credits, 1)}/>
+      <DefendTowers towers={towers} maxTowers={communityLevel}/>
       <div>Waves Survived: {wavesSurvived}</div>
       <div>Incoming Comments</div>
       <div>Legend</div>

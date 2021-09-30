@@ -1,0 +1,11 @@
+.socialCredit {
+    display: flex;
+    align-items: center;
+}
+
+.socialCreditText {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 16px;
+    color: #2F3744;
+}

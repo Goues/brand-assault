@@ -1,0 +1,11 @@
+.defendTowers {
+    display: flex;
+    align-items: center;
+}
+
+.defendTowersText {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 16px;
+    color: #2F3744;
+}
