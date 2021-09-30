@@ -22,7 +22,7 @@ class Tower extends PIXI.Sprite {
   }
 
   shouldBeHit(enemy) {
-    if (!this.chance || (!enemy.type in this.chance)) return true
+    if (!this.chance || !(enemy.type in this.chance)) return true;
     const random = Math.random();
     if (random <= this.chance[enemy.type]) {
       return true;
@@ -70,7 +70,9 @@ class Tower extends PIXI.Sprite {
 
   performAttackOnTarget(target) {
     const towerCenter = getCenter(this);
-    this.parent.addChild(new Bullet(towerCenter, target, this.damage[target.type]));
+    this.parent.addChild(
+      new Bullet(towerCenter, target, this.damage[target.type])
+    );
     if (this.slow && target.type in this.slow && !target.slowed) {
       target.velocity -= target.velocity * this.slow[target.type];
       target.slowed = true;

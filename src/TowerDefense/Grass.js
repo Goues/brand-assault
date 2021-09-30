@@ -12,7 +12,7 @@ class Grass extends Tile {
     this.buttonMode = true;
     this.on("pointerdown", this.onClick);
     this.alpha = 0;
-    this.tower = null
+    this.tower = null;
   }
 
   mouseover(e) {
@@ -30,12 +30,10 @@ class Grass extends Tile {
     } = store.getState();
     if (towers.length >= COMMUNITY) return;
 
-    const { x, y } = e.target;
-    const posX = x / TILE_WIDTH;
-    const posY = y / TILE_HEIGHT;
-    store.dispatch(buildTower(posX, posY));
-    const tower = new Tower(posX, posY, TOWER_TYPES.DEFAULT);
-    this.tower = tower
+    const { x, y } = this.grid;
+    store.dispatch(buildTower(x, y));
+    const tower = new Tower(x, y, TOWER_TYPES.DEFAULT);
+    this.tower = tower;
     this.parent.addChild(tower);
   }
 
@@ -45,11 +43,11 @@ class Grass extends Tile {
 
   onClick = e => {
     if (!this.tower) {
-      this.buildNewTower(e)
-      return
+      this.buildNewTower(e);
+      return;
     }
-    this.upgradeTower(e)
-  }
+    this.upgradeTower(e);
+  };
 }
 
 export default Grass;
