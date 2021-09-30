@@ -30,12 +30,10 @@ html,
 }
 
 .App-stage {
-  display: flex;
-}
-
-.App-idle {
-  margin-left: 40px;
-  width: 200px;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-gap: 2em;
+  padding: 0 2em;
 }
 
 .App-td {
