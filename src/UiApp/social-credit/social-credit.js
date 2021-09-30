@@ -16,8 +16,7 @@ export default function SocialCredit({ credits }) {
       <div className={css.socialCredit} onClick={handleClick}>
         <CreditCardIcon />
         <div className={css.socialCreditText}>
-          <span className={css.socialCreditText}>Social credit:</span>
-          {credits}
+          <span className={css.socialCreditText}>Social credit: {credits}</span>
           <SocialCreditIcon />
         </div>
       </div>
