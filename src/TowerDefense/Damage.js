@@ -4,13 +4,13 @@ import { toFixedRound } from "../utils";
 const LIFESPAN = 500;
 
 class Hitpoints extends PIXI.Container {
-  constructor(hitpoints) {
+  constructor(damage) {
     super();
 
     this.x = 0;
     this.y = -20;
 
-    this.text = new PIXI.Text(`-${toFixedRound(hitpoints, 0)}`, {
+    this.text = new PIXI.Text(`-${toFixedRound(damage, 0)}`, {
       fontFamily: "Arial",
       fill: ["#00F0F0"],
       fontSize: 35,
@@ -24,7 +24,7 @@ class Hitpoints extends PIXI.Container {
     this.addChild(this.text);
   }
 
-  update(delta, parent) {
+  update(delta) {
     this.lifespan -= delta;
 
     if (this.lifespan <= 0) {
