@@ -3,7 +3,6 @@ import IdleApp from './IdleApp'
 import TowerDefenseApp from './TowerDefense/TowerDefenseApp'
 import UiApp from './UiApp'
 import './App.css'
-import WorldMap from './WorldMap'
 import * as clock from './clock'
 import GameOver from './GameOver'
 import GamePaused from './GamePaused'
@@ -51,7 +50,6 @@ function App() {
 					</div>
 				</div>
 			</div>
-			<WorldMap />
 		</div>
 	)
 }
