@@ -11,6 +11,7 @@ class Grass extends Tile {
     this.interactive = true;
     this.buttonMode = true;
     this.on("pointerdown", this.onClick);
+    this.alpha = 0
   }
 
   onClick = e => {

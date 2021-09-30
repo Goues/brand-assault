@@ -21,18 +21,20 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} width="100" alt="logo" /> Brand assault
-      </header>
-      <div className="App-stage">
-        <div className="App-idle">
-          <IdleApp />
-        </div>
-        <div className="App-td">
-          <TowerDefenseApp />
-        </div>
-        <div className="App-ui">
-          <UiApp />
+      <div className="Game">
+        <header className="App-header">
+          <img src={logo} width="100" alt="logo" /> Brand assault
+        </header>
+        <div className="App-stage">
+          <div className="App-idle">
+            <IdleApp />
+          </div>
+          <div className="App-td">
+            <TowerDefenseApp />
+          </div>
+          <div className="App-ui">
+            <UiApp />
+          </div>
         </div>
       </div>
       <WorldMap />
