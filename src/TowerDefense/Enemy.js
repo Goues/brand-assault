@@ -42,7 +42,7 @@ class Enemy extends PIXI.Sprite {
     this.width = SIZE[type];
     this.height = SIZE[type];
     this.nextPathIndex = 0;
-    this.velocity = 0.3; // per 1s
+    this.velocity = 0.1; // per 1s
     this.maxHitpoints = hitpoints;
     this.hitpoints = hitpoints;
     this.interactive = true;
