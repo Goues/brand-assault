@@ -23,7 +23,7 @@ class Tower extends PIXI.Sprite {
 		this.interactive = true
 		this.center = {
 			x: this.x + this.width / 2,
-			y: this.y + this.height / 2
+			y: this.y + this.height / 2,
 		}
 
 		this.damage = TOWERS[type].damage
@@ -38,7 +38,9 @@ class Tower extends PIXI.Sprite {
 		this.parent = parent
 
 		const rangeCircle = new PIXI.Graphics()
+		rangeCircle.zIndex = 1
 		rangeCircle.lineStyle(1, 0x000000)
+		rangeCircle.beginFill(0x000000, 0.05)
 		rangeCircle.drawCircle(this.x + TILE_WIDTH / 2, this.y + TILE_HEIGHT / 2, this.range)
 		rangeCircle.endFill()
 		rangeCircle.visible = false
@@ -48,10 +50,12 @@ class Tower extends PIXI.Sprite {
 
 	mouseover(e) {
 		this.rangeCircle.visible = true
+		this.zIndex = 2
 	}
 
 	mouseout() {
 		this.rangeCircle.visible = false
+		this.zIndex = null
 	}
 
 	shouldBeHit(enemy) {
@@ -122,9 +126,7 @@ class Tower extends PIXI.Sprite {
 			}
 		}
 
-		this.parent.addChild(
-			new Bullet(this.center, target, this.damage[target.type], effect)
-		)
+		this.parent.addChild(new Bullet(this.center, target, this.damage[target.type], effect))
 	}
 
 	update(delta) {

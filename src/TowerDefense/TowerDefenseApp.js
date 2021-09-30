@@ -50,6 +50,7 @@ function mountPixi(el) {
 	el.appendChild(app.view)
 
 	app.stage.addChild(waveManager)
+	app.stage.sortableChildren = true
 
 	// use custom clock to easily sync everything and pause when tab is not visible
 	const clockUnsubscribe = clock.addListener((frame, delta) => {
