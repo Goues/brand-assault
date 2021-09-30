@@ -85,6 +85,12 @@
   color: #636363;
 }
 
+.dialogBonusIncrease {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
 .actions {
   display: flex;
   gap: 10px;

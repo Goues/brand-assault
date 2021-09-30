@@ -13,6 +13,7 @@ import Info from './Icons/Info'
 import { PRODUCTS, PRODUCTS_GET_COST } from '../config'
 import { addCredits, subtractCredits } from '../credits'
 import Tippy from '@tippyjs/react'
+import Increase from './Icons/Increase'
 
 const ICONS = {
   COMMUNITY: <Community className={css.icon} />,
@@ -33,7 +34,10 @@ const Dialog = ({ product, level, header, ...rest }) => {
     <div className={css.dialog}>
       <div className={css.dialogHeader}>{header}</div>
       <div className={css.dialogBonus}>
-        {nextBonus}
+        <span className={css.dialogBonusIncrease}>
+          <Increase />
+          <span>{nextBonus}</span>
+        </span>
         <div className={css.bonusCurrent}>
           <span className={css.bonusPrefix}>Current</span>
           <strong>{currentBonus}</strong>
