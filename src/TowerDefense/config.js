@@ -93,6 +93,9 @@ export const TOWERS = {
       hater: 1,
       infuencer: 1
     },
+    chance: {
+      positive: 0.3
+    },
     firingSpeed: 500
   },
   PURGER: {

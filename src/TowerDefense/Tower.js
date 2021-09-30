@@ -12,10 +12,30 @@ class Tower extends PIXI.Sprite {
     this.height = TILE_HEIGHT;
 
     this.damage = TOWERS[type].damage
+    this.chance = TOWERS[type].chance
     this.range = 3 * TILE_WIDTH; // temporary
     this.firingSpeed = TOWERS[type].firingSpeed; // temporary
     this.lifespan = 0; // temporary
     this.target = null; // temporary
+  }
+
+  shouldBeHit(enemy) {
+    if (!this.chance || (!enemy.type in this.chance)) return true
+    const random = Math.random()
+    if (random <= this.chance[enemy.type]) {
+      return true
+    }
+    return false
+  }
+
+  isValidTarget(enemy) {
+    return (
+      !enemy.destoryed &&
+      enemy.traveled >= 0 &&
+      enemy.type in this.damage &&
+      this.shouldBeHit(enemy) &&
+      isWithinRange(this, enemy)
+    );
   }
 
   getTarget() {
@@ -31,12 +51,7 @@ class Tower extends PIXI.Sprite {
 
     if (!this.target) {
       this.target = Array.from(this.parent.wave.enemies).find(enemy => {
-        return (
-          !enemy.destoryed &&
-          enemy.traveled >= 0 &&
-          enemy.type in this.damage &&
-          isWithinRange(this, enemy)
-        );
+        return this.isValidTarget(enemy)
       });
     }
 
