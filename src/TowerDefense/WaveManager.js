@@ -15,6 +15,11 @@ class WaveManager extends PIXI.Container {
 		window.WaveManager = this
 	}
 
+	reset() {
+		this.level = 0
+		this.elapsed = 0
+	}
+
 	spawnWave() {
 		this.level += 1
 		const wave = new Wave(this.level)
@@ -51,4 +56,4 @@ class WaveManager extends PIXI.Container {
 	}
 }
 
-export default WaveManager
+export default new WaveManager()

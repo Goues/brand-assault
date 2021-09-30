@@ -10,7 +10,7 @@ import * as clock from '../clock'
 import { getStore } from '../gameState'
 import { isGameOver } from '../credits'
 import EnemyManager from './EnemyManager'
-import WaveManager from './WaveManager'
+import waveManager from './WaveManager'
 
 function detectGameOver(app) {
 	if (isGameOver(getStore().getState())) {
@@ -50,8 +50,8 @@ function mountPixi(el) {
 
 	el.appendChild(app.view)
 
-	const waveManager = new WaveManager()
 	EnemyManager.reset()
+	waveManager.reset()
 	app.stage.addChild(waveManager)
 	app.stage.sortableChildren = true
 

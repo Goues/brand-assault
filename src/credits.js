@@ -15,7 +15,7 @@ export const subtractCredits = (amount) => ({
 
 export const isGameOver = (state) => state.credits < 0
 
-export const reducer = (state = 0, action) => {
+export const reducer = (state = 1000, action) => {
 	switch (action.type) {
 		case ACTIONS.ADD:
 			return state + action.payload

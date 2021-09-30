@@ -34,7 +34,7 @@ export const PRODUCTS = {
 		NAME: 'Influencers',
 		DESCRIPTION: 'Gain 50 SC per minute',
 		COST: 50,
-		INCOME: 25,
+		INCOME: 50,
 		RATE: 60000, // every minute
 		MULTIPLIER: 1.1,
 		GET_BONUS: (level) => {
