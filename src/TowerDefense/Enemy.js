@@ -101,41 +101,26 @@ class Enemy extends PIXI.Sprite {
     let x = node.x * TILE_WIDTH + this.offset.x;
     let y = node.y * TILE_WIDTH + this.offset.y;
 
-    if (firstHalf) {
-      switch (node.from) {
-        case DIRECTIONS.TOP:
-          y += remainder - TILE_WIDTH / 2;
-          break;
-        case DIRECTIONS.BOTTOM:
-          y -= remainder - TILE_WIDTH / 2;
-          break;
-        case DIRECTIONS.LEFT:
-          x += remainder - TILE_WIDTH / 2;
-          break;
-        case DIRECTIONS.RIGHT:
-          x -= remainder - TILE_WIDTH / 2;
-          break;
-        default:
-          break;
-      }
-    } else {
-      remainder = remainder - TILE_WIDTH / 2;
-      switch (node.to) {
-        case DIRECTIONS.TOP:
-          y -= remainder;
-          break;
-        case DIRECTIONS.BOTTOM:
-          y += remainder;
-          break;
-        case DIRECTIONS.LEFT:
-          x -= remainder;
-          break;
-        case DIRECTIONS.RIGHT:
-          x += remainder;
-          break;
-        default:
-          break;
-      }
+    remainder = remainder - TILE_WIDTH / 2;
+    if (!firstHalf) {
+      remainder *= -1;
+    }
+
+    switch (firstHalf ? node.from : node.to) {
+      case DIRECTIONS.TOP:
+        y += remainder;
+        break;
+      case DIRECTIONS.BOTTOM:
+        y -= remainder;
+        break;
+      case DIRECTIONS.LEFT:
+        x += remainder;
+        break;
+      case DIRECTIONS.RIGHT:
+        x -= remainder;
+        break;
+      default:
+        break;
     }
 
     this.x = x;
