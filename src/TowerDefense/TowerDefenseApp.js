@@ -9,7 +9,7 @@ import app from "./PixiApp";
 import * as clock from "../clock";
 import { setCurrent, setSurvived } from "../waves";
 import store from "../gameState";
-import css from "./TowerDefense.module.css"
+import css from "./TowerDefense.module.css";
 
 const TILES = {
   x: Road,
@@ -20,7 +20,7 @@ function detectGameOver(app) {
   const credits = store.getState().credits;
   if (credits < 0) {
     for (const child of app.stage.children) {
-      if(child instanceof Hq || child instanceof Enemy) {
+      if (child instanceof Hq || child instanceof Enemy) {
         app.stage.removeChild(child);
       }
     }
@@ -59,11 +59,11 @@ function mountPixi(el) {
     if (!currentWave) {
       // TODO: the way it is implemented, you cannot have two ways simultaneously (calling it early or being so slow the next is triggered)
       currentWave = new Wave(++lastWave);
-      store.dispatch(setCurrent(lastWave))
+      store.dispatch(setCurrent(lastWave));
       currentWave.enemies.forEach(enemy => app.stage.addChild(enemy));
       currentWave.on("destroyed", () => {
         currentWave = null;
-        store.dispatch(setSurvived(lastWave))
+        store.dispatch(setSurvived(lastWave));
       });
       app.stage.wave = currentWave;
     }

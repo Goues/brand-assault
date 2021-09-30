@@ -5,14 +5,14 @@ const HEALTHBAR_WIDTH = 10;
 const HEALTHBAR_HEIGHT = 70;
 
 class Hitpoints extends PIXI.Container {
-  constructor(hitpoints, maxHitpoints, enemy) {
+  constructor(hp, maxHp, enemy) {
     super();
 
     this.x = 65;
     this.y = 0;
     this.alpha = 0.5;
 
-    this.text = new PIXI.Text(toFixedRound(hitpoints, 0), {
+    this.text = new PIXI.Text(toFixedRound(hp, 0), {
       align: "center",
       fontFamily: "Arial",
       fill: ["#00F0F0"],
@@ -28,6 +28,7 @@ class Hitpoints extends PIXI.Container {
     this.status = new PIXI.Graphics();
 
     this.mount();
+    this.draw(hp, hp / maxHp);
   }
 
   mount() {
@@ -51,6 +52,7 @@ class Hitpoints extends PIXI.Container {
   }
 
   draw(hp, hpPercent) {
+    this.prevHp = hp;
     this.text.text = toFixedRound(hp, 0);
 
     this.status.clear();
@@ -66,6 +68,9 @@ class Hitpoints extends PIXI.Container {
   }
 
   update(delta, parent) {
+    if (parent.hitpoints === this.prevHp) {
+      return;
+    }
     this.draw(parent.hitpoints, parent.hitpoints / parent.maxHitpoints);
   }
 }
