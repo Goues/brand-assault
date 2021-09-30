@@ -9,6 +9,7 @@ import { toFixedRound } from "../utils";
 import PauseContinue from "./pause-continue/pause-continue";
 import SocialCredit from "./social-credit/social-credit";
 import DefendTowers from "./defend-towers/defend-towers";
+import WavesSurvived from "./waves-survived/waves-survived";
 
 export default function UiApp() {
   const credits = useSelector((state) => state.credits);
@@ -23,7 +24,7 @@ export default function UiApp() {
       <PauseContinue isRunning={isRunning} onPause={stop} onContinue={run}/>
       <SocialCredit credits={toFixedRound(credits, 1)}/>
       <DefendTowers towers={towers} maxTowers={communityLevel}/>
-      <div>Waves Survived: {wavesSurvived}</div>
+      <WavesSurvived survived={wavesSurvived} />
       <div>Incoming Comments</div>
       <div>Legend</div>
     </div>
