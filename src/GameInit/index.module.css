@@ -40,3 +40,27 @@
 .better {
     margin-bottom: 12px;
 }
+.enemy {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.enemyName {
+    color: #2F3744;
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.enemyDescription {
+    font-size: 11px;
+    line-height: 16px;
+    color: #2F3744;
+}
+
+.enemyIcon {
+    width: 24px;
+    height: 24px;
+    margin-left: 16px;
+}

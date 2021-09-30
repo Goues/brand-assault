@@ -3,7 +3,7 @@ import { toFixedRound } from './utils'
 export const PRODUCTS = {
   COMMUNITY: {
     NAME: 'Community',
-    DESCRIPTION: 'Gain 0.1 SC per second',
+    DESCRIPTION: 'Gain 0.1 SC per second. Increases maximum number of agents.',
     COST: 2,
     INCOME: 0.1,
     RATE: 1000, // every second
