@@ -67,3 +67,8 @@ export const PATH = [
   { x: 4, y: 6, from: DIRECTIONS.RIGHT, to: DIRECTIONS.TOP },
   { x: 4, y: 5, from: DIRECTIONS.BOTTOM, to: DIRECTIONS.TOP }
 ];
+
+export const HQ = {
+  WIDTH: 60,
+  HEIGTH: 60
+};

@@ -1,8 +1,10 @@
 import { useEffect, useRef } from "react";
 import { MAP_1, TILES_X, TILES_Y } from "./config";
 import Wave from "./Wave";
+import Enemy from "./Enemy";
 import Grass from "./Grass";
 import Road from "./Road";
+import Hq from "./Hq";
 import app from "./PixiApp";
 import * as clock from "../clock";
 import { setCurrent, setSurvived } from "../waves";
@@ -12,6 +14,18 @@ const TILES = {
   x: Road,
   "-": Grass
 };
+
+function detectGameOver(app) {
+  const credits = store.getState().credits;
+  if (credits < 0) {
+    for (const child of app.stage.children) {
+      if(child instanceof Hq || child instanceof Enemy) {
+        app.stage.removeChild(child);
+      }
+    }
+    app.ticker.stop();
+  }
+}
 
 function mountPixi(el) {
   // Render background tiles
@@ -32,9 +46,14 @@ function mountPixi(el) {
 
   // use custom clock to easily sync everything and pause when tab is not visible
   return clock.addListener((frame, delta) => {
+    const hq = new Hq(app);
+    app.stage.addChild(hq);
+
     for (const child of app.stage.children) {
       if (child.update) child.update(delta);
     }
+    
+    detectGameOver(app);
 
     if (!currentWave) {
       // TODO: the way it is implemented, you cannot have two ways simultaneously (calling it early or being so slow the next is triggered)
