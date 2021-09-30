@@ -39,7 +39,10 @@ class Enemy extends PIXI.Sprite {
 		this.y = (START_TILE.y - 1) * TILE_HEIGHT + this.offset.y
 		this.width = SIZE[type]
 		this.height = SIZE[type]
-		this.nextPathIndex = 0
+		this.center = {
+			x: this.x + this.width / 2,
+			y: this.y + this.height / 2
+		}
 
 		this.velocity = 0.1 + (0.5 - Math.random()) * 0.01 // per 1s
 		if (isBoss) this.velocity /= 2
@@ -100,7 +103,6 @@ class Enemy extends PIXI.Sprite {
 					this.y = (START_TILE.y - 1) * TILE_HEIGHT + this.offset.y
 					this.type = 'negative'
 					this.texture = PIXI.Texture.from(IMAGE[this.type])
-					this.nextPathIndex = 0
 					this.traveled = 0
 					break
 				default:
@@ -141,6 +143,10 @@ class Enemy extends PIXI.Sprite {
 
 		this.x = x
 		this.y = y
+		this.center = {
+			x: this.x + this.width / 2,
+			y: this.y + this.height / 2
+		}
 
 		for (const child of this.children) {
 			if (child.update) child.update(delta, this)

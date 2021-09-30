@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 import { TILE_HEIGHT, TILE_WIDTH, TOWERS } from './config'
-import { getCenter, isWithinRange } from '../utils'
+import { isWithinRange } from '../utils'
 import Bullet from './Bullet'
 import EnemyManager from './EnemyManager'
 
@@ -21,6 +21,10 @@ class Tower extends PIXI.Sprite {
 		this.width = TILE_WIDTH
 		this.height = TILE_HEIGHT
 		this.interactive = true
+		this.center = {
+			x: this.x + this.width / 2,
+			y: this.y + this.height / 2
+		}
 
 		this.damage = TOWERS[type].damage
 		this.chance = TOWERS[type].chance
@@ -97,8 +101,7 @@ class Tower extends PIXI.Sprite {
 	}
 
 	performAttackOnTarget(target) {
-		const towerCenter = getCenter(this)
-		this.parent.addChild(new Bullet(towerCenter, target, this.damage[target.type]))
+		this.parent.addChild(new Bullet(this.center, target, this.damage[target.type]))
 		if (this.slow && target.type in this.slow && !target.slowed) {
 			target.velocity -= target.velocity * this.slow[target.type]
 			target.slowed = true

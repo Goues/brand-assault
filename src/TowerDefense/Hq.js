@@ -1,14 +1,9 @@
 import * as PIXI from "pixi.js";
+import Tile from './Tile'
 
-class Hq extends PIXI.Sprite {
-  constructor(app) {
-    super(PIXI.Texture.from("/hq.png"));
-    this.x = app.screen.width / 2 - 30;
-    this.y = app.screen.height / 2 + 20;
-    this.anchor.x = 0.5;
-    this.anchor.y = 0.5;
-    this.width = 60;
-    this.height = 60;
+class Hq extends Tile {
+  constructor(path) {
+  	super(PIXI.Texture.from("/hq.png"), path);
   }
 }
 

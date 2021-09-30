@@ -54,17 +54,17 @@ export const PATH = [
   { x: 4, y: 5, from: DIRECTIONS.BOTTOM, to: DIRECTIONS.TOP }
 ];
 
+export const HQ = {
+  x: 4,
+  y: 4
+};
+
 export const MAP = PATH.reduce((map, path) => {
   const { x, y } = path;
   if (!map[x]) map[x] = {};
   map[x][y] = path;
   return map;
 }, {});
-
-export const HQ = {
-  WIDTH: 60,
-  HEIGTH: 60
-};
 
 export const TOWER_TYPES = {
   DEFAULT: "DEFAULT",

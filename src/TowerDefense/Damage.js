@@ -1,6 +1,5 @@
 import * as PIXI from "pixi.js";
 import { toFixedRound } from "../utils";
-import { getCenter } from "../utils";
 
 const LIFESPAN = 500;
 const VELOCITY = 0.2;
@@ -9,7 +8,7 @@ class Hitpoints extends PIXI.Container {
   constructor(damage, enemy) {
     super();
 
-    this.x = getCenter(enemy).x;
+    this.x = enemy.center.x;
     this.y = enemy.y - 25;
 
     this.text = new PIXI.Text(`-${toFixedRound(damage, 0)}`, {

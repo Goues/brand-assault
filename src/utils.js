@@ -1,12 +1,8 @@
 export const toFixedRound = (number, decimals) =>
   number.toFixed(decimals).replace(/\.0+$/, "");
 
-export function getCenter({ x, y, width, height }) {
-  return { x: x + width / 2, y: y + height / 2 };
-}
-
-export function getDistanceLength({ x, y }) {
-  return Math.sqrt(x * x + y * y);
+export function getDistanceSquare({ x, y }) {
+  return x * x + y * y;
 }
 
 export function getDistanceFromCenters(a, b) {
@@ -17,9 +13,7 @@ export function getDistanceFromCenters(a, b) {
 }
 
 export function getDistance(a, b) {
-  a = getCenter(a);
-  b = getCenter(b);
-  return getDistanceFromCenters(a, b);
+  return getDistanceFromCenters(a.center, b.center);
 }
 
 export function isWithinRange(a, b) {

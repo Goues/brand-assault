@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { MAP, TILES_X, TILES_Y, GAME_WIDTH, GAME_HEIGHT } from "./config";
+import { MAP, TILES_X, TILES_Y, GAME_WIDTH, GAME_HEIGHT, HQ } from "./config";
 import * as PIXI from "pixi.js";
 import Enemy from "./Enemy";
 import Grass from "./Grass";
@@ -10,11 +10,6 @@ import store from "../gameState";
 import css from "./TowerDefense.module.css";
 import { isGameOver } from "../credits";
 import waveManager from "./WaveManager";
-
-const TILES = {
-  ROAD: Road,
-  GRASS: Grass
-};
 
 function detectGameOver(app) {
   if (isGameOver(store.getState())) {
@@ -38,8 +33,14 @@ function mountPixi(el) {
   app.loader.load((loader, resources) => {
     for (let x = 0; x < TILES_X; x++) {
       for (let y = 0; y < TILES_Y; y++) {
-        const path = MAP[x] && MAP[x][y];
-        const tile = new (path ? TILES.ROAD : TILES.GRASS)(path || { x, y });
+        let tile
+        if (x === HQ.x && y === HQ.y) {
+          tile = new Hq({x, y})
+        } else if (MAP[x] && MAP[x][y]) {
+          tile = new Road(MAP[x][y])
+        } else {
+          tile = new Grass({ x, y})
+        }
         app.stage.addChild(tile);
       }
     }
@@ -48,9 +49,6 @@ function mountPixi(el) {
   app.ticker.stop();
 
   el.appendChild(app.view);
-
-  const hq = new Hq(app);
-  app.stage.addChild(hq);
 
   app.stage.addChild(waveManager);
 
