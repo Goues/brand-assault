@@ -1,0 +1,10 @@
+.enemyCounter {
+	display: flex;
+	gap: 20px;
+	background: #e4e5e6;
+	border-radius: 12px;
+	padding: 9px;
+	font-size: 13px;
+	line-height: 18px;
+	color: #000000;
+}

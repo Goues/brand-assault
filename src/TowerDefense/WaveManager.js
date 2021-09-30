@@ -1,13 +1,13 @@
 import * as PIXI from 'pixi.js'
 import store from '../gameState'
-import { incrementSurvived, setCurrent } from '../waves'
+import { incrementSurvived, setCurrent, setRemainingEnemies } from '../waves'
 import Wave from './Wave'
 
 class WaveManager extends PIXI.Container {
 	constructor() {
 		super()
 
-		this.level = 1
+		this.level = 0
 	}
 
 	spawnWave() {
@@ -17,6 +17,14 @@ class WaveManager extends PIXI.Container {
 		wave.on('wave-completed', (wave) => {
 			store.dispatch(incrementSurvived())
 			wave.destroy()
+		})
+
+		wave.on('enemy-added', () => {
+			store.dispatch(setRemainingEnemies(this.getRemainingEnemies()))
+		})
+
+		wave.on('enemy-destroyed', () => {
+			store.dispatch(setRemainingEnemies(this.getRemainingEnemies()))
 		})
 
 		// update current level
