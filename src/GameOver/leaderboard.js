@@ -5,7 +5,7 @@ import css from './leaderboard.module.css'
 import Star from '../IdleApp/Icons/Star'
 
 const Leaderboard = () => {
-	const leaderboard = useSelector((state) => state.leaderboard)
+	const leaderboard = useSelector((state) => state.leaderboard.list)
 	const playerName = useSelector((state) => state.controls.playerName)
 	const score = useSelector((state) => state.stats.score)
 
@@ -22,7 +22,10 @@ const Leaderboard = () => {
 					return (
 						<div
 							key={`${item.name}-${idx}`}
-							className={cx({ [css.you]: isMe, [css.currentScore]: isCurrentScore }, css.row)}
+							className={cx(
+								{ [css.you]: isMe, [css.currentScore]: isMe && isCurrentScore },
+								css.row
+							)}
 						>
 							<div className={css.cell}>
 								{idx + 1}. {item.name}

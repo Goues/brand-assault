@@ -1,11 +1,12 @@
 .wrapper {
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	background: #00000080;
 	z-index: 1000;
+	overflow: auto;
 }
 
 .modal {
@@ -13,7 +14,7 @@
 	align-items: center;
 	flex-direction: column;
 	background-color: #fefefe;
-	margin: 10% auto;
+	margin: 15px auto;
 	padding: 50px;
 	border: 1px solid #888;
 	width: 390px;

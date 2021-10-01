@@ -9,6 +9,7 @@ import Leaderboard from './leaderboard'
 function GameOver({ reset }) {
 	const gameOver = useSelector(isGameOver)
 	const score = useSelector((state) => state.stats.score)
+	const madeItToLeaderboard = useSelector((state) => state.leaderboard.madeItToLeaderboard)
 
 	useEffect(() => {
 		if (gameOver) clock.stop()
@@ -19,10 +20,16 @@ function GameOver({ reset }) {
 	return (
 		<div className={css.wrapper}>
 			<div className={css.modal}>
-				<img className={css.image} src='/gameover.gif' alt='Game over' width='371' />
-				<div className={css.heading}>Game Over!</div>
+				<img
+					className={css.image}
+					src={madeItToLeaderboard ? '/gameover-win.webp' : '/gameover.gif'}
+					alt='Game over'
+					width='371'
+				/>
+				<div className={css.heading}>
+					{madeItToLeaderboard ? 'Congratulation. You beat the negativity!' : 'Game Over!'}
+				</div>
 				<div className={css.score}>Your final score: {score}</div>
-				<div className={css.better}>You can make better.</div>
 				<Leaderboard />
 				<Button onClick={reset}>Let's try it again!</Button>
 			</div>

@@ -8,9 +8,10 @@ export const setLeaderboard = (list) => (dispatch, getState) => {
 }
 
 export const addToLeaderboard = (item) => (dispatch, getState) => {
-	const list = [...getState().leaderboard, item].sort((a, b) => b.score - a.score).slice(0, 10)
+	const list = [...getState().leaderboard.list, item].sort((a, b) => b.score - a.score).slice(0, 10)
+	const madeItToLeaderboard = !!list.find((i) => i === item)
 	localStorage.setItem('leaderboard', JSON.stringify(list))
-	dispatch({ type: ACTIONS.SET_LEADERBOARD, list })
+	dispatch({ type: ACTIONS.SET_LEADERBOARD, list, madeItToLeaderboard: madeItToLeaderboard })
 }
 
 let list = []
@@ -29,12 +30,15 @@ for (const item of list) {
 }
 console.groupEnd()
 
-const INITIAL_STATE = list
+const INITIAL_STATE = {
+	madeItToLeaderboard: false,
+	list,
+}
 
 export const reducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case ACTIONS.SET_LEADERBOARD:
-			return action.list
+			return { ...state, list: action.list, madeItToLeaderboard: action.madeItToLeaderboard }
 		default:
 			return state
 	}
