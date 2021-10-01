@@ -1,4 +1,5 @@
 import { toFixedRound } from './utils'
+import SocialCredit from './IdleApp/Icons/SocialCredit'
 
 export const GAME_WIDTH = 660
 export const GAME_HEIGHT = 600
@@ -11,7 +12,11 @@ export const WAVE_TIMER_MS = 60000
 export const PRODUCTS = {
 	COMMUNITY: {
 		NAME: 'Community',
-		DESCRIPTION: 'Gain 0.1 SC per second. Increases maximum number of agents.',
+		DESCRIPTION: (
+			<>
+				Gain 0.1 <SocialCredit width='10' /> per second. Increases maximum number of agents.
+			</>
+		),
 		COST: 2,
 		INCOME: 0.1,
 		RATE: 1000, // every second
@@ -32,7 +37,11 @@ export const PRODUCTS = {
 	},
 	INFLUENCERS: {
 		NAME: 'Influencers',
-		DESCRIPTION: 'Gain 50 SC per minute',
+		DESCRIPTION: (
+			<>
+				Gain 50 <SocialCredit width='10' /> per minute
+			</>
+		),
 		COST: 50,
 		INCOME: 10,
 		RATE: 60000, // every minute

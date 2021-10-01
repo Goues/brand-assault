@@ -214,7 +214,7 @@ export default function Product({ name, product, credits, onClick }) {
 					disabled={owned >= maxLevel || nextCost > credits || !isRunning}
 					onClick={onUpgrade}
 				>
-					Upgrade for {toFixedRound(nextCost, 1)} SC
+					Upgrade for {toFixedRound(nextCost, 1)} <SocialCredit width='10' />
 				</Button>
 				<Tippy content={<Dialog product={product} owned={owned} />}>
 					<Info className={css.descriptionInfo} />

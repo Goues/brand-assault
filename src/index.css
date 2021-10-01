@@ -1,25 +1,27 @@
 body {
-  background-color: #fff;
-  color: #090909;
-  margin: 0;
-  font-family: "Roboto", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	background-color: #fff;
+	color: #090909;
+	margin: 0;
+	font-family: 'Roboto', 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
 
 /* tailwind like */
 .flex {
-  display: flex;
+	display: flex;
 }
 .items-center {
-  align-items: center;
+	align-items: center;
 }
 .space-between {
-  justify-content: space-between;
+	justify-content: space-between;
+}
+
+svg {
+	vertical-align: baseline;
 }
