@@ -144,7 +144,7 @@ function CreateBrandStep({ onCreate, onTutorial }) {
 
 	return (
 		<div>
-			<img src='logo.png' className={css.logo} />
+			<img src='logo.png' className={css.logo} alt='logo' />
 			<div className={css.heading}>Welcome to the Brand Defenders!</div>
 			<input
 				placeholder='Create a name for your brand'
