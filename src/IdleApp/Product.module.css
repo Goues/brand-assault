@@ -1,115 +1,119 @@
 .product {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	align-items: flex-start;
+}
+
+.fadeOut {
+	opacity: 0.33;
 }
 
 .header {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
 }
 
 .nameContainer {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
 .name {
-  color: #000000;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 30px;
-  margin: 0;
+	color: #000000;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 30px;
+	margin: 0;
 }
 
 .level {
-  color: #717578;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: bold;
-  line-height: 18px;
-  text-transform: uppercase;
+	color: #717578;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: bold;
+	line-height: 18px;
+	text-transform: uppercase;
 }
 
 .descriptionContainer {
-  margin: 5px 0;
-  width: 80%;
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
+	margin: 5px 0;
+	width: 80%;
+	display: flex;
+	gap: 12px;
+	justify-content: space-between;
 }
 
 .description {
-  margin: 5px 0;
-  flex: 1;
+	margin: 5px 0;
+	flex: 1;
 }
 
 .descriptionInfo {
-  flex-shrink: 0;
-  cursor: help;
+	flex-shrink: 0;
+	cursor: help;
 }
 
 .dialog {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-  background: #ffffff;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  font-size: 13px;
-  line-height: 18px;
-  color: #000000;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 20px;
+	background: #ffffff;
+	box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+	border-radius: 8px;
+	font-size: 13px;
+	line-height: 18px;
+	color: #000000;
 
-  animation: fadeIn forwards 0.15s;
+	animation: fadeIn forwards 0.15s;
 }
 
 .dialogHeader {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .bonusPrefix {
-  text-transform: uppercase;
+	text-transform: uppercase;
 }
 
 .bonusCurrent {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 8px;
-  color: #636363;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	font-size: 8px;
+	color: #636363;
 }
 
 .dialogBonusIncrease {
-  display: flex;
-  gap: 5px;
-  align-items: center;
+	display: flex;
+	gap: 5px;
+	align-items: center;
 }
 
 .dialogBonusValue {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+	display: flex;
+	align-items: center;
+	gap: 4px;
 }
 
 .actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
+	display: flex;
+	gap: 10px;
+	align-items: center;
 }
 
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+	0% {
+		opacity: 0;
+		transform: scale(0.5);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
 }

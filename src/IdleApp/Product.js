@@ -194,10 +194,8 @@ export default function Product({ name, product, credits, onClick }) {
 		})
 	}, [product, isOwned, dispatch])
 
-	if (isHidden) return null
-
 	return (
-		<div className={css.product}>
+		<div className={`${css.product} ${isHidden ? css.fadeOut : ''}`}>
 			<div className={css.header}>
 				<div className={css.nameContainer}>
 					{COMPONENTS[product].Icon}
