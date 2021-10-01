@@ -4,7 +4,8 @@
 }
 
 .pause {
-	all: unset;
+	background: none;
+	border: 0;
 	cursor: pointer;
 
 	display: flex;
