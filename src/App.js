@@ -15,18 +15,19 @@ import { KEYCODE_BINDINGS } from './config'
 
 function App({ reset }) {
 	const isRunning = useSelector((state) => state.controls.running)
+	const started = useSelector((state) => state.controls.started)
 
 	useEffect(() => {
 		const listener = (e) => {
 			if (e.keyCode === KEYCODE_BINDINGS.PAUSE) {
 				// p
 				if (isRunning) clock.stop()
-				else clock.run()
+				else if (started) clock.run()
 			}
 		}
 		document.addEventListener('keyup', listener)
 		return () => document.removeEventListener('keyup', listener)
-	}, [isRunning])
+	}, [isRunning, started])
 
 	return (
 		<div className='App'>
