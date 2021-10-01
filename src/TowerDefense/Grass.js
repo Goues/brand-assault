@@ -41,7 +41,7 @@ class Grass extends Tile {
 
 		this.remainingPoints = remainingPoints
 
-		const canBuildTower = this.remainingPoints >= BASE_TOWER.TOKENS
+		const canBuildTower = this.remainingPoints >= BASE_TOWER.TOKENS && state.controls.running
 
 		if (canBuildTower !== this.canBuildTower) {
 			this.texture = canBuildTower ? TEXTURES.ACTIVE : TEXTURES.PASSIVE

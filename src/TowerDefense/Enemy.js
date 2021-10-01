@@ -80,6 +80,8 @@ class Enemy extends PIXI.Sprite {
 		this.slowed = false
 
 		this.on('pointerdown', () => {
+			if (!getStore().getState().controls.running) return
+
 			this.hit(BASE_DAMAGE)
 		})
 
