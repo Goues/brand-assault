@@ -34,7 +34,7 @@ export const PRODUCTS = {
 		NAME: 'Influencers',
 		DESCRIPTION: 'Gain 50 SC per minute',
 		COST: 50,
-		INCOME: 50,
+		INCOME: 10,
 		RATE: 60000, // every minute
 		MULTIPLIER: 1.1,
 		GET_BONUS: (level) => {
@@ -45,9 +45,11 @@ export const PRODUCTS = {
 		NAME: 'Audiences',
 		DESCRIPTION: 'Gain 1 % chance to convert negative comments to neutral at the start of the wave',
 		COST: 50,
+		MAX_LEVEL: 100,
 		BONUS: 0.01,
 		MULTIPLIER: 1.3,
 		GET_BONUS: (level) => {
+			if (level > PRODUCTS.AUDIENCES.MAX_LEVEL) level = PRODUCTS.AUDIENCES.MAX_LEVEL
 			return toFixedRound(PRODUCTS.AUDIENCES.BONUS * level * 100, 1)
 		},
 	},
@@ -55,7 +57,7 @@ export const PRODUCTS = {
 		NAME: 'Analytics',
 		DESCRIPTION: 'Boosts your damage to comments',
 		COST: 100,
-		BONUS: 1.2,
+		BONUS: 1.1,
 		MULTIPLIER: 1.2,
 		GET_BONUS: (level) => {
 			return toFixedRound(PRODUCTS.ANALYTICS.BONUS ** level, 2)

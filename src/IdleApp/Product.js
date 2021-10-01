@@ -160,7 +160,7 @@ export default function Product({ name, product, credits, onClick }) {
 	const isOwned = owned > 0
 	const lastTick = useRef()
 	const nextCost = PRODUCTS_GET_COST(product, owned + 1)
-	const { DESCRIPTION: description } = PRODUCTS[product]
+	const { DESCRIPTION: description, MAX_LEVEL: maxLevel } = PRODUCTS[product]
 	const [isHidden, setIsHidden] = useState(product !== 'COMMUNITY')
 	const isHiddenTreshold = credits > nextCost / 2
 
@@ -210,7 +210,10 @@ export default function Product({ name, product, credits, onClick }) {
 				</div>
 			</div>
 			<div className={css.actions}>
-				<Button disabled={nextCost > credits || !isRunning} onClick={onUpgrade}>
+				<Button
+					disabled={owned >= maxLevel || nextCost > credits || !isRunning}
+					onClick={onUpgrade}
+				>
 					Upgrade for {toFixedRound(nextCost, 1)} SC
 				</Button>
 				<Tippy content={<Dialog product={product} owned={owned} />}>
