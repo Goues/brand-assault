@@ -133,8 +133,11 @@ export const GET_AUDIENCES_CHANCE = (audiences) => {
 
 export const BASE_TOWER = {
 	RANGE: 2,
+	MAX_RANGE: 3,
 	FIRING_SPEED: 1000,
 	DAMAGE: 1,
+	RANGE_MULTIPLIER: (level) =>
+		BASE_TOWER.MAX_RANGE - (BASE_TOWER.MAX_RANGE - BASE_TOWER.RANGE) / level,
 }
 
 export const TOWER_TYPES = {
