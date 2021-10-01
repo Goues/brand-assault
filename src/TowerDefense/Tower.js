@@ -87,7 +87,7 @@ class Tower extends PIXI.Sprite {
 
 		const necessaryCredits = BASE_TOWER.GET_CREDITS(this.level + 1)
 		const credits = getStore().getState().credits
-		if (necessaryTokens > credits) return
+		if (necessaryCredits > credits) return
 
 		const { x, y } = this.grid
 		getStore().dispatch(upgradeTower(x, y))
