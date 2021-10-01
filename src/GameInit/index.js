@@ -133,7 +133,7 @@ function CreateBrandStep({ onCreate }) {
 
 	return (
 		<div>
-			<div className={css.heading}>Welcome to the Brand Defenders!</div>
+			<div className={css.heading}>Welcome to Brand Assault!</div>
 			<input
 				placeholder='Create a name for your brand'
 				type='text'
