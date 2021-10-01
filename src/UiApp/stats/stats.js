@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import SocialCredit from '../../IdleApp/Icons/SocialCredit'
 import css from './stats.module.css'
+import { toFixedRound } from '../../utils'
 
 function Stat({ id, label }) {
 	const value = useSelector((state) => state.stats[id])
@@ -10,7 +11,7 @@ function Stat({ id, label }) {
 			<div className={css.label}>{label}</div>
 			<div className={css.value}>
 				{id === 'creditsLost' && <SocialCredit width='10' />}
-				{value}
+				{toFixedRound(value, 1)}
 			</div>
 		</div>
 	)
