@@ -14,6 +14,7 @@ import { isGameOver } from '../credits'
 import EnemyManager from './EnemyManager'
 import waveManager from './WaveManager'
 import { addToLeaderboard } from '../leaderboard'
+import css from './TowerDefense.module.css'
 
 function detectGameOver(app) {
 	if (isGameOver(getStore().getState())) {
@@ -98,5 +99,5 @@ export default function TowerDefenseApp() {
 		}
 	}, [])
 
-	return <div ref={ref}></div>
+	return <div ref={ref} className={css.towerDefense}></div>
 }
