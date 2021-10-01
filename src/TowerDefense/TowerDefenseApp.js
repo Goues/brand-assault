@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { MAP, TILES_X, TILES_Y, GAME_WIDTH, GAME_HEIGHT, HQ } from './config'
+import { SOUNDS } from '../config'
 import * as PIXI from 'pixi.js'
+import { sound } from '@pixi/sound'
 import preload from './Preloader'
 import Enemy from './Enemy'
 import Grass from './Grass'
@@ -14,6 +16,8 @@ import waveManager from './WaveManager'
 
 function detectGameOver(app) {
 	if (isGameOver(getStore().getState())) {
+		sound.play(SOUNDS.GAMEOVER)
+		sound.stop(SOUNDS.BACKGROUND_MUSIC)
 		for (const child of app.stage.children) {
 			if (child instanceof Hq || child instanceof Enemy) {
 				app.stage.removeChild(child)
@@ -31,6 +35,7 @@ function mountPixi(el) {
 		autoStart: false,
 	})
 	preload(app.loader)
+	sound.play(SOUNDS.BACKGROUND_MUSIC)
 
 	for (let x = 0; x < TILES_X; x++) {
 		for (let y = 0; y < TILES_Y; y++) {

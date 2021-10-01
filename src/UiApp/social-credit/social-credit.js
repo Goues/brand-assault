@@ -1,8 +1,10 @@
 import { ReactComponent as CreditCardIcon } from './credit-card.svg'
+import { sound } from '@pixi/sound'
 import SocialCreditIcon from '../../IdleApp/Icons/SocialCredit'
 import css from './social-credit.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCredits } from '../../credits'
+import { SOUNDS } from '../../config'
 
 export default function SocialCredit({ credits }) {
 	const dispatch = useDispatch()
@@ -10,6 +12,7 @@ export default function SocialCredit({ credits }) {
 
 	const handleClick = () => {
 		if (!isRunning) return
+		sound.play(SOUNDS.COINS)
 		dispatch(addCredits(0.1))
 	}
 

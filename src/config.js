@@ -231,3 +231,11 @@ export const TOWERS = {
 		firingSpeed: BASE_TOWER.FIRING_SPEED / 2,
 	},
 }
+
+export const SOUNDS = {
+	BACKGROUND_MUSIC: 'background_musc',
+	DAMAGE: 'damage',
+	COINS: 'coins',
+	LASER: 'laser',
+	GAMEOVER: 'gameover',
+}

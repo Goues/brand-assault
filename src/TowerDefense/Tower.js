@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
-import { BASE_TOWER, TILE_HEIGHT, TILE_WIDTH, TOWERS } from '../config'
+import { sound } from '@pixi/sound'
+import { BASE_TOWER, TILE_HEIGHT, TILE_WIDTH, TOWERS, SOUNDS } from '../config'
 import { isWithinRange } from '../utils'
 import Bullet from './Bullet'
 import EnemyManager from './EnemyManager'
@@ -126,6 +127,7 @@ class Tower extends PIXI.Sprite {
 			}
 		}
 
+		sound.play(SOUNDS.LASER)
 		this.parent.addChild(new Bullet(this.center, target, this.damage[target.type], effect))
 	}
 

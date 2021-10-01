@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js'
+import { sound } from '@pixi/sound'
 import { PATH, TILE_HEIGHT, TILE_WIDTH, DIRECTIONS } from './config'
-import { BASE_DAMAGE, GET_DAMAGE } from '../config.js'
+import { BASE_DAMAGE, GET_DAMAGE, SOUNDS } from '../config.js'
 import { getStore } from '../gameState'
 import { addCredits, subtractCredits } from '../credits'
 import Hitpoints from './Hitpoints'
@@ -67,6 +68,8 @@ class Enemy extends PIXI.Sprite {
 	}
 
 	hit(baseDamage) {
+		sound.play(SOUNDS.DAMAGE)
+
 		const analytics = getStore().getState().products.ANALYTICS
 		const damage = GET_DAMAGE(baseDamage, analytics)
 

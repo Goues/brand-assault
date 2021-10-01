@@ -1,3 +1,6 @@
+import { sound } from '@pixi/sound'
+import { SOUNDS } from '../config'
+
 export default function preload(loader) {
 	loader
 		.add('add_tower', '/add_tower.png')
@@ -24,4 +27,10 @@ export default function preload(loader) {
 		.add('tower', '/tower.png')
 
 	loader.load()
+
+	sound.add(SOUNDS.GAMEOVER, 'sound/game_over.mp3')
+	sound.add(SOUNDS.BACKGROUND_MUSIC, 'sound/background_retro_music.mp3')
+	sound.add(SOUNDS.LASER, 'sound/laser.mp3')
+	sound.add(SOUNDS.DAMAGE, 'sound/damage.mp3')
+	sound.add(SOUNDS.COINS, 'sound/coins.mp3')
 }
