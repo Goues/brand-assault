@@ -23,6 +23,7 @@ class TowerUpgrade extends PIXI.Sprite {
 		}
 		this.tower = tower
 		this.visible = false
+		this.zIndex = 10
 
 		this.on('pointerdown', this.onClick)
 	}

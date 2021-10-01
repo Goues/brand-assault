@@ -214,6 +214,9 @@ class Tower extends PIXI.Sprite {
 	upgradeTower(type) {
 		this.upgraded = true
 		this.type = type
+		this.texture = PIXI.Texture.from(IMAGE[type])
+		this.handleUpgradeOverlayDisplay(false)
+		this.isOverlayVisible = false
 		this.upgradeLevel()
 	}
 
