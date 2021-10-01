@@ -15,6 +15,7 @@ import Enemy from './Enemy'
 import faker from 'faker'
 
 import css from './index.module.css'
+import Increase from '../IdleApp/Icons/Increase'
 
 function SecondStep() {
 	return (
@@ -107,17 +108,34 @@ function SocialCreditsStep() {
 
 function AgentsStep() {
 	return (
-		<div>
+		<div className={css.step}>
 			<div className={css.heading}>Hire agents!</div>
 			<p>You don't have to fight with enemies only by yourself.</p>
-			<p className={css.stepDescription}>
-				If you buy {PRODUCTS.COMMUNITY.NAME} <Community /> you can hire agents.
+			<ul>
+				<li className={css.stepDescription}>
+					If you buy {PRODUCTS.COMMUNITY.NAME} <Community /> you can hire agents.
+				</li>
+				<li>Agents will help you to deal with your enemies.</li>
+				<li className={css.stepDescription}>
+					You can hire 1 agent with every upgrade of <Community /> module.
+				</li>
+				<li>Hire new agent by click on any field around the wire.</li>
+			</ul>
+			<div className={css.heading}>Upgrades!</div>
+			<p>
+				Don't forget to <Increase /> upgrade your agents! You can get cool perks by doing so.
 			</p>
-			<p>Agents will help you to deal with your enemies.</p>
-			<p className={css.stepDescription}>
-				You can hire 1 agent with every upgrade of <Community /> module.
-			</p>
-			<p>Hire new agent by click on any field around the wire.</p>
+			<ul>
+				<li>
+					Deal more <strong>damage</strong>
+				</li>
+				<li>
+					Increase their <strong>range</strong>
+				</li>
+				<li>
+					Make them <strong>shoot faster</strong>
+				</li>
+			</ul>
 		</div>
 	)
 }

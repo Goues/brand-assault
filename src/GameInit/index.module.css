@@ -134,10 +134,10 @@
 }
 
 .footerButtons {
+	margin-top: 16px;
 	width: 390px;
 	display: flex;
 	justify-content: space-between;
-	position: absolute;
 	bottom: 32px;
 }
 
@@ -171,4 +171,11 @@
 	display: block;
 	margin: 0 auto;
 	margin-bottom: 42px;
+}
+
+.step ul {
+}
+
+.step li {
+	margin: 5px 0;
 }
