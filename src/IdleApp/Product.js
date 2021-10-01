@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from '../Button'
 import { toFixedRound } from '../utils'
@@ -10,7 +10,7 @@ import Influencers from './Icons/Influencers'
 import Analytics from './Icons/Analytics'
 import Audiences from './Icons/Audiences'
 import Info from './Icons/Info'
-import { PRODUCTS, PRODUCTS_GET_COST } from '../config'
+import { KEYCODE_BINDINGS, PRODUCTS, PRODUCTS_GET_COST } from '../config'
 import { addCredits, subtractCredits } from '../credits'
 import Tippy from '@tippyjs/react'
 import Increase from './Icons/Increase'
@@ -163,6 +163,7 @@ export default function Product({ name, product, credits, onClick }) {
 	const { DESCRIPTION: description, MAX_LEVEL: maxLevel } = PRODUCTS[product]
 	const [isHidden, setIsHidden] = useState(product !== 'COMMUNITY')
 	const isHiddenTreshold = credits > nextCost / 2
+	const isUpgradeEnabled = !(owned >= maxLevel || nextCost > credits || !isRunning)
 
 	useEffect(() => {
 		if (isHidden && isHiddenTreshold) {
@@ -170,13 +171,23 @@ export default function Product({ name, product, credits, onClick }) {
 		}
 	}, [isHidden, setIsHidden, isHiddenTreshold])
 
-	const onUpgrade = () => {
+	const onUpgrade = useCallback(() => {
 		dispatch(subtractCredits(nextCost))
 		dispatch({
 			type: 'BUY_PRODUCT',
 			payload: product,
 		})
-	}
+	}, [dispatch, product, nextCost])
+
+	useEffect(() => {
+		const listener = (e) => {
+			if (isUpgradeEnabled && e.keyCode === KEYCODE_BINDINGS[product]) {
+				onUpgrade()
+			}
+		}
+		document.addEventListener('keyup', listener)
+		return () => document.removeEventListener('keyup', listener)
+	}, [onUpgrade, product, isUpgradeEnabled])
 
 	useEffect(() => {
 		const { RATE: rate, INCOME: income } = PRODUCTS[product]
@@ -210,10 +221,7 @@ export default function Product({ name, product, credits, onClick }) {
 				</div>
 			</div>
 			<div className={css.actions}>
-				<Button
-					disabled={owned >= maxLevel || nextCost > credits || !isRunning}
-					onClick={onUpgrade}
-				>
+				<Button disabled={!isUpgradeEnabled} onClick={onUpgrade}>
 					Upgrade for {toFixedRound(nextCost, 1)} <SocialCredit width='10' />
 				</Button>
 				<Tippy content={<Dialog product={product} owned={owned} />}>

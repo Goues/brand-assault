@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import IdleApp from './IdleApp'
 import TowerDefenseApp from './TowerDefense/TowerDefenseApp'
 import './App.css'
@@ -10,73 +10,46 @@ import EnemyCounter from './UiApp/enemy-counter/enemy-counter'
 import Stats from './UiApp/stats/stats'
 import Enemies from './UiApp/enemies/enemies'
 import Header from './UiApp/header/header'
-import { Provider } from 'react-redux'
-import { getNewStore, getStore } from './gameState'
+import { useSelector } from 'react-redux'
+import { KEYCODE_BINDINGS } from './config'
 
-function App() {
-	const [store, setStore] = useState(getStore)
-	const [iteration, setIteration] = useState(0)
-
-	const reset = () => {
-		setStore(getNewStore())
-		setIteration(iteration + 1)
-	}
-
-	useEffect(() => {
-		const listener = () => {
-			if (document.visibilityState !== 'visible') {
-				clock.stop()
-			}
-		}
-		document.addEventListener('visibilitychange', listener)
-		return () => document.removeEventListener('visibilitychange', listener)
-	}, [])
+function App({ reset }) {
+	const isRunning = useSelector((state) => state.controls.running)
 
 	useEffect(() => {
 		const listener = (e) => {
-			if (e.keyCode === 80) {
+			if (e.keyCode === KEYCODE_BINDINGS.PAUSE) {
 				// p
-				clock.stop()
+				if (isRunning) clock.stop()
+				else clock.run()
 			}
 		}
-		document.addEventListener('keydown', listener)
-		return () => document.removeEventListener('keydown', listener)
-	}, [])
-
-	// I keep exiting accidentally
-	useEffect(() => {
-		const listener = (event) => {
-			event.preventDefault()
-			return (event.returnValue = 'Are you sure you want to exit?')
-		}
-		window.addEventListener('beforeunload', listener)
-		return () => window.removeEventListener('beforeunload', listener)
-	}, [])
+		document.addEventListener('keyup', listener)
+		return () => document.removeEventListener('keyup', listener)
+	}, [isRunning])
 
 	return (
-		<Provider store={store} key={iteration}>
-			<div className='App'>
-				<GameInit />
-				<GameOver reset={reset} />
-				<div className='Game'>
-					<Header onReset={reset} />
-					<div className='App-stage'>
-						<div className='App-idle'>
-							<IdleApp />
-						</div>
-						<div className='App-td'>
-							<GamePaused reset={reset} />
-							<EnemyCounter />
-							<TowerDefenseApp />
-						</div>
-						<div className='App-ui'>
-							<Stats />
-							<Enemies />
-						</div>
+		<div className='App'>
+			<GameInit />
+			<GameOver reset={reset} />
+			<div className='Game'>
+				<Header onReset={reset} />
+				<div className='App-stage'>
+					<div className='App-idle'>
+						<IdleApp />
+					</div>
+					<div className='App-td'>
+						<GamePaused reset={reset} />
+						<EnemyCounter />
+						<TowerDefenseApp />
+					</div>
+					<div className='App-ui'>
+						<Stats />
+						<Enemies />
 					</div>
 				</div>
 			</div>
-		</Provider>
+		</div>
 	)
 }
 

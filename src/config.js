@@ -29,6 +29,7 @@ export const PRODUCTS = {
 		GET_BONUS: (level) => {
 			return toFixedRound(PRODUCTS.COMMUNITY.INCOME * level, 1)
 		},
+		KEYCODE: 'c',
 	},
 	PUBLISHER: {
 		NAME: 'Publisher',
@@ -39,6 +40,7 @@ export const PRODUCTS = {
 		GET_BONUS: (level) => {
 			return toFixedRound(PRODUCTS.PUBLISHER.BONUS * level * 100, 1)
 		},
+		KEYCODE: 'x',
 	},
 	INFLUENCERS: {
 		NAME: 'Influencers',
@@ -54,6 +56,7 @@ export const PRODUCTS = {
 		GET_BONUS: (level) => {
 			return toFixedRound(PRODUCTS.INFLUENCERS.INCOME * level, 1)
 		},
+		KEYCODE: 'v',
 	},
 	AUDIENCES: {
 		NAME: 'Audiences',
@@ -66,6 +69,7 @@ export const PRODUCTS = {
 			if (level > PRODUCTS.AUDIENCES.MAX_LEVEL) level = PRODUCTS.AUDIENCES.MAX_LEVEL
 			return toFixedRound(PRODUCTS.AUDIENCES.BONUS * level * 100, 1)
 		},
+		KEYCODE: 'd',
 	},
 	ANALYTICS: {
 		NAME: 'Analytics',
@@ -76,6 +80,7 @@ export const PRODUCTS = {
 		GET_BONUS: (level) => {
 			return toFixedRound(PRODUCTS.ANALYTICS.BONUS ** level, 2)
 		},
+		KEYCODE: 'f',
 	},
 }
 
@@ -243,4 +248,14 @@ export const SOUNDS = {
 	COINS: 'coins',
 	LASER: 'laser',
 	GAMEOVER: 'gameover',
+}
+
+export const KEYCODE_BINDINGS = {
+	PAUSE: 80, // p
+	SOCIAL_CREDITS: 83, // s
+	COMMUNITY: 67, // c
+	PUBLISHER: 88, // x
+	INFLUENCERS: 86, // v
+	AUDIENCES: 68, // d
+	ANALYTICS: 70, // f
 }

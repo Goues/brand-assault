@@ -26,3 +26,27 @@
 	width: 660px;
 	position: absolute;
 }
+.shortcuts {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 300px;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 200px;
+	margin-bottom: 8px;
+}
+.icon {
+	margin-right: 20px;
+}
+.description {
+	display: flex;
+	align-items: center;
+	width: 80%;
+	justify-content: space-between;
+}
