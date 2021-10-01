@@ -99,27 +99,37 @@ class Tower extends PIXI.Sprite {
 	}
 
 	onClick = () => {
+		if (this.upgraded) {
+			if (this.canUpgrade(true)) {
+				this.upgradeLevel()
+			}
+		} else {
+			this.handleUpgradeOverlayDisplay(this.isOverlayVisible)
+			this.isOverlayVisible = !this.isOverlayVisible
+		}
+	}
+
+	canUpgrade(buy) {
 		const state = getStore().getState()
 		const spentPoints = getTotalTowerPointSpent(state)
 		const availablePoints = getTotalTowerPointAvailable(state)
 		const remainingPoints = availablePoints - spentPoints
 
-		const necessaryTokens = BASE_TOWER.GET_TOKENS(this.level + 1)
-		if (remainingPoints < necessaryTokens) return
+		const necessaryTokens =
+			BASE_TOWER.GET_TOKENS(this.level + 1) - BASE_TOWER.GET_TOKENS(this.level)
+		if (remainingPoints < necessaryTokens) return false
 
 		const necessaryCredits = BASE_TOWER.GET_CREDITS(this.level + 1)
 		const credits = getStore().getState().credits
-		if (necessaryCredits > credits) return
+		if (necessaryCredits > credits) return false
 
-		if (this.upgraded) {
+		if (buy) {
 			const { x, y } = this.grid
 			getStore().dispatch(upgradeTower(x, y))
 			getStore().dispatch(subtractCredits(necessaryCredits))
-			this.upgradeLevel()
-		} else {
-			this.handleUpgradeOverlayDisplay(this.isOverlayVisible)
-			this.isOverlayVisible = !this.isOverlayVisible
 		}
+
+		return true
 	}
 
 	upgradeLevel() {

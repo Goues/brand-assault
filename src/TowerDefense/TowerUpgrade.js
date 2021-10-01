@@ -49,7 +49,9 @@ class TowerUpgrade extends PIXI.Sprite {
 
 	onClick() {
 		if (!this.tower.upgraded) {
-			this.tower.upgradeTower(this.type)
+			if (this.tower.canUpgrade(true)) {
+				this.tower.upgradeTower(this.type)
+			}
 		}
 	}
 }
