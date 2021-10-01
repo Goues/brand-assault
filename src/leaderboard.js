@@ -1,14 +1,18 @@
+import { getStore } from './gameState'
+
 export const ACTIONS = {
 	SET_LEADERBOARD: 'leaderboard/setLeaderboard',
 }
 
-export const setLeaderboard = (list) => (dispatch, getState) => {
+export const setLeaderboard = (list) => (dispatch) => {
 	localStorage.setItem('leaderboard', JSON.stringify(list))
 	dispatch({ type: ACTIONS.SET_LEADERBOARD, list })
 }
 
-export const addToLeaderboard = (item) => (dispatch, getState) => {
-	const list = [...getState().leaderboard.list, item].sort((a, b) => b.score - a.score).slice(0, 10)
+export const addToLeaderboard = (item) => (dispatch) => {
+	const list = [...getStore().getState().leaderboard.list, item]
+		.sort((a, b) => b.score - a.score)
+		.slice(0, 10)
 	const madeItToLeaderboard = !!list.find((i) => i === item)
 	localStorage.setItem('leaderboard', JSON.stringify(list))
 	dispatch({ type: ACTIONS.SET_LEADERBOARD, list, madeItToLeaderboard: madeItToLeaderboard })

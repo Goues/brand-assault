@@ -204,10 +204,11 @@ function GameInit() {
 	const gameStarted = useSelector((state) => state.controls.started)
 	const dispatch = useDispatch()
 	const [step, setStep] = useState(null)
-	const [playerName, setPlayerName] = useState('')
+	const [playerName, setPlayerName] = useState(() => localStorage.getItem('player-name') || '')
 	const [hasError, setHasError] = useState(false)
 	const changePlayerName = useCallback(
 		(name) => {
+			localStorage.setItem('player-name', name)
 			setPlayerName(name)
 			setHasError(name === '')
 		},
