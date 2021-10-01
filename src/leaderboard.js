@@ -8,7 +8,7 @@ export const setLeaderboard = (list) => (dispatch, getState) => {
 }
 
 export const addToLeaderboard = (item) => (dispatch, getState) => {
-	const list = [...getState().leaderboard, item].sort((a, b) => b.score - a.score)
+	const list = [...getState().leaderboard, item].sort((a, b) => b.score - a.score).slice(0, 10)
 	localStorage.setItem('leaderboard', JSON.stringify(list))
 	dispatch({ type: ACTIONS.SET_LEADERBOARD, list })
 }
