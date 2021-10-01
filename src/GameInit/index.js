@@ -94,14 +94,22 @@ function SocialCreditsStep() {
 	return (
 		<div>
 			<div className={css.heading}>
-				<SocialCredit /> You need Social Credits!
+				You need Social Credits <SocialCredit /> !
 			</div>
-			<p>You need Social Credits to buy products.</p>
-			<p className={css.stepDescription}>
-				You can gain little amount of Social Credits by clicking on the <SocialCredit /> icon on the
-				top of the screen.
+			<p>
+				Social credit is the bread and butter of the game.{' '}
+				<strong>Once you lose your credit, you lose the game.</strong>
 			</p>
-			<p>Also bought products give you some Social Credits automatically.</p>
+			<ul>
+				<li>
+					Use your <SocialCredit width='12' /> to buy products. Some of them even give you credits
+					periodically.
+				</li>
+				<li>
+					Do you have some spare time? Use it to generate some extra <SocialCredit width='12' /> by
+					clicking on the Social Credit counter at the top of the screen.
+				</li>
+			</ul>
 		</div>
 	)
 }
@@ -112,12 +120,13 @@ function AgentsStep() {
 			<div className={css.heading}>Hire agents!</div>
 			<p>You don't have to fight with enemies only by yourself.</p>
 			<ul>
-				<li className={css.stepDescription}>
-					If you buy {PRODUCTS.COMMUNITY.NAME} <Community /> you can hire agents.
+				<li>
+					Buy {PRODUCTS.COMMUNITY.NAME} <Community width='16' height='16' /> so you can hire more
+					agents.
 				</li>
 				<li>Agents will help you to deal with your enemies.</li>
-				<li className={css.stepDescription}>
-					You can hire 1 agent with every upgrade of <Community /> module.
+				<li>
+					You can hire 1 agent with every upgrade of <Community width='16' height='16' /> module.
 				</li>
 				<li>Hire new agent by click on any field around the wire.</li>
 			</ul>
