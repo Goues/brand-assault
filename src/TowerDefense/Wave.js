@@ -3,6 +3,7 @@ import { GET_COMMENTS_FOR_WAVE, GET_COMMENTS_HP_FOR_WAVE, GET_AUDIENCES_CHANCE }
 import Enemy from './Enemy'
 import EnemyManager from './EnemyManager'
 import { getStore } from '../gameState'
+import { incrementSurvived } from '../waves'
 
 function shuffleArray(array) {
 	for (var i = array.length - 1; i > 0; i--) {
@@ -55,13 +56,6 @@ export default class Wave extends PIXI.Container {
 				return this.addEnemy(type, hp, index)
 			})
 		)
-
-		// need to emit in next tick to be able to listen on the event in wave manager
-		setTimeout(() => {
-			for (const enemy of [...this.enemies]) {
-				this.emit('enemy-added', enemy)
-			}
-		}, 100)
 	}
 
 	addEnemy(type, hp, index) {
@@ -72,7 +66,6 @@ export default class Wave extends PIXI.Container {
 		enemy.on('spawn', () => {
 			this.enemies.add(this.addEnemy('negative', this.hp.comment, 0))
 		})
-		this.emit('emeny-added', enemy)
 		this.addChild(enemy)
 
 		EnemyManager.add(enemy)
@@ -82,10 +75,9 @@ export default class Wave extends PIXI.Container {
 
 	onEnemyDestroy(enemy) {
 		this.enemies.delete(enemy)
-		this.emit('enemy-destroyed', enemy)
 
 		if (this.enemies.size === 0) {
-			this.emit('wave-completed', this)
+			getStore().dispatch(incrementSurvived())
 			this.destroy()
 		}
 	}

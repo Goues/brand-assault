@@ -1,3 +1,6 @@
+import { getStore } from '../gameState'
+import { setRemainingEnemies } from '../waves'
+
 class EnemyManager {
 	constructor() {
 		this.set = new Set()
@@ -24,15 +27,20 @@ class EnemyManager {
 		this._cachedArray = null
 
 		enemy.on('destroyed', () => this.remove(enemy))
+
+		getStore().dispatch(setRemainingEnemies(this.count()))
 	}
 
 	remove(enemy) {
 		this.set.delete(enemy)
 		this._cachedArray = null
+
+		getStore().dispatch(setRemainingEnemies(this.count()))
 	}
 
 	reset() {
 		this.set.clear()
+		getStore().dispatch(setRemainingEnemies(this.count()))
 	}
 }
 
