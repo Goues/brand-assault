@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Button from '../Button'
 import { run } from '../clock'
 import { PRODUCTS } from '../config'
-import { setPlayerName } from '../controls'
+import { setPlayerName as chooseName } from '../controls'
 import Analytics from '../IdleApp/Icons/Analytics'
 import Audiences from '../IdleApp/Icons/Audiences'
 import Community from '../IdleApp/Icons/Community'
@@ -149,17 +149,14 @@ function AgentsStep() {
 	)
 }
 
-function CreateBrandStep({ onCreate, onTutorial }) {
-	const [playerName, setPlayerName] = useState('')
-	const [hasError, setHasError] = useState(false)
-	const changePlayerName = useCallback(
-		(name) => {
-			setPlayerName(name)
-			setHasError(name === '')
-		},
-		[setPlayerName]
-	)
-
+function CreateBrandStep({
+	playerName,
+	changePlayerName,
+	hasError,
+	setHasError,
+	onCreate,
+	onTutorial,
+}) {
 	const handleSkipAndPlay = () => {
 		// If input is empty and error is not set change the color (input not used before)
 		if (!playerName) {
@@ -192,9 +189,9 @@ function CreateBrandStep({ onCreate, onTutorial }) {
 				Generate random name
 			</Button>
 			<div className={css.startButtons}>
-				<Button onClick={onTutorial}>Show me how to play</Button>
-				<button className={css.buttonLink} onClick={handleSkipAndPlay}>
-					Skip tutorial and play
+				<Button onClick={handleSkipAndPlay}>Skip tutorial and play</Button>
+				<button className={css.buttonLink} onClick={onTutorial}>
+					Show me how to play
 				</button>
 			</div>
 		</div>
@@ -207,6 +204,15 @@ function GameInit() {
 	const gameStarted = useSelector((state) => state.controls.started)
 	const dispatch = useDispatch()
 	const [step, setStep] = useState(null)
+	const [playerName, setPlayerName] = useState('')
+	const [hasError, setHasError] = useState(false)
+	const changePlayerName = useCallback(
+		(name) => {
+			setPlayerName(name)
+			setHasError(name === '')
+		},
+		[setPlayerName]
+	)
 
 	if (gameStarted) return ''
 	const Step = TUTORIAL_STEPS[step]
@@ -217,8 +223,12 @@ function GameInit() {
 				{!Step && (
 					<div>
 						<CreateBrandStep
+							playerName={playerName}
+							changePlayerName={changePlayerName}
+							hasError={hasError}
+							setHasError={setHasError}
 							onCreate={(playerName) => {
-								dispatch(setPlayerName(playerName))
+								dispatch(chooseName(playerName))
 								run()
 							}}
 							onTutorial={() => setStep(0)}
