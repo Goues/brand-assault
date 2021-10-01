@@ -83,7 +83,6 @@ class Tower extends PIXI.Sprite {
 	}
 
 	handleUpgradeOverlayDisplay(display) {
-		console.log(this.overlay)
 		this.overlay.forEach((element) => {
 			element.visible = display
 		})
