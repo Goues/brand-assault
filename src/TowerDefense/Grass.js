@@ -10,6 +10,9 @@ const TEXTURES = {
 	PASSIVE: PIXI.Texture.from('/space_for_tower.png'),
 	ACTIVE: PIXI.Texture.from('/space_active_for_tower.png'),
 	HOVER: PIXI.Texture.from('/add_tower.png'),
+	SHIELD: PIXI.Texture.from('/shield.png'),
+	SHIELD_COMP: PIXI.Texture.from('/shield_comp.png'),
+	UPGRADE: PIXI.Texture.from('/upgrade.png'),
 }
 
 class Grass extends Tile {

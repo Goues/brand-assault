@@ -173,7 +173,6 @@ export const TOWER_TYPES = {
 	PURGER: 'PURGER',
 	OPTIMIST: 'OPTIMIST',
 	POWER_USER: 'POWER_USER',
-	BUSY_BEE: 'BUSY_BEE',
 }
 
 export const TOWERS = {

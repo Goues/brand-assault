@@ -1,21 +1,22 @@
 import * as PIXI from 'pixi.js'
 import { sound } from '@pixi/sound'
-import { BASE_TOWER, TILE_HEIGHT, TILE_WIDTH, TOWERS, SOUNDS } from '../config'
+import { BASE_TOWER, TILE_HEIGHT, TILE_WIDTH, TOWERS, SOUNDS, TOWER_TYPES } from '../config'
 import { isWithinRange } from '../utils'
 import { upgradeTower } from '../towers'
 import { getStore } from '../gameState'
 import { getTotalTowerPointSpent, getTotalTowerPointAvailable } from '../towers'
 import { subtractCredits } from '../credits'
 import Bullet from './Bullet'
+import TowerUpgrade from './TowerUpgrade'
 import EnemyManager from './EnemyManager'
 
 const IMAGE = {
 	DEFAULT: '/tower.png',
-	QUICK_TO_BAN_AGENT: '/qtba.jpeg',
-	PURGER: '/purger.jpg',
-	OPTIMIST: '/optimist.jpeg',
-	POWER_USER: '/power_user.png', // miniboss
 	BUSY_BEE: '/busy_bee.png', // boss
+	QUICK_TO_BAN_AGENT: '/qtba.png',
+	PURGER: '/purger.png',
+	OPTIMIST: '/optimist.png',
+	POWER_USER: '/power.png',
 }
 
 class Tower extends PIXI.Sprite {
@@ -31,6 +32,7 @@ class Tower extends PIXI.Sprite {
 			x: this.x + this.width / 2,
 			y: this.y + this.height / 2,
 		}
+		this.upgraded = false
 
 		this.interactive = true
 		this.buttonMode = true
@@ -41,6 +43,8 @@ class Tower extends PIXI.Sprite {
 		this.lifespan = 0
 		this.target = null
 		this.parent = parent
+		this.overlay = []
+		this.isOverlayVisible = false
 
 		const rangeCircle = new PIXI.Graphics()
 		rangeCircle.zIndex = 1
@@ -63,7 +67,26 @@ class Tower extends PIXI.Sprite {
 		this.levelText.y = this.height - 5
 		this.addChild(this.levelText)
 
-		this.upgrade() // initialize to level 1
+		this.upgradeLevel() // initialize to level 1
+		this.createUpgradeOverlay()
+	}
+
+	createUpgradeOverlay() {
+		const { x, y } = this.grid
+		for (const type in TOWER_TYPES) {
+			if (type !== TOWER_TYPES.DEFAULT) {
+				let element = new TowerUpgrade(type, this, x, y)
+				this.overlay.push(element)
+				this.parent.addChild(element)
+			}
+		}
+	}
+
+	handleUpgradeOverlayDisplay(display) {
+		console.log(this.overlay)
+		this.overlay.forEach((element) => {
+			element.visible = display
+		})
 	}
 
 	mouseover(e) {
@@ -92,10 +115,15 @@ class Tower extends PIXI.Sprite {
 		const { x, y } = this.grid
 		getStore().dispatch(upgradeTower(x, y))
 		getStore().dispatch(subtractCredits(necessaryCredits))
-		this.upgrade()
+		if (this.upgraded) {
+			this.upgradeLevel()
+		} else {
+			this.handleUpgradeOverlayDisplay(this.isOverlayVisible)
+			this.isOverlayVisible = !this.isOverlayVisible
+		}
 	}
 
-	upgrade() {
+	upgradeLevel() {
 		this.level += 1
 		this.levelText.text = this.level
 		this.levelText.x = this.width / 2 + this.levelText.width / 2 - 2
@@ -182,6 +210,22 @@ class Tower extends PIXI.Sprite {
 		this.parent.addChild(
 			new Bullet(this.center, target, this.damageMultiplier * this.damage[target.type], effect)
 		)
+	}
+
+	upgradeTower(type) {
+		if (!this.upgraded) {
+			this.texture = PIXI.Texture.from(IMAGE[type])
+			this.damage = TOWERS[type].damage
+			this.chance = TOWERS[type].chance
+			this.slow = TOWERS[type].slow
+			this.burstArea = TOWERS[type].burstArea
+			this.burstDamage = TOWERS[type].burstDamage
+			this.firingSpeed = TOWERS[type].firingSpeed // temporary
+			this.upgraded = true
+			this.handleUpgradeOverlayDisplay(false)
+			this.isOverlayVisible = false
+		}
+		this.level += 1
 	}
 
 	update(delta) {
