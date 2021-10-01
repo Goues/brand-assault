@@ -12,6 +12,9 @@
 	user-select: none;
 	cursor: pointer;
 }
+.socialCreditDisabled {
+	cursor: not-allowed;
+}
 
 .socialCreditText {
 	display: flex;

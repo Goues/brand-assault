@@ -13,6 +13,7 @@ const formatRemaining = (value) => {
 
 const EnemyCounter = () => {
 	const currentWave = useSelector((state) => state.waves.current)
+	const isRunning = useSelector((state) => state.controls.running)
 	const remainingEnemies = useSelector((state) => state.waves.remainingEnemies)
 	const [remaining, setRemaining] = useState(WAVE_TIMER_MS)
 
@@ -52,7 +53,7 @@ const EnemyCounter = () => {
 		<div className={css.enemyCounter}>
 			Wave: {currentWave}
 			<Tippy content={<div className={css.tooltip}>Spawn next wave right now!</div>}>
-				<button className={css.spawnNextWave} onClick={handleClick}>
+				<button disabled={!isRunning} className={css.spawnNextWave} onClick={handleClick}>
 					<NextWave />
 				</button>
 			</Tippy>
