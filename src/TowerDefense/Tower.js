@@ -60,10 +60,7 @@ class Tower extends PIXI.Sprite {
 			fontWeight: 'bold',
 			lineJoin: 'round',
 		})
-		this.levelText.x = this.width / 2
-		this.levelText.y = this.height
-		this.levelText.anchor.set(0.5)
-		this.levelText.pivot.set(0.5)
+		this.levelText.y = this.height - 5
 		this.addChild(this.levelText)
 
 		this.upgrade() // initialize to level 1
@@ -101,6 +98,7 @@ class Tower extends PIXI.Sprite {
 	upgrade() {
 		this.level += 1
 		this.levelText.text = this.level
+		this.levelText.x = this.width / 2 + this.levelText.width / 2 - 2
 		this.damage = TOWERS[this.type].damage
 		this.damageMultiplier = BASE_TOWER.DAMAGE_MULTIPLIER(this.level)
 		this.chance = TOWERS[this.type].chance
