@@ -14,38 +14,29 @@ import EnemiesList from './EnemiesListDialog'
 import Enemy from './Enemy'
 import faker from 'faker'
 
-// import { isGameOver } from "../credits";
 import css from './index.module.css'
 
-function FirstStep({ next }) {
+function SecondStep() {
 	return (
 		<div>
 			<div className={css.heading}>Welcome to the Brand Defenders</div>
-			<div>The main goal of the game is to defend your brand from negative comments</div>
-			<Button onClick={next}>Show me how to play</Button>
+			<p>The main goal of the game is to defend your brand from negative comments</p>
+			<p>There are several types of your enemies</p>
+			<EnemiesList />
+			<p>
+				<strong>TIP</strong>
+				<br />
+				You can deal tiny amount of damage to the enemies by clicking on them
+			</p>
 		</div>
 	)
 }
 
-function SecondStep({ next }) {
-	return (
-		<div>
-			<div className={css.heading}>There are several types of your enemies</div>
-			<EnemiesList />
-			<div>
-				<strong>TIP</strong>
-				<br />
-				You can deal tiny amount of damage to the enemies by clicking on them
-			</div>
-			<Button onClick={next}>Next</Button>
-		</div>
-	)
-}
-function ThirdStep({ next }) {
+function ThirdStep() {
 	return (
 		<div>
 			<div className={css.heading}>There are also good guys</div>
-			<div>Don't kill them</div>
+			<p>Don't kill them!</p>
 			<Enemy
 				name={'positive comments'}
 				description={
@@ -53,88 +44,85 @@ function ThirdStep({ next }) {
 				}
 				icon='./comment_positive.png'
 			/>
-			<Button onClick={next}>Next</Button>
 		</div>
 	)
 }
-function FourthStep({ next }) {
+
+function FourthStep() {
 	return (
 		<div>
 			<div className={css.heading}>Buy products!</div>
-			<div>They give you passive bonuses.</div>
-			<div>
-				<div>
-					<div>
+			<p>They give you passive bonuses.</p>
+			<div className={css.descriptions}>
+				<div className={css.moduleDescription}>
+					<div className={css.moduleName}>
 						<Community /> {PRODUCTS.COMMUNITY.NAME}
 					</div>
 					<div>{PRODUCTS.COMMUNITY.DESCRIPTION}</div>
 				</div>
-				<div>
-					<div>
+				<div className={css.moduleDescription}>
+					<div className={css.moduleName}>
 						<Publisher /> {PRODUCTS.PUBLISHER.NAME}
 					</div>
 					<div>{PRODUCTS.PUBLISHER.DESCRIPTION}</div>
 				</div>
-				<div>
-					<div>
+				<div className={css.moduleDescription}>
+					<div className={css.moduleName}>
 						<Influencers /> {PRODUCTS.INFLUENCERS.NAME}
 					</div>
 					<div>{PRODUCTS.INFLUENCERS.DESCRIPTION}</div>
 				</div>
-				<div>
-					<div>
+				<div className={css.moduleDescription}>
+					<div className={css.moduleName}>
 						<Audiences /> {PRODUCTS.AUDIENCES.NAME}
 					</div>
 					<div>{PRODUCTS.AUDIENCES.DESCRIPTION}</div>
 				</div>
-				<div>
-					<div>
+				<div className={css.moduleDescription}>
+					<div className={css.moduleName}>
 						<Analytics /> {PRODUCTS.ANALYTICS.NAME}
 					</div>
 					<div>{PRODUCTS.ANALYTICS.DESCRIPTION}</div>
 				</div>
 			</div>
-			<Button onClick={next}>Next</Button>
 		</div>
 	)
 }
-function SocialCreditsStep({ next }) {
+
+function SocialCreditsStep() {
 	return (
 		<div>
 			<div className={css.heading}>
 				<SocialCredit /> You need Social Credits!
 			</div>
-			<div>You need Social Credits to buy products.</div>
-			<div>
-				You can gain little amount of Social Credits by clicking on the <SocialCredit />
-				on the top of the screen.
-			</div>
-			<div>Also bought products give you some Social Credits automatically.</div>
-			<Button onClick={next}>Next</Button>
+			<p>You need Social Credits to buy products.</p>
+			<p className={css.stepDescription}>
+				You can gain little amount of Social Credits by clicking on the <SocialCredit /> icon on the
+				top of the screen.
+			</p>
+			<p>Also bought products give you some Social Credits automatically.</p>
 		</div>
 	)
 }
-function AgentsStep({ next }) {
+
+function AgentsStep() {
 	return (
 		<div>
 			<div className={css.heading}>Hire agents!</div>
-			<div>You don't have to fight with enemies only by yourself.</div>
-			<div>
+			<p>You don't have to fight with enemies only by yourself.</p>
+			<p className={css.stepDescription}>
 				If you buy {PRODUCTS.COMMUNITY.NAME} <Community /> you can hire agents.
-			</div>
-			<div>Agents will help you to deal with your enemies.</div>
-			<div>
-				You can hire 1 agent with every upgrade of <Community />.
-			</div>
-			<div>Hire new agent by click on any field around the wire.</div>
-			<Button onClick={next}>Next</Button>
+			</p>
+			<p>Agents will help you to deal with your enemies.</p>
+			<p className={css.stepDescription}>
+				You can hire 1 agent with every upgrade of <Community /> module.
+			</p>
+			<p>Hire new agent by click on any field around the wire.</p>
 		</div>
 	)
 }
 
-const STEPS = [FirstStep, SecondStep, ThirdStep, FourthStep, SocialCreditsStep, AgentsStep]
-
-function LastStep({ next }) {
+function CreateBrandStep({ onCreate }) {
 	const [playerName, setPlayerName] = useState('')
 	const changePlayerName = useCallback(
 		(event) => {
@@ -152,12 +140,12 @@ function LastStep({ next }) {
 				value={playerName}
 				onChange={changePlayerName}
 			/>
-			<Button disabled={!playerName} onClick={() => next(playerName)}>
+			<Button disabled={!playerName} onClick={() => onCreate(playerName)}>
 				Let's create your brand!
 			</Button>
 			<Button
 				onClick={() => {
-					next(faker.commerce.department())
+					onCreate(faker.commerce.department())
 				}}
 			>
 				Generate random name!
@@ -166,29 +154,41 @@ function LastStep({ next }) {
 	)
 }
 
-function GameOver() {
+const TUTORIAL_STEPS = [SecondStep, ThirdStep, FourthStep, SocialCreditsStep, AgentsStep]
+
+function GameInit() {
 	const gameStarted = useSelector((state) => state.controls.started)
 	const dispatch = useDispatch()
-	const [step, setStep] = useState(0)
+	const [step, setStep] = useState(null)
 
 	if (gameStarted) return ''
-	const Step = STEPS[step]
+	const Step = TUTORIAL_STEPS[step]
 	return (
 		<div className={css.wrapper}>
 			<div className={css.modal}>
-				{Step && <Step next={() => setStep(step + 1)} />}
+				{Step && <Step />}
 				{!Step && (
-					<LastStep
-						next={(playerName) => {
-							dispatch(setPlayerName(playerName))
-							run()
-						}}
-					/>
+					<div>
+						<CreateBrandStep
+							onCreate={(playerName) => {
+								dispatch(setPlayerName(playerName))
+								run()
+							}}
+						/>
+						<Button onClick={() => setStep(0)}>Show me how to play</Button>
+					</div>
 				)}
-				{step !== STEPS.length && <Button onClick={() => setStep(STEPS.length)}>Skip</Button>}
+				{Number.isInteger(step) && step < TUTORIAL_STEPS.length && (
+					<div className={css.footerButtons}>
+						<Button onClick={() => setStep(null)} isSecondary>
+							Skip
+						</Button>
+						<Button onClick={() => setStep((currentStep) => currentStep + 1)}>Next</Button>
+					</div>
+				)}
 			</div>
 		</div>
 	)
 }
 
-export default GameOver
+export default GameInit

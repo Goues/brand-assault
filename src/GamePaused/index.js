@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { isGameOver } from '../credits'
 import css from './index.module.css'
 
-function GameOver() {
+function GamePaused() {
 	const skip = useSelector((state) => {
 		return state.controls.running || !state.controls.started
 	})
@@ -32,4 +32,4 @@ function GameOver() {
 	// )
 }
 
-export default GameOver
+export default GamePaused
