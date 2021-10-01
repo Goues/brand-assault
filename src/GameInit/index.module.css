@@ -1,20 +1,22 @@
 .wrapper {
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	background: #00000080;
 	z-index: 1000;
+	overflow: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .modal {
 	background-color: #fefefe;
-	margin: 10% auto;
 	padding: 50px;
 	border: 1px solid #888;
 	width: 390px;
-	height: 500px;
 	border-radius: 40px;
 	position: relative;
 }
