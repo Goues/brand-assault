@@ -46,7 +46,7 @@ export const PRODUCTS = {
 		NAME: 'Influencers',
 		DESCRIPTION: (
 			<>
-				Gain 50 <SocialCredit width='10' /> per minute
+				Gain 10 <SocialCredit width='10' /> per minute
 			</>
 		),
 		COST: 50,
