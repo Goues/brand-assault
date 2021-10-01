@@ -150,10 +150,10 @@ function CreateBrandStep({ onCreate }) {
 					}}
 					isSecondary
 				>
-					Generate random name!
+					Generate random name
 				</Button>
 				<Button disabled={!playerName} onClick={() => onCreate(playerName)}>
-					Let's create your brand!
+					Start a game
 				</Button>
 			</div>
 		</div>
@@ -182,7 +182,9 @@ function GameInit() {
 							}}
 						/>
 						<div className={css.headingSmall}>Got questions? Don't be shy.</div>
-						<Button onClick={() => setStep(0)}>Show me how to play</Button>
+						<button className={css.buttonLink} onClick={() => setStep(0)}>
+							Show me how to play
+						</button>
 					</div>
 				)}
 				{Number.isInteger(step) && step < TUTORIAL_STEPS.length && (

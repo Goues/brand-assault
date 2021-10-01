@@ -136,3 +136,10 @@
 	justify-content: space-between;
 	margin-bottom: 56px;
 }
+
+.buttonLink {
+	all: unset;
+	color: #0038e5;
+	text-decoration: underline;
+	text-decoration-color: #b3c3f7;
+}
