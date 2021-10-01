@@ -122,39 +122,53 @@ function AgentsStep() {
 	)
 }
 
-function CreateBrandStep({ onCreate }) {
+function CreateBrandStep({ onCreate, onTutorial }) {
 	const [playerName, setPlayerName] = useState('')
+	const [hasError, setHasError] = useState(false)
 	const changePlayerName = useCallback(
-		(event) => {
-			setPlayerName(event.target.value)
+		(name) => {
+			setPlayerName(name)
+			setHasError(name === '')
 		},
 		[setPlayerName]
 	)
 
+	const handleSkipAndPlay = () => {
+		// If input is empty and error is not set change the color (input not used before)
+		if (!playerName) {
+			setHasError(true)
+		} else {
+			onCreate(playerName)
+		}
+	}
+
 	return (
 		<div>
-			<div className={css.heading}>Welcome to Brand Assault!</div>
+			<img src='logo.png' className={css.logo} />
+			<div className={css.heading}>Welcome to the Brand Defenders!</div>
 			<input
 				placeholder='Create a name for your brand'
 				type='text'
-				className={css.brandNameInput}
+				className={`${css.brandNameInput} ${hasError ? css.inputError : ''}`}
 				value={playerName}
-				onChange={changePlayerName}
+				onChange={(event) => changePlayerName(event.target.value)}
 				maxLength='32'
 			/>
 			<div className={css.inputCounter}>{playerName.length}/32</div>
-			<div className={css.createBrandButtons}>
-				<Button
-					onClick={() => {
-						setPlayerName(`${faker.commerce.productAdjective()} ${faker.commerce.department()}`)
-					}}
-					isSecondary
-				>
-					Generate random name
-				</Button>
-				<Button disabled={!playerName} onClick={() => onCreate(playerName)}>
-					Start a game
-				</Button>
+			<Button
+				onClick={() => {
+					changePlayerName(`${faker.commerce.productAdjective()} ${faker.commerce.department()}`)
+				}}
+				isSecondary
+				className={css.generateButton}
+			>
+				Generate random name
+			</Button>
+			<div className={css.startButtons}>
+				<Button onClick={onTutorial}>Show me how to play</Button>
+				<button className={css.buttonLink} onClick={handleSkipAndPlay}>
+					Skip tutorial and play
+				</button>
 			</div>
 		</div>
 	)
@@ -180,11 +194,8 @@ function GameInit() {
 								dispatch(setPlayerName(playerName))
 								run()
 							}}
+							onTutorial={() => setStep(0)}
 						/>
-						<div className={css.headingSmall}>Got questions? Don't be shy.</div>
-						<button className={css.buttonLink} onClick={() => setStep(0)}>
-							Show me how to play
-						</button>
 					</div>
 				)}
 				{Number.isInteger(step) && step < TUTORIAL_STEPS.length && (
