@@ -57,7 +57,7 @@ function App() {
 		<Provider store={store} key={iteration}>
 			<div className='App'>
 				<GameInit />
-				<GameOver />
+				<GameOver reset={reset} />
 				<div className='Game'>
 					<Header onReset={reset} />
 					<div className='App-stage'>
