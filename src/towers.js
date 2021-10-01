@@ -2,10 +2,16 @@ import { BASE_TOWER } from './config'
 
 const ACTIONS = {
 	BUILD: 'tower/build',
+	UPGRADE: 'tower/upgrade',
 }
 
 export const buildTower = (x, y) => ({
 	type: ACTIONS.BUILD,
+	payload: { x, y },
+})
+
+export const upgradeTower = (x, y) => ({
+	type: ACTIONS.UPGRADE,
 	payload: { x, y },
 })
 
@@ -23,6 +29,15 @@ export const reducer = (state = INITIAL_STATE, action) => {
 					y,
 				},
 			]
+		}
+		case ACTIONS.UPGRADE: {
+			const { x, y } = action.payload
+			return state.map((tower) => {
+				if (tower.x === x && tower.y === y) {
+					return { ...tower, level: tower.level + 1 }
+				}
+				return tower
+			})
 		}
 		default:
 			return state

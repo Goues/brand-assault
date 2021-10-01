@@ -43,3 +43,5 @@ export const getNewStore = () => {
 	store = null
 	return getStore()
 }
+
+window.getStore = getStore

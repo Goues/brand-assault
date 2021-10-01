@@ -154,11 +154,17 @@ export const BASE_TOWER = {
 	RANGE: 2,
 	MAX_RANGE: 3,
 	FIRING_SPEED: 1000,
+	MIN_FIRING_SPEED: 500,
 	DAMAGE: 1,
 	RANGE_MULTIPLIER: (level) =>
 		BASE_TOWER.MAX_RANGE - (BASE_TOWER.MAX_RANGE - BASE_TOWER.RANGE) / level,
+	FIRING_SPEED_MULTIPLIER: (level) =>
+		BASE_TOWER.MIN_FIRING_SPEED + (BASE_TOWER.FIRING_SPEED - BASE_TOWER.MIN_FIRING_SPEED) / level,
+	DAMAGE_MULTIPLIER: (level) => BASE_TOWER.DAMAGE * level,
 	TOKENS: 1,
 	GET_TOKENS: (level) => BASE_TOWER.TOKENS * 2 ** (level - 1),
+	CREDITS: 10,
+	GET_CREDITS: (level) => BASE_TOWER.CREDITS * 2 ** (level - 1),
 }
 
 export const TOWER_TYPES = {
@@ -178,7 +184,7 @@ export const TOWERS = {
 			hater: BASE_TOWER.DAMAGE,
 			influencer: BASE_TOWER.DAMAGE,
 		},
-		firingSpeed: BASE_TOWER.FIRING_SPEED,
+		firingSpeed: 1,
 		cost: 0,
 	},
 	QUICK_TO_BAN_AGENT: {
@@ -192,7 +198,7 @@ export const TOWERS = {
 		chance: {
 			positive: 0.3,
 		},
-		firingSpeed: BASE_TOWER.FIRING_SPEED,
+		firingSpeed: 1,
 		cost: 20,
 	},
 	PURGER: {
@@ -201,7 +207,7 @@ export const TOWERS = {
 			hater: BASE_TOWER.DAMAGE,
 			influencer: BASE_TOWER.DAMAGE,
 		},
-		firingSpeed: BASE_TOWER.FIRING_SPEED,
+		firingSpeed: 1,
 		cost: 30,
 	},
 	OPTIMIST: {
@@ -214,7 +220,7 @@ export const TOWERS = {
 		slow: {
 			negative: 0.5,
 		},
-		firingSpeed: BASE_TOWER.FIRING_SPEED,
+		firingSpeed: 1,
 		cost: 20,
 	},
 	POWER_USER: {
@@ -225,7 +231,7 @@ export const TOWERS = {
 			hater: BASE_TOWER.DAMAGE,
 			influencer: BASE_TOWER.DAMAGE,
 		},
-		firingSpeed: BASE_TOWER.FIRING_SPEED * 1.5,
+		firingSpeed: 1.5,
 		cost: 50,
 		burstArea: TILE_WIDTH / 2,
 		burstDamage: BASE_TOWER.DAMAGE,
@@ -238,7 +244,7 @@ export const TOWERS = {
 			influencer: BASE_TOWER.DAMAGE,
 		},
 		cost: 30,
-		firingSpeed: BASE_TOWER.FIRING_SPEED / 2,
+		firingSpeed: 1 / 2,
 	},
 }
 

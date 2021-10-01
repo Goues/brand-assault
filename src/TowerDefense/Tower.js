@@ -2,6 +2,10 @@ import * as PIXI from 'pixi.js'
 import { sound } from '@pixi/sound'
 import { BASE_TOWER, TILE_HEIGHT, TILE_WIDTH, TOWERS, SOUNDS } from '../config'
 import { isWithinRange } from '../utils'
+import { upgradeTower } from '../towers'
+import { getStore } from '../gameState'
+import { getTotalTowerPointSpent, getTotalTowerPointAvailable } from '../towers'
+import { subtractCredits } from '../credits'
 import Bullet from './Bullet'
 import EnemyManager from './EnemyManager'
 
@@ -17,25 +21,25 @@ const IMAGE = {
 class Tower extends PIXI.Sprite {
 	constructor(x, y, type, parent) {
 		super(PIXI.Texture.from(IMAGE[type]))
+		this.grid = { x, y }
 		this.x = x * TILE_WIDTH
 		this.y = y * TILE_HEIGHT
 		this.width = TILE_WIDTH
 		this.height = TILE_HEIGHT
-		this.interactive = true
+
 		this.center = {
 			x: this.x + this.width / 2,
 			y: this.y + this.height / 2,
 		}
 
-		this.damage = TOWERS[type].damage
-		this.chance = TOWERS[type].chance
-		this.slow = TOWERS[type].slow
-		this.range = BASE_TOWER.RANGE * TILE_WIDTH
-		this.burstArea = TOWERS[type].burstArea
-		this.burstDamage = TOWERS[type].burstDamage
-		this.firingSpeed = TOWERS[type].firingSpeed // temporary
-		this.lifespan = 0 // temporary
-		this.target = null // temporary
+		this.interactive = true
+		this.buttonMode = true
+		this.on('pointerdown', this.onClick)
+
+		this.level = 0
+		this.type = type
+		this.lifespan = 0
+		this.target = null
 		this.parent = parent
 
 		const rangeCircle = new PIXI.Graphics()
@@ -47,6 +51,22 @@ class Tower extends PIXI.Sprite {
 		rangeCircle.visible = false
 		this.rangeCircle = rangeCircle
 		this.parent.addChild(rangeCircle)
+
+		this.levelText = new PIXI.Text(this.level, {
+			align: 'center',
+			fontFamily: 'Arial',
+			fill: ['#ffffff'],
+			fontSize: 11,
+			fontWeight: 'bold',
+			lineJoin: 'round',
+		})
+		this.levelText.x = this.width / 2
+		this.levelText.y = this.height
+		this.levelText.anchor.set(0.5)
+		this.levelText.pivot.set(0.5)
+		this.addChild(this.levelText)
+
+		this.upgrade() // initialize to level 1
 	}
 
 	mouseover(e) {
@@ -57,6 +77,39 @@ class Tower extends PIXI.Sprite {
 	mouseout() {
 		this.rangeCircle.visible = false
 		this.zIndex = null
+	}
+
+	onClick = () => {
+		const state = getStore().getState()
+		const spentPoints = getTotalTowerPointSpent(state)
+		const availablePoints = getTotalTowerPointAvailable(state)
+		const remainingPoints = availablePoints - spentPoints
+
+		const necessaryTokens = BASE_TOWER.GET_TOKENS(this.level + 1)
+		if (remainingPoints < necessaryTokens) return
+
+		const necessaryCredits = BASE_TOWER.GET_CREDITS(this.level + 1)
+		const credits = getStore().getState().credits
+		if (necessaryTokens > credits) return
+
+		const { x, y } = this.grid
+		getStore().dispatch(upgradeTower(x, y))
+		getStore().dispatch(subtractCredits(necessaryCredits))
+		this.upgrade()
+	}
+
+	upgrade() {
+		this.level += 1
+		this.levelText.text = this.level
+		this.damage = TOWERS[this.type].damage
+		this.damageMultiplier = BASE_TOWER.DAMAGE_MULTIPLIER(this.level)
+		this.chance = TOWERS[this.type].chance
+		this.slow = TOWERS[this.type].slow
+		this.range = BASE_TOWER.RANGE_MULTIPLIER(this.level) * TILE_WIDTH
+		this.burstArea = TOWERS[this.type].burstArea
+		this.burstDamage = TOWERS[this.type].burstDamage
+		this.firingSpeed =
+			BASE_TOWER.FIRING_SPEED_MULTIPLIER(this.level) * TOWERS[this.type].firingSpeed
 	}
 
 	shouldBeHit(enemy) {
@@ -122,13 +175,15 @@ class Tower extends PIXI.Sprite {
 					if (enemy === target) return
 					if (!isWithinRange(target, enemy, this.burstArea)) return
 
-					enemy.hit(this.burstDamage)
+					enemy.hit(this.burstDamage * this.damageMultiplier)
 				})
 			}
 		}
 
 		sound.play(SOUNDS.LASER)
-		this.parent.addChild(new Bullet(this.center, target, this.damage[target.type], effect))
+		this.parent.addChild(
+			new Bullet(this.center, target, this.damageMultiplier * this.damage[target.type], effect)
+		)
 	}
 
 	update(delta) {

@@ -39,7 +39,9 @@ class Grass extends Tile {
 		const availablePoints = getTotalTowerPointAvailable(state)
 		const remainingPoints = availablePoints - spentPoints
 
-		const canBuildTower = remainingPoints >= BASE_TOWER.TOKENS
+		this.remainingPoints = remainingPoints
+
+		const canBuildTower = this.remainingPoints >= BASE_TOWER.TOKENS
 
 		if (canBuildTower !== this.canBuildTower) {
 			this.texture = canBuildTower ? TEXTURES.ACTIVE : TEXTURES.PASSIVE
@@ -57,16 +59,11 @@ class Grass extends Tile {
 		this.parent.addChild(tower)
 	}
 
-	upgradeTower() {
-		// Tower upgrade
-	}
-
 	onClick = (e) => {
 		if (!this.tower) {
 			this.buildNewTower(e)
 			return
 		}
-		this.upgradeTower(e)
 	}
 
 	destroy() {
