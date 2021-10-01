@@ -9,11 +9,11 @@ export default function Pause({ isRunning, onPause, onResume, onReset }) {
 		<>
 			<button className={css.pause} onClick={onResume}>
 				<PlayIcon />
-				<div class={css.pauseText}>Continue</div>
+				<div className={css.pauseText}>Continue</div>
 			</button>
 			<button className={css.pause} onClick={onReset}>
 				<RefreshIcon />
-				<div class={css.pauseText}>Restart</div>
+				<div className={css.pauseText}>Restart</div>
 			</button>
 		</>
 	)
@@ -23,7 +23,7 @@ export default function Pause({ isRunning, onPause, onResume, onReset }) {
 			{isRunning ? (
 				<button className={css.pause} onClick={onPause}>
 					<PauseIcon />
-					<div class={css.pauseText}>Pause game</div>
+					<div className={css.pauseText}>Pause game</div>
 				</button>
 			) : (
 				<PausedState />
