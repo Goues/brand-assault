@@ -92,7 +92,7 @@ function FourthStep() {
 
 function SocialCreditsStep() {
 	return (
-		<div>
+		<div className={css.step}>
 			<div className={css.heading}>
 				You need Social Credits <SocialCredit /> !
 			</div>
