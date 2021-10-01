@@ -99,7 +99,7 @@ class Enemy extends PIXI.Sprite {
 				case 'positive':
 					getStore().dispatch(addCredits(this.hitpoints))
 					this.destroy()
-					break
+					return
 				case 'neutral':
 					this.type = 'negative'
 					this.texture = PIXI.Texture.from(IMAGE[this.type])
