@@ -111,10 +111,10 @@ class Tower extends PIXI.Sprite {
 		const credits = getStore().getState().credits
 		if (necessaryCredits > credits) return
 
-		const { x, y } = this.grid
-		getStore().dispatch(upgradeTower(x, y))
-		getStore().dispatch(subtractCredits(necessaryCredits))
 		if (this.upgraded) {
+			const { x, y } = this.grid
+			getStore().dispatch(upgradeTower(x, y))
+			getStore().dispatch(subtractCredits(necessaryCredits))
 			this.upgradeLevel()
 		} else {
 			this.handleUpgradeOverlayDisplay(this.isOverlayVisible)
