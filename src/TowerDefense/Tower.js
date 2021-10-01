@@ -212,26 +212,16 @@ class Tower extends PIXI.Sprite {
 	}
 
 	upgradeTower(type) {
-		if (!this.upgraded) {
-			this.texture = PIXI.Texture.from(IMAGE[type])
-			this.damage = TOWERS[type].damage
-			this.chance = TOWERS[type].chance
-			this.slow = TOWERS[type].slow
-			this.burstArea = TOWERS[type].burstArea
-			this.burstDamage = TOWERS[type].burstDamage
-			this.firingSpeed = TOWERS[type].firingSpeed // temporary
-			this.upgraded = true
-			this.handleUpgradeOverlayDisplay(false)
-			this.isOverlayVisible = false
-		}
-		this.level += 1
+		this.upgraded = true
+		this.type = type
+		this.upgradeLevel()
 	}
 
 	update(delta) {
 		this.lifespan += delta
 
-		while (this.lifespan >= this.firingSpeed) {
-			this.lifespan -= this.firingSpeed
+		while (this.lifespan > this.firingSpeed) {
+			this.lifespan %= this.firingSpeed
 
 			const target = this.getTarget()
 			if (target) this.performAttackOnTarget(target)
