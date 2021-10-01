@@ -5,12 +5,13 @@ import Pause from '../pause/pause'
 import SocialCredit from '../social-credit/social-credit'
 import DefendTowers from '../defend-towers/defend-towers'
 import WavesSurvived from '../waves-survived/waves-survived'
+import { getTotalTowerPointSpent, getTotalTowerPointAvailable } from '../../towers'
 import css from './header.module.css'
 
 const Header = ({ onReset }) => {
 	const credits = useSelector((state) => state.credits)
-	const towers = useSelector((state) => state.towers.length)
-	const communityLevel = useSelector((state) => state.products.COMMUNITY)
+	const towers = useSelector(getTotalTowerPointSpent)
+	const communityLevel = useSelector(getTotalTowerPointAvailable)
 	const wavesSurvived = useSelector((state) => state.waves.survived)
 	const isRunning = useSelector((state) => state.controls.running)
 

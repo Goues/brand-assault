@@ -1,9 +1,10 @@
 import * as PIXI from 'pixi.js'
 import Tile from './Tile'
 import Tower from './Tower'
-import { TOWER_TYPES } from '../config'
+import { TOWER_TYPES, BASE_TOWER } from '../config'
 import { buildTower } from '../towers'
 import { getStore } from '../gameState'
+import { getTotalTowerPointSpent, getTotalTowerPointAvailable } from '../towers'
 
 const TEXTURES = {
 	PASSIVE: PIXI.Texture.from('/space_for_tower.png'),
@@ -33,12 +34,12 @@ class Grass extends Tile {
 	}
 
 	detectStoreChange = () => {
-		const {
-			towers,
-			products: { COMMUNITY },
-		} = getStore().getState()
+		const state = getStore().getState()
+		const spentPoints = getTotalTowerPointSpent(state)
+		const availablePoints = getTotalTowerPointAvailable(state)
+		const remainingPoints = availablePoints - spentPoints
 
-		const canBuildTower = towers.length < COMMUNITY
+		const canBuildTower = remainingPoints >= BASE_TOWER.TOKENS
 
 		if (canBuildTower !== this.canBuildTower) {
 			this.texture = canBuildTower ? TEXTURES.ACTIVE : TEXTURES.PASSIVE

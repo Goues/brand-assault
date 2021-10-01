@@ -138,6 +138,8 @@ export const BASE_TOWER = {
 	DAMAGE: 1,
 	RANGE_MULTIPLIER: (level) =>
 		BASE_TOWER.MAX_RANGE - (BASE_TOWER.MAX_RANGE - BASE_TOWER.RANGE) / level,
+	TOKENS: 1,
+	GET_TOKENS: (level) => BASE_TOWER.TOKENS * 2 ** (level - 1),
 }
 
 export const TOWER_TYPES = {
