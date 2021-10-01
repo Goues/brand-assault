@@ -26,6 +26,7 @@ function AppWrapper() {
 	useEffect(() => {
 		const listener = (event) => {
 			event.preventDefault()
+			clock.stop()
 			return (event.returnValue = 'Are you sure you want to exit?')
 		}
 		window.addEventListener('beforeunload', listener)
