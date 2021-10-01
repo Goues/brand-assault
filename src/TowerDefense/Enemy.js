@@ -1,12 +1,24 @@
 import * as PIXI from 'pixi.js'
 import { sound } from '@pixi/sound'
 import { PATH, TILE_HEIGHT, TILE_WIDTH, DIRECTIONS } from './config'
-import { BASE_DAMAGE, GET_DAMAGE, SOUNDS } from '../config.js'
+import {
+	BASE_DAMAGE,
+	GET_DAMAGE,
+	SOUNDS,
+	POINTS_FOR_KILLED_BOSS,
+	POINTS_FOR_KILLED_COMMENT,
+	POINTS_FOR_KILLED_HATER,
+} from '../config.js'
 import { getStore } from '../gameState'
 import { addCredits, subtractCredits } from '../credits'
 import Hitpoints from './Hitpoints'
 import Damage from './Damage'
-import { incrementCreditsLost, incrementEnemiesKilled, incrementEnemiesLeaked } from '../stats'
+import {
+	incrementCreditsLost,
+	incrementEnemiesKilled,
+	incrementEnemiesLeaked,
+	incrementScore,
+} from '../stats'
 
 const IMAGE = {
 	negative: '/comment_negative.png',
@@ -22,6 +34,14 @@ const SIZE = {
 	positive: TILE_WIDTH / 2,
 	hater: (TILE_WIDTH * 2) / 3, // miniboss
 	influencer: TILE_WIDTH, // boss
+}
+
+const POINTS = {
+	negative: POINTS_FOR_KILLED_COMMENT,
+	neutral: POINTS_FOR_KILLED_COMMENT,
+	positive: POINTS_FOR_KILLED_COMMENT,
+	hater: POINTS_FOR_KILLED_HATER,
+	influencer: POINTS_FOR_KILLED_BOSS,
 }
 
 class Enemy extends PIXI.Sprite {
@@ -81,6 +101,7 @@ class Enemy extends PIXI.Sprite {
 		this.hitpoints -= damage
 		if (this.hitpoints <= 0) {
 			getStore().dispatch(incrementEnemiesKilled())
+			getStore().dispatch(incrementScore(POINTS[this.type]))
 			this.destroy()
 			return
 		}

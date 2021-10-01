@@ -5,6 +5,7 @@ import { reducer as towers } from './towers'
 import { reducer as waves } from './waves'
 import { reducer as controls } from './controls'
 import { reducer as stats } from './stats'
+import { reducer as leaderboard } from './leaderboard'
 
 const INITIAL_PRODUCTS = {
 	COMMUNITY: 0,
@@ -31,7 +32,7 @@ let store = null
 export const getStore = () => {
 	if (!store) {
 		store = createStore(
-			combineReducers({ credits, products, towers, waves, controls, stats }),
+			combineReducers({ credits, products, towers, waves, controls, stats, leaderboard }),
 			applyMiddleware(thunk)
 		)
 	}

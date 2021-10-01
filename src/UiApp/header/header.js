@@ -7,6 +7,8 @@ import DefendTowers from '../defend-towers/defend-towers'
 import WavesSurvived from '../waves-survived/waves-survived'
 import { getTotalTowerPointSpent, getTotalTowerPointAvailable } from '../../towers'
 import css from './header.module.css'
+import { ReactComponent as MuscleIcon } from './muscle.svg'
+import Score from '../score/score'
 
 const Header = ({ onReset }) => {
 	const credits = useSelector((state) => state.credits)
@@ -22,7 +24,13 @@ const Header = ({ onReset }) => {
 				<SocialCredit credits={toFixedRound(credits, 1)} />
 				<DefendTowers towers={towers} maxTowers={communityLevel} />
 			</div>
-			<WavesSurvived survived={wavesSurvived} />
+			<div className={css.scores}>
+				<MuscleIcon />
+				<div className={css.scoreList}>
+					<Score />
+					<WavesSurvived survived={wavesSurvived} />
+				</div>
+			</div>
 		</div>
 	)
 }

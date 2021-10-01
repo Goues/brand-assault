@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@tippyjs/react": "^4.2.5",
+    "clsx": "^1.1.1",
     "faker": "^5.5.3",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",

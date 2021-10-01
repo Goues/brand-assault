@@ -10,3 +10,17 @@
 	grid-template-columns: 1fr 1fr;
 	align-items: start;
 }
+
+.scores {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	justify-self: flex-end;
+	gap: 16px;
+}
+
+.scoreList {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}

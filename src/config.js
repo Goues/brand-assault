@@ -8,6 +8,11 @@ export const TILES_Y = 10
 export const TILE_WIDTH = GAME_WIDTH / TILES_X
 export const TILE_HEIGHT = GAME_HEIGHT / TILES_Y
 export const WAVE_TIMER_MS = 60000
+// scoring
+export const WAVE_POINTS_EXPONENT = 100
+export const POINTS_FOR_KILLED_COMMENT = 1
+export const POINTS_FOR_KILLED_HATER = 10
+export const POINTS_FOR_KILLED_BOSS = 25
 
 export const PRODUCTS = {
 	COMMUNITY: {

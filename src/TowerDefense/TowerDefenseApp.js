@@ -13,6 +13,7 @@ import { getStore } from '../gameState'
 import { isGameOver } from '../credits'
 import EnemyManager from './EnemyManager'
 import waveManager from './WaveManager'
+import { addToLeaderboard } from '../leaderboard'
 
 function detectGameOver(app) {
 	if (isGameOver(getStore().getState())) {
@@ -23,7 +24,10 @@ function detectGameOver(app) {
 				app.stage.removeChild(child)
 			}
 		}
-		app.ticker.stop()
+		const store = getStore()
+		const state = store.getState()
+		store.dispatch(addToLeaderboard({ name: state.controls.playerName, score: state.stats.score }))
+		clock.stop()
 	}
 }
 

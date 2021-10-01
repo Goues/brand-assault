@@ -2,6 +2,7 @@ export const ACTIONS = {
 	INCREMENT_ENEMIES_KILLED: 'waves/incrementEnemiesKilled',
 	INCREMENT_ENEMIES_LEAKED: 'waves/incrementEnemiesLeaked',
 	INCREMENT_CREDIT_LOST: 'waves/incrementCreditLost',
+	INCREMENT_SCORE: 'waves/incrementScore',
 }
 
 export const incrementEnemiesKilled = () => ({
@@ -17,7 +18,13 @@ export const incrementCreditsLost = (amount) => ({
 	amount,
 })
 
+export const incrementScore = (amount) => ({
+	type: ACTIONS.INCREMENT_SCORE,
+	amount,
+})
+
 const INITIAL_STATE = {
+	score: 0,
 	enemiesKilled: 0,
 	enemiesLeaked: 0,
 	creditsLost: 0,
@@ -39,6 +46,11 @@ export const reducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				creditsLost: state.creditsLost - action.amount,
+			}
+		case ACTIONS.INCREMENT_SCORE:
+			return {
+				...state,
+				score: state.score + action.amount,
 			}
 		default:
 			return state

@@ -1,0 +1,12 @@
+.score {
+	display: flex;
+	align-items: center;
+	justify-self: flex-end;
+	margin-right: 42px;
+	font-size: 20px;
+	color: #2f3744;
+}
+
+.scoreValue {
+	margin-left: 5px;
+}

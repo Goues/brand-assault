@@ -1,0 +1,56 @@
+.leaderboard {
+	margin: 20px 0;
+	width: 100%;
+}
+
+.header {
+	display: flex;
+}
+
+.headerCell {
+	flex: 1;
+	font-weight: bold;
+	font-size: 10px;
+	line-height: 12px;
+	text-transform: uppercase;
+	color: #717578;
+	min-width: 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.headerCell:last-child {
+	text-align: right;
+}
+
+.body {
+	margin-top: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.row {
+	display: flex;
+}
+
+.cell {
+	display: flex;
+	gap: 5px;
+	flex: 1;
+	font-size: 11px;
+	line-height: 16px;
+	color: #2f3744;
+}
+
+.cell:last-child {
+	justify-content: flex-end;
+}
+
+.you {
+	text-decoration: underline;
+}
+
+.currentScore {
+	font-weight: bold;
+}
