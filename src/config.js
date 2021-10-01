@@ -1,9 +1,9 @@
 import { toFixedRound } from './utils'
 
 export const GAME_WIDTH = 660
-export const GAME_HEIGHT = 660
+export const GAME_HEIGHT = 600
 export const TILES_X = 11
-export const TILES_Y = 11
+export const TILES_Y = 10
 export const TILE_WIDTH = GAME_WIDTH / TILES_X
 export const TILE_HEIGHT = GAME_HEIGHT / TILES_Y
 export const WAVE_TIMER_MS = 60000
