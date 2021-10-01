@@ -19,7 +19,7 @@ import css from './index.module.css'
 function SecondStep() {
 	return (
 		<div>
-			<div className={css.heading}>Welcome to the Brand Defenders</div>
+			<div className={css.heading}>How to defend your precious brand?</div>
 			<p>The main goal of the game is to defend your brand from negative comments</p>
 			<p>There are several types of your enemies</p>
 			<EnemiesList />
@@ -126,30 +126,36 @@ function CreateBrandStep({ onCreate }) {
 	const [playerName, setPlayerName] = useState('')
 	const changePlayerName = useCallback(
 		(event) => {
-			setPlayerName(event.target.value.slice(0, 15))
+			setPlayerName(event.target.value)
 		},
 		[setPlayerName]
 	)
 
 	return (
 		<div>
+			<div className={css.heading}>Welcome to the Brand Defenders!</div>
 			<input
 				placeholder='Create a name for your brand'
 				type='text'
-				className={css.heading}
+				className={css.brandNameInput}
 				value={playerName}
 				onChange={changePlayerName}
+				maxLength='32'
 			/>
-			<Button disabled={!playerName} onClick={() => onCreate(playerName)}>
-				Let's create your brand!
-			</Button>
-			<Button
-				onClick={() => {
-					onCreate(faker.commerce.department())
-				}}
-			>
-				Generate random name!
-			</Button>
+			<div className={css.inputCounter}>{playerName.length}/32</div>
+			<div className={css.createBrandButtons}>
+				<Button
+					onClick={() => {
+						setPlayerName(`${faker.commerce.productAdjective()} ${faker.commerce.department()}`)
+					}}
+					isSecondary
+				>
+					Generate random name!
+				</Button>
+				<Button disabled={!playerName} onClick={() => onCreate(playerName)}>
+					Let's create your brand!
+				</Button>
+			</div>
 		</div>
 	)
 }
@@ -175,6 +181,7 @@ function GameInit() {
 								run()
 							}}
 						/>
+						<div className={css.headingSmall}>Got questions? Don't be shy.</div>
 						<Button onClick={() => setStep(0)}>Show me how to play</Button>
 					</div>
 				)}
