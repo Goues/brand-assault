@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import { BASE_TOWER, TILE_HEIGHT, TILE_WIDTH, TOWERS, SOUNDS, TOWER_TYPES } from '../config'
+import { TILE_HEIGHT, TILE_WIDTH, TOWER_TYPES } from '../config'
 
 const TEXTURES = {
 	QUICK_TO_BAN_AGENT: '/qtba.png',
